@@ -61,6 +61,8 @@ function App() {
                 }
                 setDeferredPrompt(null);
             });
+        } else {
+            alert("To install the app:\n1. Click the 'Share' icon (iOS) or Menu (Android/Chrome)\n2. Select 'Add to Home Screen' or 'Install App'");
         }
     };
 
@@ -252,15 +254,13 @@ function App() {
                                     View Resume
                                 </a>
 
-                                {deferredPrompt && (
-                                    <button
-                                        onClick={handleInstallClick}
-                                        className={`btn ${isDarkMode ? 'bg-[#1C1C1C] text-white border border-white/20 hover:bg-[#333]' : 'btn-outline'}`}
-                                    >
-                                        <Download size={16} />
-                                        Install App
-                                    </button>
-                                )}
+                                <button
+                                    onClick={handleInstallClick}
+                                    className={`btn ${isDarkMode ? 'bg-[#1C1C1C] text-white border border-white/20 hover:bg-[#333]' : 'btn-outline'}`}
+                                >
+                                    <Download size={16} />
+                                    Install App
+                                </button>
 
                                 <div className="group relative w-20 h-20" title="Scan to view Resume">
                                     <div className="absolute -inset-0.5 bg-gradient-to-r from-[#C4785A] to-[#E8A87C] rounded-xl opacity-30 group-hover:opacity-100 transition duration-500 blur-sm"></div>

@@ -150,7 +150,7 @@ function App() {
                         )}
                     </div>
 
-                    <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden p-2">
+                    <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className={`md:hidden p-2 ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
                         {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
                     </button>
                 </div>
@@ -614,7 +614,7 @@ function App() {
                     >
                         <a href="mailto:kumarambuj8@gmail.com" className="btn btn-white">
                             <Mail size={18} />
-                            Email Me
+                            kumarambuj8@gmail.com
                         </a>
                         <a href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/" target="_blank" rel="noopener noreferrer" className="btn bg-white/20 text-white hover:bg-white/30">
                             <Linkedin size={18} />

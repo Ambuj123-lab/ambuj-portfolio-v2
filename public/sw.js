@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ambuj-portfolio-cache-v9'; // v9 पर अपडेट करें
+const CACHE_NAME = 'ambuj-portfolio-cache-v10'; // v10 पर अपडेट करें
 const urlsToCache = [
   '/',
   '/index.html',

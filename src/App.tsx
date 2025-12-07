@@ -45,6 +45,7 @@ function App() {
 
     useEffect(() => {
         const handleBeforeInstallPrompt = (e: any) => {
+            console.log('👍 beforeinstallprompt fired!');
             e.preventDefault();
             setDeferredPrompt(e);
         };

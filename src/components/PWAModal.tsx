@@ -4,9 +4,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface PWAModalProps {
     isOpen: boolean;
     onClose: () => void;
+    isDarkMode: boolean;
 }
 
-export default function PWAModal({ isOpen, onClose }: PWAModalProps) {
+export default function PWAModal({ isOpen, onClose, isDarkMode }: PWAModalProps) {
     if (!isOpen) return null;
 
     const features = [
@@ -29,10 +30,10 @@ export default function PWAModal({ isOpen, onClose }: PWAModalProps) {
                     initial={{ scale: 0.95, opacity: 0, y: 20 }}
                     animate={{ scale: 1, opacity: 1, y: 0 }}
                     exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                    className="bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl relative"
+                    className={`${isDarkMode ? 'bg-[#1C1C1C] border border-white/10' : 'bg-white'} rounded-2xl max-w-md w-full p-8 shadow-2xl relative`}
                     onClick={(e) => e.stopPropagation()}
                 >
-                    <button onClick={onClose} className="absolute top-4 right-4 text-[#5A5855] hover:text-[#1C1C1C] p-1">
+                    <button onClick={onClose} className={`absolute top-4 right-4 ${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-[#5A5855] hover:text-[#1C1C1C]'} p-1`}>
                         <X size={22} />
                     </button>
 
@@ -40,20 +41,20 @@ export default function PWAModal({ isOpen, onClose }: PWAModalProps) {
                         <div className="p-2.5 bg-[#C4785A]/10 rounded-xl">
                             <Smartphone className="text-[#C4785A]" size={22} />
                         </div>
-                        <h2 className="text-2xl font-display font-medium">About This App</h2>
+                        <h2 className={`text-2xl font-display font-medium ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>About This App</h2>
                     </div>
 
-                    <p className="text-[#5A5855] mb-6 leading-relaxed">
+                    <p className={`${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'} mb-6 leading-relaxed`}>
                         This portfolio is a <span className="text-[#C4785A] font-medium">Progressive Web App</span> —
                         offering an app-like experience right from your browser.
                     </p>
 
                     <div className="grid grid-cols-2 gap-3 mb-6">
                         {features.map((f, i) => (
-                            <div key={i} className="p-4 bg-[#F7F5F0] rounded-xl">
+                            <div key={i} className={`p-4 ${isDarkMode ? 'bg-[#2D2D2D]' : 'bg-[#F7F5F0]'} rounded-xl`}>
                                 <div className="text-[#C4785A] mb-2">{f.icon}</div>
-                                <h3 className="font-medium text-sm mb-0.5">{f.title}</h3>
-                                <p className="text-xs text-[#5A5855]">{f.desc}</p>
+                                <h3 className={`font-medium text-sm mb-0.5 ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>{f.title}</h3>
+                                <p className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>{f.desc}</p>
                             </div>
                         ))}
                     </div>

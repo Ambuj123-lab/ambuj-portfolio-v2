@@ -642,7 +642,7 @@ function App() {
             <div className="relative z-50">
                 <ChatWidget />
             </div>
-            <PWAModal isOpen={isPWAOpen} onClose={() => setIsPWAOpen(false)} />
+            <PWAModal isOpen={isPWAOpen} onClose={() => setIsPWAOpen(false)} isDarkMode={isDarkMode} />
             <ImageViewer
                 isOpen={isViewerOpen}
                 onClose={() => setIsViewerOpen(false)}

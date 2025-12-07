@@ -1,10 +1,10 @@
-const CACHE_NAME = 'ambuj-portfolio-cache-v8'; // v8 पर अपडेट करें
+const CACHE_NAME = 'ambuj-portfolio-cache-v9'; // v9 पर अपडेट करें
 const urlsToCache = [
-  '/Ambuj_AI_Portfolio/',
-  '/Ambuj_AI_Portfolio/index.html',
-  '/Ambuj_AI_Portfolio/icons/icon-192x192.png',
-  '/Ambuj_AI_Portfolio/icons/icon-512x512.png',
-  '/Ambuj_AI_Portfolio/favicon.ico', // favicon को कैश करें
+  '/',
+  '/index.html',
+  '/icons/icon-192x192.png',
+  '/icons/icon-512x512.png',
+  '/favicon.ico', // favicon को कैश करें
 ];
 
 self.addEventListener('install', (event) => {

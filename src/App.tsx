@@ -252,6 +252,16 @@ function App() {
                                     View Resume
                                 </a>
 
+                                {deferredPrompt && (
+                                    <button
+                                        onClick={handleInstallClick}
+                                        className={`btn ${isDarkMode ? 'bg-[#1C1C1C] text-white border border-white/20 hover:bg-[#333]' : 'btn-outline'}`}
+                                    >
+                                        <Download size={16} />
+                                        Install App
+                                    </button>
+                                )}
+
                                 <div className="group relative w-20 h-20" title="Scan to view Resume">
                                     <div className="absolute -inset-0.5 bg-gradient-to-r from-[#C4785A] to-[#E8A87C] rounded-xl opacity-30 group-hover:opacity-100 transition duration-500 blur-sm"></div>
                                     <div className="relative w-full h-full bg-white rounded-xl p-1 flex items-center justify-center overflow-hidden">

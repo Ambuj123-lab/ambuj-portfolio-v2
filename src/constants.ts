@@ -102,7 +102,7 @@ export const PROJECTS_DATA: Project[] = [
     icon: 'fas fa-globe-asia',
     description: 'AI-Powered Geospatial Intelligence Platform that transforms any location into a rich narrative experience. Discover history, culture, architecture, and hidden stories using advanced AI.',
     tags: ['Geospatial AI', 'Google Gemini', 'React', 'Maps API'],
-    demoLink: '#'
+    demoLink: 'https://geo-narrator-ai.onrender.com/'
   },
   {
     title: 'Chain Reaction Multi Agent System',
@@ -110,7 +110,7 @@ export const PROJECTS_DATA: Project[] = [
     icon: 'fas fa-project-diagram',
     description: 'Advanced Agentic Workflow Engine. Features zero-latency orchestration, multi-agent reasoning, and serverless architecture. A system designed for complex autonomous tasks.',
     tags: ['Multi-Agent', 'AI Orchestration', 'Serverless', 'System Design'],
-    demoLink: '#'
+    demoLink: 'https://chainreaction-agent.onrender.com/'
   },
   {
     title: 'LLM-Integrated Chatbot (Meta Llama 3.3 70B)',

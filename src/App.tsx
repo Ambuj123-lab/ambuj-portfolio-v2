@@ -158,15 +158,16 @@ function App() {
                 <AnimatePresence>
                     {isMobileMenuOpen && (
                         <motion.div
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            className={`md:hidden border-t p-6 space-y-4 ${isDarkMode ? 'bg-[#0a0a0a] border-white/10' : 'bg-white border-[#E8E4DB]'}`}
+                            initial={{ opacity: 0, x: '100%' }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: '100%' }}
+                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                            className={`fixed inset-0 z-40 md:hidden pt-24 px-6 flex flex-col gap-6 ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-[#F7F5F0]'}`}
                         >
                             {navLinks.map((link) => (
                                 <a key={link.href} href={link.href}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className={`block text-lg font-medium ${isDarkMode ? 'text-gray-200' : 'text-[#1C1C1C]'}`}>
+                                    className={`text-2xl font-display font-medium border-b pb-4 ${isDarkMode ? 'text-white border-white/10' : 'text-[#1C1C1C] border-[#1C1C1C]/10'}`}>
                                     {link.label}
                                 </a>
                             ))}

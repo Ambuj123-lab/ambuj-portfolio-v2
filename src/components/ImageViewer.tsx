@@ -56,7 +56,7 @@ export default function ImageViewer({ isOpen, onClose, images, currentIndex, onN
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-[60] bg-[#1C1C1C]/95 flex items-center justify-center"
+                className="fixed inset-0 z-[60] bg-[#1C1C1C]/95 flex items-center justify-center touch-none"
                 onClick={onClose}
                 onTouchStart={onTouchStart}
                 onTouchMove={onTouchMove}

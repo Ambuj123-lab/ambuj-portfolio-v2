@@ -161,12 +161,12 @@ function App() {
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            className="md:hidden bg-white border-t border-[#E8E4DB] p-6 space-y-4"
+                            className={`md:hidden border-t p-6 space-y-4 ${isDarkMode ? 'bg-[#0a0a0a] border-white/10' : 'bg-white border-[#E8E4DB]'}`}
                         >
                             {navLinks.map((link) => (
                                 <a key={link.href} href={link.href}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className="block text-lg font-medium">
+                                    className={`block text-lg font-medium ${isDarkMode ? 'text-gray-200' : 'text-[#1C1C1C]'}`}>
                                     {link.label}
                                 </a>
                             ))}
@@ -291,6 +291,11 @@ function App() {
                                 <a href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/" target="_blank" rel="noopener noreferrer"
                                     className="p-3 bg-[#0A66C2] text-white rounded-full hover:bg-[#004182] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
                                     <Linkedin size={20} />
+                                </a>
+                                {/* Email - Red */}
+                                <a href="mailto:kumarambuj8@gmail.com"
+                                    className="p-3 bg-[#EA4335] text-white rounded-full hover:bg-[#C5221F] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
+                                    <Mail size={20} />
                                 </a>
 
                             </motion.div>
@@ -606,7 +611,7 @@ function App() {
                         transition={{ delay: 0.3 }}
                         className="flex flex-wrap justify-center gap-4"
                     >
-                        <a href="mailto:ambujraj248@gmail.com" className="btn btn-white">
+                        <a href="mailto:kumarambuj8@gmail.com" className="btn btn-white">
                             <Mail size={18} />
                             Email Me
                         </a>
@@ -631,7 +636,7 @@ function App() {
                         <a href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/" target="_blank" rel="noopener noreferrer" className="text-[#858585] hover:text-[#0A66C2] transition-colors">
                             <Linkedin size={18} />
                         </a>
-                        <a href="mailto:ambujraj248@gmail.com" className="text-[#858585] hover:text-[#EA4335] transition-colors">
+                        <a href="mailto:kumarambuj8@gmail.com" className="text-[#858585] hover:text-[#EA4335] transition-colors">
                             <Mail size={18} />
                         </a>
                     </div>

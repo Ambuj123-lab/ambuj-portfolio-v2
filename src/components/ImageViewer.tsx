@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -12,6 +12,31 @@ interface ImageViewerProps {
 }
 
 export default function ImageViewer({ isOpen, onClose, images, currentIndex, onNext, onPrev }: ImageViewerProps) {
+    const [touchStart, setTouchStart] = useState<number | null>(null);
+    const [touchEnd, setTouchEnd] = useState<number | null>(null);
+    const minSwipeDistance = 50;
+
+    const onTouchStart = (e: React.TouchEvent) => {
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e: React.TouchEvent) => {
+        setTouchEnd(e.targetTouches[0].clientX);
+    };
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+        if (isLeftSwipe) {
+            onNext();
+        }
+        if (isRightSwipe) {
+            onPrev();
+        }
+    };
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (!isOpen) return;
@@ -33,6 +58,9 @@ export default function ImageViewer({ isOpen, onClose, images, currentIndex, onN
                 exit={{ opacity: 0 }}
                 className="fixed inset-0 z-[60] bg-[#1C1C1C]/95 flex items-center justify-center"
                 onClick={onClose}
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
             >
                 <button onClick={onClose} className="absolute top-6 right-6 text-white/60 hover:text-white p-2">
                     <X size={26} />

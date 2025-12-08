@@ -424,6 +424,19 @@ function App() {
                                         className="p-3 bg-[#EA4335] text-white rounded-full hover:bg-[#C5221F] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
                                         <Mail size={20} />
                                     </a>
+                                    {/* Resume View Button - Animated */}
+                                    <a
+                                        href="/resume.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="group flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-[#C4785A] to-[#E8A87C] text-white rounded-full hover:shadow-xl transition-all shadow-lg hover:-translate-y-1 font-medium text-sm"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:scale-110 transition-transform">
+                                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                            <circle cx="12" cy="12" r="3" />
+                                        </svg>
+                                        <span className="group-hover:tracking-wider transition-all">View Resume</span>
+                                    </a>
 
                                 </motion.div>
                             </div>

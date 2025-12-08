@@ -13,6 +13,7 @@ import PWAModal from './components/PWAModal';
 import BentoCard from './components/BentoCard';
 import AnimatedTerminal from './components/AnimatedTerminal';
 import SplashScreen from './components/SplashScreen';
+import CommandPalette from './components/CommandPalette';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function App() {
@@ -911,6 +912,7 @@ function App() {
                 {/* Widgets & Modals */}
                 <div className="relative z-50">
                     <ChatWidget />
+                    <CommandPalette />
                 </div>
                 <PWAModal isOpen={isPWAOpen} onClose={() => setIsPWAOpen(false)} isDarkMode={isDarkMode} />
                 <ImageViewer
@@ -940,25 +942,41 @@ function App() {
                     )}
                 </AnimatePresence>
 
-                {/* Permanent Keyboard Shortcuts Hint - Click to Dismiss */}
+                {/* Keyboard Shortcuts Hint - Desktop Only */}
                 <AnimatePresence>
-                    {showShortcutsHint && (
+                    {showShortcutsHint ? (
                         <motion.div
                             initial={{ opacity: 0, x: -50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
                             onClick={() => setShowShortcutsHint(false)}
-                            className="keyboard-hint flex fixed bottom-6 left-6 z-50 items-center gap-3 px-4 py-3 bg-[#1C1C1C] rounded-xl shadow-2xl border border-white/10 cursor-pointer"
+                            className="hidden md:flex fixed bottom-6 left-6 z-50 items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#1C1C1C] to-[#252525] rounded-xl shadow-2xl border border-[#C4785A]/20 cursor-pointer hover:border-[#C4785A]/40 transition-all group"
                         >
-                            <span className="text-[#C4785A] text-sm">⌨️ Quick Nav:</span>
-                            <div className="flex items-center gap-2 text-xs">
-                                <kbd className="px-1.5 py-0.5 bg-[#2a2a2a] rounded text-white border border-[#444]">1</kbd>
-                                <kbd className="px-1.5 py-0.5 bg-[#2a2a2a] rounded text-white border border-[#444]">2</kbd>
-                                <kbd className="px-1.5 py-0.5 bg-[#2a2a2a] rounded text-white border border-[#444]">3</kbd>
-                                <kbd className="px-1.5 py-0.5 bg-[#2a2a2a] rounded text-white border border-[#444]">4</kbd>
+                            <div className="w-8 h-8 bg-gradient-to-br from-[#C4785A] to-[#E8A87C] rounded-lg flex items-center justify-center shadow-lg">
+                                <span className="text-white text-sm">⌘</span>
                             </div>
-                            <span className="text-gray-500 text-xs">×</span>
+                            <div className="flex flex-col">
+                                <div className="flex items-center gap-2 text-xs">
+                                    <kbd className="px-2 py-1 bg-[#C4785A]/20 rounded text-[#C4785A] border border-[#C4785A]/30 font-medium">Ctrl</kbd>
+                                    <span className="text-gray-500">+</span>
+                                    <kbd className="px-2 py-1 bg-[#C4785A]/20 rounded text-[#C4785A] border border-[#C4785A]/30 font-medium">K</kbd>
+                                    <span className="text-gray-400 ml-1">Quick Search</span>
+                                </div>
+                                <span className="text-gray-500 text-[10px] mt-0.5">Press 1-4 for quick nav</span>
+                            </div>
+                            <span className="text-gray-500 text-xs group-hover:text-white transition-colors">×</span>
                         </motion.div>
+                    ) : (
+                        <motion.button
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            onClick={() => setShowShortcutsHint(true)}
+                            className="hidden md:flex fixed bottom-6 left-6 z-50 w-10 h-10 bg-gradient-to-br from-[#C4785A] to-[#E8A87C] rounded-xl items-center justify-center shadow-lg hover:scale-110 transition-transform"
+                            title="Show keyboard shortcuts"
+                        >
+                            <span className="text-white text-sm">⌘</span>
+                        </motion.button>
                     )}
                 </AnimatePresence>
             </div>

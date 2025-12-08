@@ -10,7 +10,7 @@
   </p>
 
   <p align="center">
-    <a href="https://ambuj-ai-portfolio.vercel.app">View Live Demo</a>
+    <a href="https://ambuj-portfolio-v2.netlify.app/">View Live Demo</a>
     ·
     <a href="https://github.com/Ambuj123-lab/ambuj-ai-portfolio/issues">Report Bug</a>
     ·

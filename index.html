@@ -27,6 +27,31 @@
   <meta name="twitter:title" content="Ambuj Kumar Tripathi | AI Engineer" />
   <meta name="twitter:description" content="Building intelligent digital experiences with AI." />
 
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://ambuj-portfolio-v2.netlify.app/" />
+
+  <!-- Structured Data (JSON-LD) for Google Rich Results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ambuj Kumar Tripathi",
+    "jobTitle": "AI Engineer & Full Stack Developer",
+    "description": "AI Engineer specializing in LLMs, RAG, Chatbots, and scalable web applications.",
+    "url": "https://ambuj-portfolio-v2.netlify.app/",
+    "email": "kumarambuj8@gmail.com",
+    "sameAs": [
+      "https://github.com/Ambuj123-lab",
+      "https://www.linkedin.com/in/ambuj-tripathi-042b4a118/"
+    ],
+    "knowsAbout": ["Artificial Intelligence", "Machine Learning", "LLM", "RAG", "React", "Python", "Full Stack Development"],
+    "alumniOf": {
+      "@type": "EducationalOrganization",
+      "name": "University"
+    }
+  }
+  </script>
+
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#1C1C1C" />
@@ -42,109 +67,11 @@
     gtag('js', new Date());
     gtag('config', 'G-RZPS5NW5XT');
   </script>
-
-  <!-- Page loader styles (inline for fast load) -->
-  <style>
-    #page-loader {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #1C1C1C 0%, #2D2D2D 100%);
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-    }
-
-    #page-loader.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .loader-logo {
-      width: 80px;
-      height: 80px;
-      border-radius: 20px;
-      animation: pulse-logo 1.5s ease-in-out infinite;
-    }
-
-    .loader-text {
-      margin-top: 24px;
-      color: #C4785A;
-      font-family: 'Playfair Display', serif;
-      font-size: 24px;
-      font-weight: 500;
-    }
-
-    .loader-bar {
-      margin-top: 20px;
-      width: 200px;
-      height: 3px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .loader-progress {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #C4785A, #E8A87C);
-      border-radius: 3px;
-      animation: loader-fill 1.5s ease-in-out forwards;
-    }
-
-    @keyframes pulse-logo {
-
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-
-      50% {
-        transform: scale(1.05);
-        opacity: 0.8;
-      }
-    }
-
-    @keyframes loader-fill {
-      0% {
-        width: 0%;
-      }
-
-      50% {
-        width: 70%;
-      }
-
-      100% {
-        width: 100%;
-      }
-    }
-  </style>
 </head>
 
 <body>
-  <!-- Premium Page Loader -->
-  <div id="page-loader">
-    <img src="/logo.png" alt="Loading..." class="loader-logo" />
-    <div class="loader-text">Ambuj Tripathi</div>
-    <div class="loader-bar">
-      <div class="loader-progress"></div>
-    </div>
-  </div>
-
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
-
-  <script>
-    // Hide loader when page is ready
-    window.addEventListener('load', function () {
-      setTimeout(function () {
-        document.getElementById('page-loader').classList.add('hidden');
-      }, 1500);
-    });
-  </script>
 </body>
 
 </html>

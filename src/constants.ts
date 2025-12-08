@@ -118,7 +118,7 @@ export const PROJECTS_DATA: Project[] = [
     icon: 'fas fa-robot',
     description: 'Built scalable chatbot, stateless design, OpenRouter API, 25% faster query time for 100+ users. Integrated secure OpenRouter API with rate limiting and CORS. Implemented front-end to send full chatHistory as JSON with each request.',
     tags: ['Llama 3.3 70B', 'OpenRouter API', 'Python', 'JavaScript', 'Render.com'],
-    demoLink: 'https://ambuj-resume-bot.onrender.com'
+    demoLink: 'https://ambuj-resume-bot.onrender.com/'
   },
   {
     title: 'PromptBuilder by Ambuj',

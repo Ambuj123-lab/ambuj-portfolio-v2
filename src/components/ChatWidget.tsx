@@ -11,16 +11,30 @@ export default function ChatWidget() {
             <div className="fixed bottom-6 right-6 z-50 flex items-center gap-4">
                 <AnimatePresence>
                     {!isOpen && (
-                        <motion.div
-                            initial={{ opacity: 0, x: 20, scale: 0.9 }}
-                            animate={{ opacity: 1, x: 0, scale: 1 }}
-                            exit={{ opacity: 0, x: 20, scale: 0.9 }}
-                            transition={{ delay: 2, type: "spring" }}
-                            className="hidden md:flex items-center gap-2 bg-gradient-to-r from-[#1C1C1C] to-[#2D2D2D] text-white px-5 py-3 rounded-full text-sm font-medium shadow-xl border border-white/10"
-                        >
-                            <Sparkles size={14} className="text-[#C4785A]" />
-                            Chat with my AI
-                        </motion.div>
+                        <>
+                            {/* Desktop text */}
+                            <motion.div
+                                initial={{ opacity: 0, x: 20, scale: 0.9 }}
+                                animate={{ opacity: 1, x: 0, scale: 1 }}
+                                exit={{ opacity: 0, x: 20, scale: 0.9 }}
+                                transition={{ delay: 2, type: "spring" }}
+                                className="hidden md:flex items-center gap-2 bg-gradient-to-r from-[#1C1C1C] to-[#2D2D2D] text-white px-5 py-3 rounded-full text-sm font-medium shadow-xl border border-white/10"
+                            >
+                                <Sparkles size={14} className="text-[#C4785A]" />
+                                Chat with my AI
+                            </motion.div>
+                            {/* Mobile text - compact */}
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                transition={{ delay: 2.5, type: "spring" }}
+                                className="flex md:hidden items-center gap-1.5 bg-gradient-to-r from-[#1C1C1C] to-[#2D2D2D] text-white px-3 py-2 rounded-full text-xs font-medium shadow-lg border border-white/10"
+                            >
+                                <Sparkles size={12} className="text-[#C4785A]" />
+                                Ask AI
+                            </motion.div>
+                        </>
                     )}
                 </AnimatePresence>
 

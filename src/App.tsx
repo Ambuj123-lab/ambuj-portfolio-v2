@@ -855,9 +855,9 @@ function App() {
                             transition={{ delay: 0.3 }}
                             className="flex flex-wrap justify-center gap-4"
                         >
-                            <a href="mailto:kumarambuj8@gmail.com" className="btn btn-white">
+                            <a href="mailto:kumarambuj8@gmail.com" className="btn btn-white" title="kumarambuj8@gmail.com">
                                 <Mail size={18} />
-                                kumarambuj8@gmail.com
+                                Email Me
                             </a>
                             <a href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/" target="_blank" rel="noopener noreferrer" className="btn bg-white/20 text-white hover:bg-white/30">
                                 <Linkedin size={18} />

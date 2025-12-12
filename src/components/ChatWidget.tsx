@@ -113,7 +113,7 @@ export default function ChatWidget() {
 
                                 {/* Chat Content */}
                                 <iframe
-                                    src="https://ambuj-ms-bot-framework.onrender.com/"
+                                    src="https://ambuj-resume-bot.onrender.com/"
                                     className="w-full flex-1 border-0 bg-[#0F0F0F]"
                                     title="Chat with Ambuj's AI"
                                 />

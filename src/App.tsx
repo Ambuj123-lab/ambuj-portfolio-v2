@@ -655,6 +655,29 @@ function App() {
                             ))}
                         </motion.div>
 
+                        {/* OpenRouter Badge */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.3 }}
+                            className="mt-8 flex justify-center"
+                        >
+                            <a
+                                href="https://openrouter.ai"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group relative block rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] max-w-[400px]"
+                            >
+                                <img
+                                    src="/openrouter-badge.png"
+                                    alt="OpenRouter Wrapped 2025 - 525K Tokens Routed"
+                                    className="w-full h-full object-cover rounded-2xl"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            </a>
+                        </motion.div>
+
                         {/* Skills Grid - All skills */}
                         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
                             {SKILLS_LIST.map((skill, index) => (
@@ -912,6 +935,14 @@ function App() {
                             <a href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/" target="_blank" rel="noopener noreferrer" className="btn bg-white/20 text-white hover:bg-white/30">
                                 <Linkedin size={18} />
                                 LinkedIn
+                            </a>
+                            <a
+                                href="https://docs.google.com/forms/d/e/1FAIpQLScYjRrX3lLGVRYD9693XlT4wKwTVofWqVcLgA5ra2UQQS9Rcw/viewform"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn bg-white/20 text-white hover:bg-white/30"
+                            >
+                                📝 Contact Form
                             </a>
                         </motion.div>
 

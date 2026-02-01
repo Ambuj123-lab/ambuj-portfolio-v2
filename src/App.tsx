@@ -37,7 +37,6 @@ function App() {
         return true;
     });
     const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-    const [expandedArticle, setExpandedArticle] = useState<number | null>(null);
     const [showSplash, setShowSplash] = useState(true);
     const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
@@ -521,6 +520,53 @@ function App() {
                     </div>
                 </section>
 
+                {/* ===== TECH STACK LOGO MARQUEE ===== */}
+                <section className={`py-8 overflow-hidden ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
+                    <div className="max-w-6xl mx-auto px-6 mb-4">
+                        <p className={`text-center text-xs uppercase tracking-widest ${isDarkMode ? 'text-gray-500' : 'text-[#5A5855]'}`}>
+                            Powered by Industry-Leading Technologies
+                        </p>
+                    </div>
+                    <div className="relative">
+                        {/* Gradient overlays */}
+                        <div className={`absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none ${isDarkMode ? 'bg-gradient-to-r from-[#0a0a0a] to-transparent' : 'bg-gradient-to-r from-white to-transparent'}`}></div>
+                        <div className={`absolute right-0 top-0 bottom-0 w-20 z-10 pointer-events-none ${isDarkMode ? 'bg-gradient-to-l from-[#0a0a0a] to-transparent' : 'bg-gradient-to-l from-white to-transparent'}`}></div>
+
+                        <div className="flex animate-marquee">
+                            {[...Array(2)].map((_, setIndex) => (
+                                <div key={setIndex} className="flex items-center gap-12 px-6">
+                                    {[
+                                        { name: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+                                        { name: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+                                        { name: 'FastAPI', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg' },
+                                        { name: 'MongoDB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
+                                        { name: 'Redis', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg' },
+                                        { name: 'TypeScript', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
+                                        { name: 'LangChain', logo: 'https://avatars.githubusercontent.com/u/126733545?s=200&v=4' },
+                                        { name: 'Langfuse', logo: 'https://avatars.githubusercontent.com/u/121682676?s=200&v=4' },
+                                        { name: 'ChromaDB', logo: 'https://avatars.githubusercontent.com/u/120325917?s=200&v=4' },
+                                        { name: 'Google Cloud', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg' },
+                                    ].map((tech, index) => (
+                                        <div
+                                            key={`${setIndex}-${index}`}
+                                            className="group flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-110"
+                                        >
+                                            <img
+                                                src={tech.logo}
+                                                alt={tech.name}
+                                                className="w-8 h-8 object-contain transition-all duration-300 hover:scale-110"
+                                            />
+                                            <span className={`text-sm font-medium transition-opacity ${isDarkMode ? 'text-gray-300' : 'text-[#1C1C1C]'}`}>
+                                                {tech.name}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
                 {/* ===== ABOUT SECTION ===== */}
                 <section className="py-20 px-6" id="about">
                     <div className="max-w-6xl mx-auto">
@@ -767,18 +813,18 @@ function App() {
                     </div>
                 </section>
 
-                {/* ===== BLOG SECTION ===== */}
+                {/* ===== ENGINEERING INSIGHTS SECTION ===== */}
                 <section className={`py-20 px-6 ${isDarkMode ? 'bg-[#111]' : 'bg-white'}`} id="blog">
                     <div className="max-w-6xl mx-auto">
                         <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-12">
                             <div>
-                                <p className="section-eyebrow !text-[#C4785A]">Thoughts & Insights</p>
+                                <p className="section-eyebrow !text-[#C4785A]">Engineering Insights</p>
                                 <h2 className={`text-4xl md:text-5xl font-display ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                    Latest Articles
+                                    System Design Notes
                                 </h2>
                             </div>
                             <p className={`max-w-md ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>
-                                Exploring the intersection of AI, software engineering, and the future of tech.
+                                Architectural decisions and lessons learned from production AI deployments.
                             </p>
                         </div>
 
@@ -786,37 +832,40 @@ function App() {
                             {[
                                 {
                                     id: 1,
-                                    category: "AI & Code",
-                                    date: "Dec 8, 2025",
-                                    title: "The Trust But Verify Approach",
-                                    content: "We're living in exciting times! AI has moved from being just another tool to becoming our actual coding partner. But here's the thing – with great power comes great responsibility. It's crucial to understand that while AI can generate code at lightning speed, the role of the developer shifts to one of architect and auditor. We must verify every line, understand the logic, and ensure security compliance. This shift requires a new mindset, one where we treat AI suggestions as a junior developer's PR - promising, but needing review."
+                                    category: "RAG Systems",
+                                    title: "Trust but Verify: Designing Reliable RAG Systems",
+                                    content: "Production lessons from building enterprise-grade RAG systems with hallucination control, source citations, circuit breakers, rate-limit–aware embeddings, and real-time PII masking. Focused on reliability, observability, and compliance-first AI design.",
+                                    cta: "View System Design",
+                                    link: "https://citizen-safety-ai-assistant.vercel.app/"
                                 },
                                 {
                                     id: 2,
-                                    category: "Career",
-                                    date: "Nov 24, 2025",
+                                    category: "Career Journey",
                                     title: "From Telecom to AI Architect",
-                                    content: "My journey reflects relentless self-learning, pragmatic AI integrations and hands-on deployment of LLMs in production. Known for building open-source projects. Starting in the telecom industry gave me a strong foundation in systems engineering and network architecture. Transitioning to AI wasn't just about learning new syntax; it was about understanding data flow, model architecture, and the ethical implications of automated decision-making. Today, I architect systems that leverage the best of both worlds."
+                                    content: "How a background in telecom systems, network engineering, and automation shaped my approach to building production AI systems — focusing on data flow, fault tolerance, security, and large-scale deployment of LLM-powered applications.",
+                                    cta: "View Architecture Overview",
+                                    link: "https://citizen-safety-ai-assistant.vercel.app/"
                                 }
                             ].map((post) => (
                                 <article key={post.id} className={`group rounded-2xl overflow-hidden border transition-all hover:shadow-xl ${isDarkMode ? 'bg-[#1C1C1C] border-white/10 hover:border-[#C4785A]/50' : 'bg-[#F7F5F0] border-transparent hover:border-[#C4785A]/30'}`}>
-                                    <div className="p-8">
+                                    <div className="p-6 sm:p-8">
                                         <div className="flex items-center gap-3 mb-4">
                                             <span className="px-3 py-1 text-xs font-medium rounded-full bg-[#C4785A]/10 text-[#C4785A]">{post.category}</span>
-                                            <span className={`text-xs ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>{post.date}</span>
                                         </div>
-                                        <h3 className={`text-2xl font-display mb-3 group-hover:text-[#C4785A] transition-colors ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
+                                        <h3 className={`text-xl sm:text-2xl font-display mb-3 group-hover:text-[#C4785A] transition-colors ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
                                             {post.title}
                                         </h3>
-                                        <p className={`mb-6 ${expandedArticle === post.id ? '' : 'line-clamp-3'} ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>
+                                        <p className={`mb-6 text-sm sm:text-base ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>
                                             {post.content}
                                         </p>
-                                        <button
-                                            onClick={() => setExpandedArticle(expandedArticle === post.id ? null : post.id)}
+                                        <a
+                                            href={post.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="flex items-center gap-2 text-[#C4785A] font-medium text-sm group-hover:gap-3 transition-all"
                                         >
-                                            {expandedArticle === post.id ? 'Read Less' : 'Read Article'} <ArrowRight size={16} />
-                                        </button>
+                                            {post.cta} <ArrowRight size={16} />
+                                        </a>
                                     </div>
                                 </article>
                             ))}

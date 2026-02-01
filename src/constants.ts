@@ -97,6 +97,14 @@ export const EXPERIENCE_DATA: Experience[] = [
 
 export const PROJECTS_DATA: Project[] = [
   {
+    title: 'Citizen Safety AI | Enterprise RAG System',
+    image: '/projects/citizen-safety-architecture.png',
+    icon: 'fas fa-shield-alt',
+    description: 'Production-grade RAG chatbot featuring real-time PII masking (Microsoft Presidio), Google OAuth 2.0 authentication, source-cited responses, and GDPR-compliant 30-day data TTL. Implemented batched embeddings with rate-limit awareness and Circuit Breaker pattern for fault tolerance. Built using React, FastAPI, LangChain, ChromaDB, and Llama 3.3 70B.',
+    tags: ['RAG', 'LangChain', 'FastAPI', 'ChromaDB', 'Presidio', 'OAuth 2.0'],
+    demoLink: 'https://citizen-safety-ai-assistant.vercel.app/'
+  },
+  {
     title: 'Geo Narrator AI',
     image: '/projects/geo-narrator.png',
     icon: 'fas fa-globe-asia',
@@ -143,22 +151,6 @@ export const PROJECTS_DATA: Project[] = [
     description: 'Offline-first Task Manager built with React 18 & Tailwind CSS. Features localStorage-based state management, Service Workers, and JSON export/import. Speech + Audio APIs for smart feedback.',
     tags: ['React Hooks', 'Service Worker', 'Speech API', 'Local Storage', 'PWA'],
     demoLink: 'https://ambuj-to-do-tool.netlify.app/'
-  },
-  {
-    title: 'Personal AI Assistant',
-    image: 'https://images.unsplash.com/photo-1559028012-481c04fa702d?w=800&h=400&fit=crop&crop=center',
-    icon: 'fas fa-assistant',
-    description: 'Built Python-based assistant with Gradio, handling 200+ daily queries. Implemented NLP for context-aware responses, reducing errors by 20%.',
-    tags: ['Python', 'Gradio', 'NLP', 'Hugging Face'],
-    demoLink: 'https://huggingface.co/spaces/invincibleambuj/ambuj-ai-chatbot?logs=container'
-  },
-  {
-    title: 'Data Analysis & Visualization',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop&crop=center',
-    icon: 'fas fa-database',
-    description: 'Dynamic responsive analytics dashboard visualizing key business metrics. Upload structured/unstructured Excel/CSV. Interactive charts and graphs.',
-    tags: ['HTML', 'CSS', 'JS', 'Chart.js', 'Netlify'],
-    demoLink: 'https://ambuj-analytics.netlify.app/'
   }
 ];
 

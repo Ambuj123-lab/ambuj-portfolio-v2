@@ -351,8 +351,8 @@ function App() {
                                     transition={{ delay: 0.1 }}
                                     className="text-5xl md:text-6xl lg:text-7xl font-display leading-[1.1]"
                                 >
-                                    Building intelligent<br />
-                                    <span className="text-[#C4785A]">digital experiences</span>
+                                    Building Production-Grade<br />
+                                    <span className="text-[#C4785A]">RAG & GenAI Systems</span>
                                 </motion.h1>
 
                                 {/* Typewriter */}
@@ -942,7 +942,7 @@ function App() {
                 <footer className={`py-8 px-6 border-t ${isDarkMode ? 'bg-[#0a0a0a] border-white/10' : 'bg-[#1C1C1C] border-[#333]'}`}>
                     <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
                         <p className="text-[#858585] text-sm">
-                            © 2025 Ambuj Kumar Tripathi. All rights reserved. (v2.1 PWA Ready)
+                            © 2026 Ambuj Kumar Tripathi. All rights reserved. (v2.1 PWA Ready)
                         </p>
                         <div className="flex gap-6">
                             <a href="https://github.com/Ambuj123-lab" target="_blank" rel="noopener noreferrer" className="text-[#858585] hover:text-white transition-colors">

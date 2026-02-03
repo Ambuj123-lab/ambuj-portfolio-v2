@@ -863,11 +863,11 @@ function App() {
                                 },
                                 {
                                     id: 2,
-                                    category: "Career Journey",
-                                    title: "From Telecom to AI Architect",
-                                    content: "How a background in telecom systems, network engineering, and automation shaped my approach to building production AI systems — focusing on data flow, fault tolerance, security, and large-scale deployment of LLM-powered applications.",
-                                    cta: "View Architecture Overview",
-                                    link: "https://citizen-safety-ai-assistant.vercel.app/"
+                                    category: "Production Monitoring",
+                                    title: "Trust Through Transparency: Real-Time System Monitoring",
+                                    content: "Live production monitoring dashboard tracking uptime percentages, response times, incident history, and service health across deployed applications. Demonstrates commitment to reliability engineering, observability, and transparent incident management with public status page accessibility.",
+                                    cta: "View Live Status Dashboard",
+                                    link: "https://stats.uptimerobot.com/4tYmSQnuBE"
                                 }
                             ].map((post) => (
                                 <article key={post.id} className={`group rounded-2xl overflow-hidden border transition-all hover:shadow-xl ${isDarkMode ? 'bg-[#1C1C1C] border-white/10 hover:border-[#C4785A]/50' : 'bg-[#F7F5F0] border-transparent hover:border-[#C4785A]/30'}`}>
@@ -975,7 +975,7 @@ function App() {
                         <p className="text-[#858585] text-sm">
                             © 2026 Ambuj Kumar Tripathi. All rights reserved. (v2.1 PWA Ready)
                         </p>
-                        <div className="flex gap-6">
+                        <div className="flex gap-6 items-center">
                             <a href="https://github.com/Ambuj123-lab" target="_blank" rel="noopener noreferrer" className="text-[#858585] hover:text-white transition-colors">
                                 <Github size={18} />
                             </a>
@@ -984,6 +984,17 @@ function App() {
                             </a>
                             <a href="mailto:kumarambuj8@gmail.com" className="text-[#858585] hover:text-[#EA4335] transition-colors">
                                 <Mail size={18} />
+                            </a>
+                            <span className="text-[#858585]">•</span>
+                            <a
+                                href="https://stats.uptimerobot.com/4tYmSQnuBE"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-1.5 text-[#858585] hover:text-[#22c55e] transition-colors text-sm"
+                                title="Live uptime monitoring (5-min checks)"
+                            >
+                                <span className="w-2 h-2 bg-[#22c55e] rounded-full animate-pulse"></span>
+                                Live Status
                             </a>
                         </div>
                     </div>

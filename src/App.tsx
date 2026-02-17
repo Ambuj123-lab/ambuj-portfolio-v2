@@ -15,6 +15,7 @@ import AnimatedTerminal from './components/AnimatedTerminal';
 import SplashScreen from './components/SplashScreen';
 import CommandPalette from './components/CommandPalette';
 import ArchitectureModal from './components/ArchitectureModal';
+import CaseStudyModal from './components/CaseStudyModal';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
     const [isHovering, setIsHovering] = useState(false);
     const [scrollY, setScrollY] = useState(0);
     const [archImage, setArchImage] = useState<string | null>(null);
+    const [activeCaseStudyId, setActiveCaseStudyId] = useState<string | null>(null);
 
     useEffect(() => {
         if (isDarkMode) {
@@ -748,32 +750,60 @@ function App() {
                                             <ExternalLink size={18} className="text-[#5A5855] group-hover:text-[#C4785A] transition-colors flex-shrink-0" />
                                         </div>
                                     </a>
-                                    {project.architectureDiagram && (
-                                        <button
-                                            onClick={() => setArchImage(project.architectureDiagram!)}
-                                            className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300"
-                                            style={{
-                                                background: isDarkMode
-                                                    ? 'linear-gradient(135deg, rgba(196,120,90,0.15), rgba(196,120,90,0.05))'
-                                                    : 'linear-gradient(135deg, rgba(196,120,90,0.1), rgba(196,120,90,0.03))',
-                                                border: '1px solid rgba(196,120,90,0.3)',
-                                                color: '#C4785A',
-                                            }}
-                                            onMouseEnter={(e) => {
-                                                e.currentTarget.style.background = 'linear-gradient(135deg, #C4785A, #E8A87C)';
-                                                e.currentTarget.style.color = '#fff';
-                                                e.currentTarget.style.borderColor = 'transparent';
-                                            }}
-                                            onMouseLeave={(e) => {
-                                                e.currentTarget.style.background = isDarkMode
-                                                    ? 'linear-gradient(135deg, rgba(196,120,90,0.15), rgba(196,120,90,0.05))'
-                                                    : 'linear-gradient(135deg, rgba(196,120,90,0.1), rgba(196,120,90,0.03))';
-                                                e.currentTarget.style.color = '#C4785A';
-                                                e.currentTarget.style.borderColor = 'rgba(196,120,90,0.3)';
-                                            }}
-                                        >
-                                            🏗️ View Architecture
-                                        </button>
+                                    {/* Action Buttons */}
+                                    {(project.architectureDiagram || project.caseStudyId) && (
+                                        <div className="mt-4 flex flex-col sm:flex-row gap-3">
+                                            {project.caseStudyId && (
+                                                <button
+                                                    onClick={() => setActiveCaseStudyId(project.caseStudyId!)}
+                                                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300"
+                                                    style={{
+                                                        background: isDarkMode
+                                                            ? 'linear-gradient(135deg, rgba(196,120,90,0.2), rgba(196,120,90,0.1))'
+                                                            : 'linear-gradient(135deg, rgba(196,120,90,0.15), rgba(196,120,90,0.05))',
+                                                        border: '1px solid rgba(196,120,90,0.4)',
+                                                        color: '#C4785A',
+                                                    }}
+                                                    onMouseEnter={(e) => {
+                                                        e.currentTarget.style.background = 'linear-gradient(135deg, #C4785A, #E8A87C)';
+                                                        e.currentTarget.style.color = '#fff';
+                                                        e.currentTarget.style.borderColor = 'transparent';
+                                                    }}
+                                                    onMouseLeave={(e) => {
+                                                        e.currentTarget.style.background = isDarkMode
+                                                            ? 'linear-gradient(135deg, rgba(196,120,90,0.2), rgba(196,120,90,0.1))'
+                                                            : 'linear-gradient(135deg, rgba(196,120,90,0.15), rgba(196,120,90,0.05))';
+                                                        e.currentTarget.style.color = '#C4785A';
+                                                        e.currentTarget.style.borderColor = 'rgba(196,120,90,0.4)';
+                                                    }}
+                                                >
+                                                    📄 Read Case Study
+                                                </button>
+                                            )}
+                                            {project.architectureDiagram && (
+                                                <button
+                                                    onClick={() => setArchImage(project.architectureDiagram!)}
+                                                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300"
+                                                    style={{
+                                                        background: isDarkMode
+                                                            ? 'rgba(255,255,255,0.05)'
+                                                            : 'rgba(0,0,0,0.05)',
+                                                        border: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)',
+                                                        color: isDarkMode ? '#aaa' : '#666',
+                                                    }}
+                                                    onMouseEnter={(e) => {
+                                                        e.currentTarget.style.background = isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+                                                        e.currentTarget.style.color = isDarkMode ? '#fff' : '#333';
+                                                    }}
+                                                    onMouseLeave={(e) => {
+                                                        e.currentTarget.style.background = isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';
+                                                        e.currentTarget.style.color = isDarkMode ? '#aaa' : '#666';
+                                                    }}
+                                                >
+                                                    🏗️ Architecture
+                                                </button>
+                                            )}
+                                        </div>
                                     )}
                                 </motion.div>
                             ))}
@@ -1046,6 +1076,13 @@ function App() {
                     <ArchitectureModal
                         imageSrc={archImage}
                         onClose={() => setArchImage(null)}
+                        isDarkMode={isDarkMode}
+                    />
+                )}
+                {activeCaseStudyId && (
+                    <CaseStudyModal
+                        caseStudyId={activeCaseStudyId}
+                        onClose={() => setActiveCaseStudyId(null)}
                         isDarkMode={isDarkMode}
                     />
                 )}

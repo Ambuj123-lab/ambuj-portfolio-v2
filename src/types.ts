@@ -18,6 +18,7 @@ export interface Project {
     tags: string[];
     demoLink: string;
     architectureDiagram?: string;
+    caseStudyId?: string;
 }
 
 export interface Video {

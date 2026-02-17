@@ -14,6 +14,7 @@ import BentoCard from './components/BentoCard';
 import AnimatedTerminal from './components/AnimatedTerminal';
 import SplashScreen from './components/SplashScreen';
 import CommandPalette from './components/CommandPalette';
+import ArchitectureModal from './components/ArchitectureModal';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
     const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
     const [scrollY, setScrollY] = useState(0);
+    const [archImage, setArchImage] = useState<string | null>(null);
 
     useEffect(() => {
         if (isDarkMode) {
@@ -712,11 +714,8 @@ function App() {
                         {/* ALL PROJECTS - No slicing */}
                         <div className="grid md:grid-cols-2 gap-8">
                             {PROJECTS_DATA.map((project, index) => (
-                                <motion.a
+                                <motion.div
                                     key={index}
-                                    href={project.demoLink}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
                                     initial={{ opacity: 0, y: 30 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.1 * index, duration: 0.3 }}
@@ -726,28 +725,57 @@ function App() {
                                     }}
                                     className="group block p-4 rounded-xl transition-all duration-300 tilt-card glow-hover"
                                 >
-                                    <div className="img-reveal mb-5">
-                                        <img
-                                            src={project.image}
-                                            alt={project.title}
-                                            className="w-full aspect-video object-cover"
-                                        />
-                                    </div>
-                                    <div className="flex justify-between items-start gap-4">
-                                        <div>
-                                            <h3 className={`font-display text-xl mb-2 group-hover:text-[#C4785A] transition-colors ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                                {project.title}
-                                            </h3>
-                                            <p className="text-sm text-[#5A5855] line-clamp-2 mb-3">{project.description}</p>
-                                            <div className="flex flex-wrap gap-2">
-                                                {project.tags.slice(0, 3).map((tag, i) => (
-                                                    <span key={i} className={isDarkMode ? "tag-dark" : "tag"}>{tag}</span>
-                                                ))}
-                                            </div>
+                                    <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
+                                        <div className="img-reveal mb-5">
+                                            <img
+                                                src={project.image}
+                                                alt={project.title}
+                                                className="w-full aspect-video object-cover"
+                                            />
                                         </div>
-                                        <ExternalLink size={18} className="text-[#5A5855] group-hover:text-[#C4785A] transition-colors flex-shrink-0" />
-                                    </div>
-                                </motion.a>
+                                        <div className="flex justify-between items-start gap-4">
+                                            <div>
+                                                <h3 className={`font-display text-xl mb-2 group-hover:text-[#C4785A] transition-colors ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
+                                                    {project.title}
+                                                </h3>
+                                                <p className="text-sm text-[#5A5855] line-clamp-2 mb-3">{project.description}</p>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {project.tags.slice(0, 3).map((tag, i) => (
+                                                        <span key={i} className={isDarkMode ? "tag-dark" : "tag"}>{tag}</span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <ExternalLink size={18} className="text-[#5A5855] group-hover:text-[#C4785A] transition-colors flex-shrink-0" />
+                                        </div>
+                                    </a>
+                                    {project.architectureDiagram && (
+                                        <button
+                                            onClick={() => setArchImage(project.architectureDiagram!)}
+                                            className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300"
+                                            style={{
+                                                background: isDarkMode
+                                                    ? 'linear-gradient(135deg, rgba(196,120,90,0.15), rgba(196,120,90,0.05))'
+                                                    : 'linear-gradient(135deg, rgba(196,120,90,0.1), rgba(196,120,90,0.03))',
+                                                border: '1px solid rgba(196,120,90,0.3)',
+                                                color: '#C4785A',
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.currentTarget.style.background = 'linear-gradient(135deg, #C4785A, #E8A87C)';
+                                                e.currentTarget.style.color = '#fff';
+                                                e.currentTarget.style.borderColor = 'transparent';
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.currentTarget.style.background = isDarkMode
+                                                    ? 'linear-gradient(135deg, rgba(196,120,90,0.15), rgba(196,120,90,0.05))'
+                                                    : 'linear-gradient(135deg, rgba(196,120,90,0.1), rgba(196,120,90,0.03))';
+                                                e.currentTarget.style.color = '#C4785A';
+                                                e.currentTarget.style.borderColor = 'rgba(196,120,90,0.3)';
+                                            }}
+                                        >
+                                            🏗️ View Architecture
+                                        </button>
+                                    )}
+                                </motion.div>
                             ))}
                         </div>
                     </div>
@@ -1014,6 +1042,13 @@ function App() {
                     onNext={() => setCurrentImageIndex((prev) => (prev + 1) % CERTIFICATES_DATA.length)}
                     onPrev={() => setCurrentImageIndex((prev) => (prev - 1 + CERTIFICATES_DATA.length) % CERTIFICATES_DATA.length)}
                 />
+                {archImage && (
+                    <ArchitectureModal
+                        imageSrc={archImage}
+                        onClose={() => setArchImage(null)}
+                        isDarkMode={isDarkMode}
+                    />
+                )}
 
                 {/* Scroll to Top Button */}
                 <AnimatePresence>

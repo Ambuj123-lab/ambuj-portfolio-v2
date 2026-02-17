@@ -97,6 +97,15 @@ export const EXPERIENCE_DATA: Experience[] = [
 
 export const PROJECTS_DATA: Project[] = [
   {
+    title: 'Constitution of India AI Expert | Production RAG',
+    image: '/projects/LegalAI thumbnail.png',
+    icon: 'fas fa-balance-scale',
+    description: 'Production-grade Legal AI with LangGraph orchestration, Parent-Child chunking on Qdrant Cloud, PII masking (Presidio + spaCy), Google OAuth 2.0, SSE streaming, Circuit Breaker pattern, Langfuse observability, and SHA-256 hash-based Sync Engine. Built with React, FastAPI, Qwen 3 235B.',
+    tags: ['LangGraph', 'Qdrant', 'FastAPI', 'Presidio', 'Langfuse', 'OAuth 2.0'],
+    demoLink: 'https://competitive-elaine-ambuj-ragai-f52aa725.koyeb.app/',
+    architectureDiagram: '/projects/LegalAI_architecture.png'
+  },
+  {
     title: 'Citizen Safety AI | Enterprise RAG System',
     image: '/projects/citizen-safety-architecture.png',
     icon: 'fas fa-shield-alt',

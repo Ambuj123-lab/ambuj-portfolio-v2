@@ -166,6 +166,40 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, isDarkMode
                                         />
                                     </div>
                                 </div>
+
+                                {/* Quick Message Selector */}
+                                <div className="space-y-2">
+                                    <label htmlFor="template" className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                                        Quick Message Template (Optional)
+                                    </label>
+                                    <div className="relative">
+                                        <select
+                                            id="template"
+                                            className={`w-full px-4 py-2.5 rounded-xl border appearance-none focus:outline-none focus:ring-2 focus:ring-[#C4785A] transition-all cursor-pointer ${isDarkMode
+                                                ? 'bg-[#111] border-white/10 text-gray-300 hover:border-white/20'
+                                                : 'bg-white border-[#E8E4DB] text-[#5A5855] hover:border-gray-300'
+                                                }`}
+                                            onChange={(e) => {
+                                                if (e.target.value) {
+                                                    setFormData(prev => ({ ...prev, message: e.target.value }));
+                                                }
+                                                // Reset select back to default so they can select again if they clear
+                                                e.target.value = "";
+                                            }}
+                                            defaultValue=""
+                                        >
+                                            <option value="" disabled>Select a topic to auto-fill...</option>
+                                            <option value="Hi Ambuj, we're looking for an AI Engineer to build scalable systems. Let's connect!">Hire for an AI Engineer role</option>
+                                            <option value="Hi Ambuj, I'd love to discuss a potential opportunity in Generative AI/Full-Stack.">Generative AI Opportunity</option>
+                                            <option value="Hello Ambuj, we have an exciting AI role that matches your profile.">Matching Job Profile</option>
+                                            <option value="Hi Ambuj, I would like to discuss a freelance/consulting project.">Freelance / Consulting</option>
+                                        </select>
+                                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                            <svg className={`w-4 h-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div className="space-y-2">
                                     <div className="flex items-center justify-between">
                                         <label htmlFor="message" className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -184,10 +218,10 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, isDarkMode
                                         value={formData.message}
                                         onChange={handleChange}
                                         className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-[#C4785A] transition-all resize-none ${isDarkMode
-                                                ? 'bg-[#111] border-white/10 text-white placeholder-gray-500 hover:border-white/20'
-                                                : 'bg-white border-[#E8E4DB] text-[#1C1C1C] placeholder-gray-400 hover:border-gray-300'
+                                            ? 'bg-[#111] border-white/10 text-white placeholder-gray-500 hover:border-white/20'
+                                            : 'bg-white border-[#E8E4DB] text-[#1C1C1C] placeholder-gray-400 hover:border-gray-300'
                                             }`}
-                                        placeholder="How can I help you?"
+                                        placeholder="Write your own message or select a template above..."
                                     />
                                 </div>
 

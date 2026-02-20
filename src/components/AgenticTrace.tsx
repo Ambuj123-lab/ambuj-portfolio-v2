@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import { Database, BrainCircuit, MessageSquare, CheckCircle, Network, Server } from 'lucide-react';
 
 interface Props {
@@ -22,7 +23,7 @@ export default function AgenticTrace({ isDarkMode }: Props) {
     const accent = 'text-[#C4785A]';
 
     // Premium Staggered Animations
-    const containerVariants = {
+    const containerVariants: Variants = {
         hidden: {},
         visible: {
             transition: {
@@ -31,7 +32,7 @@ export default function AgenticTrace({ isDarkMode }: Props) {
         }
     };
 
-    const blockVariants = {
+    const blockVariants: Variants = {
         hidden: { opacity: 0, y: 30, scale: 0.9 },
         visible: {
             opacity: 1,

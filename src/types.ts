@@ -21,11 +21,7 @@ export interface Project {
     caseStudyId?: string;
 }
 
-export interface Video {
-    title: string;
-    src: string;
-    type: 'youtube' | 'drive' | 'other';
-}
+
 
 export interface Certificate {
     src: string;

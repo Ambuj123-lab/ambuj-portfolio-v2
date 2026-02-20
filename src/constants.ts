@@ -1,5 +1,5 @@
 
-import type { Experience, Project, Certificate, Video } from './types';
+import type { Experience, Project, Certificate } from './types';
 
 // <!-- PASTE YOUR BASE64 STRING HERE BELOW inside the quotes if you want -->
 export const RESUME_QR_BASE64 = "";
@@ -164,14 +164,7 @@ export const PROJECTS_DATA: Project[] = [
   }
 ];
 
-export const VIDEOS_DATA: Video[] = [
-  { title: "AI Explainer Video", src: "https://www.youtube.com/embed/4MDaOE1q5NI", type: 'youtube' },
-  { title: "Task Management PWA Demo", src: "https://automate.video/task_manager_pwa_a_self_taught_developers_journey_pb6d7c600#embed?embedVideo=true", type: 'other' },
-  { title: "This Person Does Not Exist", src: "https://www.youtube.com/embed/-rbtf3-IwEs", type: 'youtube' },
-  { title: "Neural Control Explainer", src: "https://www.youtube.com/embed/fYKnZxKvQrI", type: 'youtube' },
-  { title: "Ambuj AI Voice Assistant", src: "https://www.youtube.com/embed/TgNAcJsLmeY", type: 'youtube' },
-  { title: "Ambuj AI Chatbot Hugging Face", src: "https://drive.google.com/file/d/1qFYtPctQQk1bO82z2xLq5kvVTc0NrmzZ/preview", type: 'drive' }
-];
+
 
 export const CERTIFICATES_DATA: Certificate[] = [
   { src: 'certificates/nvidia-rag-llm.png', title: 'Building RAG Agents with LLMs', provider: 'NVIDIA Deep Learning Institute', category: 'NVIDIA' },

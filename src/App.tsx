@@ -560,6 +560,7 @@ function App() {
                                             <img
                                                 src={tech.logo}
                                                 alt={tech.name}
+                                                loading="lazy"
                                                 className="w-8 h-8 object-contain transition-all duration-300 hover:scale-110"
                                             />
                                             <span className={`text-sm font-medium transition-opacity ${isDarkMode ? 'text-gray-300' : 'text-[#1C1C1C]'}`}>
@@ -978,6 +979,7 @@ function App() {
                                         <img
                                             src="/projects/LegalAI_architecture.png"
                                             alt="Legal AI Production Architecture"
+                                            loading="lazy"
                                             className="w-full h-full object-contain rounded transition-transform duration-500 group-hover:scale-105"
                                         />
                                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

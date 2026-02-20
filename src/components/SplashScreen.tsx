@@ -29,6 +29,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
                 <img
                     src="/logo.png"
                     alt="Logo"
+                    loading="lazy"
                     className="w-20 h-20 object-contain"
                 />
             </motion.div>

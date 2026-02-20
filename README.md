@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="public/favicon.ico" alt="Logo" width="80" height="auto" />
+  <img src="public/logo.png" alt="Ambuj Kumar Tripathi - AI Engineer" width="120" height="120" style="border-radius: 50%; border: 2px solid #C4785A; margin-bottom: 20px;" />
   
   # Agentic Portfolio & Multi-Agent Showcase
 

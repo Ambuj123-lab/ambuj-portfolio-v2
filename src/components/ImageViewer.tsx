@@ -94,7 +94,6 @@ export default function ImageViewer({ isOpen, onClose, images, currentIndex, onN
                         <img
                             src={images[currentIndex].src}
                             alt={images[currentIndex].title}
-                            loading="lazy"
                             className="max-w-full max-h-[70vh] object-contain rounded-lg"
                         />
                     </motion.div>

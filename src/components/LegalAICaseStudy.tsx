@@ -4,7 +4,7 @@ import { Printer } from 'lucide-react';
 /* ─── Reusable helpers ─── */
 const Img: React.FC<{ src: string; alt: string }> = ({ src, alt }) => (
     <div className="my-4 overflow-hidden rounded-lg border border-[#333]">
-        <img src={src} alt={alt} className="w-full h-auto" loading="lazy" />
+        <img src={src} alt={alt} className="w-full h-auto" />
     </div>
 );
 const Cap: React.FC<{ children: React.ReactNode }> = ({ children }) => (

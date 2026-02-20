@@ -176,7 +176,6 @@ export default function ArchitectureModal({ imageSrc, onClose, isDarkMode }: Pro
                         <img
                             src={imageSrc}
                             alt="System Architecture Diagram"
-                            loading="lazy"
                             draggable={false}
                             style={{
                                 transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,

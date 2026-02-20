@@ -17,6 +17,7 @@ import CommandPalette from './components/CommandPalette';
 import ArchitectureModal from './components/ArchitectureModal';
 import CaseStudyModal from './components/CaseStudyModal';
 import ContactModal from './components/ContactModal';
+import AgenticTrace from './components/AgenticTrace';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function App() {
@@ -573,6 +574,9 @@ function App() {
                         </div>
                     </div>
                 </section>
+
+                {/* ===== AGENTIC TRACE (LIVE OBSERVATION) ===== */}
+                <AgenticTrace isDarkMode={isDarkMode} />
 
                 {/* ===== ABOUT SECTION ===== */}
                 <section className="py-20 px-6" id="about">

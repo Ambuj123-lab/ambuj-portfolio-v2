@@ -5,6 +5,8 @@
 
   An industry-grade, interactive portfolio built to demonstrate expertise in **Full-Stack Development**, **Generative AI**, and **Agentic Architecture**. Featuring a custom command palette, PWA capabilities, and a live-simulated execution trace of multi-agent LLM systems.
 
+  **🔗 [Live Demo: ambuj-portfolio-v2.netlify.app](https://ambuj-portfolio-v2.netlify.app/)**
+
   <p align="center">
     <a href="https://reactjs.org/"><img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" /></a>
     <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" /></a>

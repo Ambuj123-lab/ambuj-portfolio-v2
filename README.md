@@ -1,109 +1,88 @@
-# Ambuj Kumar Tripathi | AI Engineer & Full Stack Developer Portfolio
-
 <div align="center">
-  <img src="public/logo.png" alt="Logo" width="100" height="100" style="border-radius: 20px;">
+  <img src="public/favicon.ico" alt="Logo" width="80" height="auto" />
+  
+  # Agentic Portfolio & Multi-Agent Showcase
 
-  <h1 align="center">Next-Gen AI Portfolio</h1>
-
-  <p align="center">
-    <strong>A high-performance, dark-mode-first portfolio crafted for the AI era.</strong>
-  </p>
+  An industry-grade, interactive portfolio built to demonstrate expertise in **Full-Stack Development**, **Generative AI**, and **Agentic Architecture**. Featuring a custom command palette, PWA capabilities, and a live-simulated execution trace of multi-agent LLM systems.
 
   <p align="center">
-    <a href="https://ambuj-portfolio-v2.netlify.app/">View Live Demo</a>
-    ·
-    <a href="https://github.com/Ambuj123-lab/ambuj-ai-portfolio/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/Ambuj123-lab/ambuj-ai-portfolio/issues">Request Feature</a>
-  </p>
-
-  <!-- Badges -->
-  <p align="center">
-    <img src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
-    <img src="https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
-    <img src="https://img.shields.io/badge/Vite-Fast-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
-    <img src="https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
-    <img src="https://img.shields.io/badge/Framer_Motion-Animation-0055FF?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion" />
-    <img src="https://img.shields.io/badge/PWA-Ready-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white" alt="PWA" />
+    <a href="https://reactjs.org/"><img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" /></a>
+    <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" /></a>
+    <a href="https://tailwindcss.com/"><img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind" /></a>
+    <a href="https://www.framer.com/motion/"><img src="https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion" /></a>
+    <a href="https://vitejs.dev/"><img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite" /></a>
+    <a href="#"><img src="https://img.shields.io/badge/PWA-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white" alt="PWA Ready" /></a>
   </p>
 </div>
 
 ---
 
-## 🚀 Overview
-
-This is not just a portfolio; it's a statement of engineering excellence. Designed to bridge the gap between **Telecom Infrastructure** and **Artificial Intelligence**, this project showcases my journey as an **AI Engineer** and **Full Stack Developer**.
-
-It features a **premium, glassmorphic dark UI**, an interactive **AI Terminal**, and a fully responsive **Bento Grid** layout, all optimized for performance and accessibility.
-
-## 🛠️ Tech Stack & Engineering
-
-This project is built with a focus on **performance**, **scalability**, and **developer experience**.
-
-| Category | Technologies |
-| :--- | :--- |
-| **Core** | ![React](https://img.shields.io/badge/-React_18-61DAFB?logo=react&logoColor=black) ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white) ![Vite](https://img.shields.io/badge/-Vite-646CFF?logo=vite&logoColor=white) |
-| **Styling** | ![Tailwind CSS](https://img.shields.io/badge/-Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white) ![PostCSS](https://img.shields.io/badge/-PostCSS-DD3A0A?logo=postcss&logoColor=white) |
-| **Animation** | ![Framer Motion](https://img.shields.io/badge/-Framer_Motion-0055FF?logo=framer&logoColor=white) |
-| **Icons** | ![Lucide React](https://img.shields.io/badge/-Lucide_React-F05032?logo=lucide&logoColor=white) |
-| **Deployment** | ![Vercel](https://img.shields.io/badge/-Vercel-000000?logo=vercel&logoColor=white) / ![Netlify](https://img.shields.io/badge/-Netlify-00C7B7?logo=netlify&logoColor=white) |
-
 ## ✨ Key Features
 
--   **🌑 Dynamic Dark Mode**: A meticulously crafted dark theme with high-contrast elements for readability.
--   **📱 Progressive Web App (PWA)**: Installable on mobile and desktop with offline capabilities.
--   **⚡ Zero-Lag Animations**: Powered by `Framer Motion` for buttery smooth transitions.
--   **💻 Interactive Terminal**: A functional, animated terminal component that simulates a developer environment.
--   **🧩 Bento Grid Layout**: A modern, grid-based layout for showcasing skills and projects.
+- **🤖 Agentic Execution Trace**: A visually stunning, mathematically staggered cinematic animation demonstrating a Multi-Agent RAG pipeline (Router -> Vector Search -> Doc Store -> LLM -> Evaluator).
+- **⌘ Command Palette**: Press `Ctrl+K` (or `Cmd+K`) to access a globally available, keyboard-first navigation system for rapid access to projects, resume, and contact.
+- **📱 Progressive Web App (PWA)**: Fully installable on iOS and Android devices directly from the browser for a native app-like experience.
+- **🎭 Glassmorphism & Custom Physics**: Features a custom physics-based ultra-thin scrollbar, magnetic cursor glow with `mix-blend-mode`, and smooth staggered framer-motion transitions.
+- **🌓 Theme Architecture**: Enterprise-grade Dark/Light mode implementation using Tailwind CSS standard classes and local storage persistence.
+
+## 🛠 Technology Stack
+
+### Frontend Engineering
+- **Core Framework**: React 18, TypeScript, Vite
+- **Styling**: Tailwind CSS (Utility-first), Vanilla CSS (Custom Cursor & Scrollbar Physics)
+- **Animation Engine**: Framer Motion (Staggered Children, Layout Animations, Spring Physics)
+- **Icons**: Lucide React
+
+### AI / ML Integration (Simulated in UI)
+*The UI traces showcase expertise in building these specific pipelines:*
+- **Orchestration**: LangGraph, LlamaIndex
+- **Vector Search**: Pinecone, ChromaDB, Qdrant
+- **LLM Inferencing**: Llama 3 via OpenRouter, Google Gemini
+- **Storage/Memory**: Supabase, MongoDB
 
 ## 🚀 Getting Started
 
-To run this project locally, follow these steps:
+To run this portfolio locally for development or to audit the source code:
 
-### Prerequisites
+### 1. Clone the repository
+```bash
+git clone https://github.com/Ambuj123-lab/ambuj-portfolio-v2.git
+cd ambuj-portfolio-v2
+```
 
--   Node.js (v18 or higher)
--   npm or yarn
+### 2. Install dependencies
+Ensure you have Node.js installed (v18+ recommended).
+```bash
+npm install
+```
 
-### Installation
+### 3. Environment Setup
+The Contact form utilizes **Web3Forms** for serverless email submission. Create a `.env.local` file in the root directory:
+```env
+VITE_WEB3FORMS_ACCESS_KEY=your_access_key_here
+```
 
-1.  **Clone the repository**
-    ```bash
-    git clone https://github.com/Ambuj123-lab/ambuj-ai-portfolio.git
-    cd ambuj-ai-portfolio
-    ```
+### 4. Run Development Server
+```bash
+npm run dev
+```
+Navigate to `http://localhost:5173` in your browser to view the application.
 
-2.  **Install dependencies**
-    ```bash
-    npm install
-    ```
+## 🏛 Architecture Insights
 
-3.  **Start the development server**
-    ```bash
-    npm run dev
-    ```
+* **Performant Animations**: Animations are offloaded to Framer Motion's highly optimized `requestAnimationFrame` loop, preventing main-thread blocking during deep scrolls.
+* **Component Modularity**: Sections are segmented into intelligent, single-responsibility components (e.g., `AgenticTrace.tsx`, `CommandPalette.tsx`) to ensure strict separation of concerns.
+* **State Management**: React Context / Hooks handle global states like the Theme toggler, while localized states (like active filters) remain efficiently scoped to specific parent containers to prevent unnecessary re-renders.
 
-4.  **Build for production**
-    ```bash
-    npm run build
-    ```
+## 🤝 Let's Connect
 
-## 📬 Contact
+Open to exciting roles in **Generative AI**, **Machine Learning**, or **Full-Stack Engineering**.
 
-I am currently **Open to Work** and looking for opportunities in **AI Engineering** and **Full Stack Development**.
-
-<p align="left">
-  <a href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/">
-    <img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
-  </a>
-
-  <a href="https://github.com/Ambuj123-lab">
-    <img src="https://img.shields.io/badge/GitHub-Follow-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
-  </a>
-</p>
+- **Email**: [kumarambuj8@gmail.com](mailto:kumarambuj8@gmail.com)
+- **LinkedIn**: [Ambuj Tripathi](https://www.linkedin.com/in/ambuj-tripathi-042b4a118/)
+- **GitHub**: [Ambuj123-lab](https://github.com/Ambuj123-lab)
 
 ---
-
-<p align="center">
-  Made with ❤️ and 🤖 by <strong>Ambuj Kumar Tripathi</strong>
-</p>
+<div align="center">
+  <i>Engineered with precision and AI innovation.</i>
+</div>

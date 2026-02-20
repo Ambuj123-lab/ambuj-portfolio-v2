@@ -16,6 +16,7 @@ import SplashScreen from './components/SplashScreen';
 import CommandPalette from './components/CommandPalette';
 import ArchitectureModal from './components/ArchitectureModal';
 import CaseStudyModal from './components/CaseStudyModal';
+import ContactModal from './components/ContactModal';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isContactModalOpen, setIsContactModalOpen] = useState(false);
     const [showScrollTop, setShowScrollTop] = useState(false);
     const [showShortcutsHint, setShowShortcutsHint] = useState(true);
     const [readingProgress, setReadingProgress] = useState(0);
@@ -896,60 +898,97 @@ function App() {
 
                 {/* ===== ENGINEERING INSIGHTS SECTION ===== */}
                 <section className={`py-20 px-6 ${isDarkMode ? 'bg-[#111]' : 'bg-white'}`} id="blog">
-                    <div className="max-w-6xl mx-auto">
-                        <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-12">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="flex flex-col gap-4 mb-12">
                             <div>
                                 <p className="section-eyebrow !text-[#C4785A]">Engineering Insights</p>
                                 <h2 className={`text-4xl md:text-5xl font-display ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                    System Design Notes
+                                    System Design
                                 </h2>
                             </div>
-                            <p className={`max-w-md ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>
+                            <p className={`max-w-xl text-lg ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>
                                 Architectural decisions and lessons learned from production AI deployments.
                             </p>
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-8">
-                            {[
-                                {
-                                    id: 1,
-                                    category: "RAG Systems",
-                                    title: "Trust but Verify: Designing Reliable RAG Systems",
-                                    content: "Production lessons from building enterprise-grade RAG systems with hallucination control, source citations, circuit breakers, rate-limit–aware embeddings, and real-time PII masking. Focused on reliability, observability, and compliance-first AI design.",
-                                    cta: "View System Design",
-                                    link: "https://citizen-safety-ai-assistant.vercel.app/"
-                                },
-                                {
-                                    id: 2,
-                                    category: "Production Monitoring",
-                                    title: "Trust Through Transparency: Real-Time System Monitoring",
-                                    content: "Live production monitoring dashboard tracking uptime percentages, response times, incident history, and service health across deployed applications. Demonstrates commitment to reliability engineering, observability, and transparent incident management with public status page accessibility.",
-                                    cta: "View Live Status Dashboard",
-                                    link: "https://stats.uptimerobot.com/4tYmSQnuBE"
-                                }
-                            ].map((post) => (
-                                <article key={post.id} className={`group rounded-2xl overflow-hidden border transition-all hover:shadow-xl ${isDarkMode ? 'bg-[#1C1C1C] border-white/10 hover:border-[#C4785A]/50' : 'bg-[#F7F5F0] border-transparent hover:border-[#C4785A]/30'}`}>
-                                    <div className="p-6 sm:p-8">
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <span className="px-3 py-1 text-xs font-medium rounded-full bg-[#C4785A]/10 text-[#C4785A]">{post.category}</span>
+                        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+                            {/* Left Column: Articles */}
+                            <div className="flex flex-col gap-6">
+                                {[
+                                    {
+                                        id: 1,
+                                        category: "RAG Systems",
+                                        title: "Trust but Verify: Designing Reliable RAG Systems",
+                                        content: "Production lessons from building enterprise-grade RAG systems with hallucination control, source citations, circuit breakers, rate-limit–aware embeddings, and real-time PII masking. Focused on reliability, observability, and compliance-first AI design.",
+                                        cta: "View System Design",
+                                        link: "https://competitive-elaine-ambuj-ragai-f52aa725.koyeb.app/"
+                                    },
+                                    {
+                                        id: 2,
+                                        category: "Production Monitoring",
+                                        title: "Trust Through Transparency: Real-Time System Monitoring",
+                                        content: "Live production monitoring dashboard tracking uptime percentages, response times, incident history, and service health across deployed applications. Demonstrates commitment to reliability engineering, observability, and transparent incident management with public status page accessibility.",
+                                        cta: "View Live Status Dashboard",
+                                        link: "https://stats.uptimerobot.com/4tYmSQnuBE"
+                                    }
+                                ].map((post) => (
+                                    <article key={post.id} className={`group rounded-2xl overflow-hidden border transition-all hover:shadow-xl ${isDarkMode ? 'bg-[#1C1C1C] border-white/10 hover:border-[#C4785A]/50' : 'bg-[#F7F5F0] border-transparent hover:border-[#C4785A]/30'}`}>
+                                        <div className="p-6 sm:p-8">
+                                            <div className="flex items-center gap-3 mb-4">
+                                                <span className="px-3 py-1 text-xs font-medium rounded-full bg-[#C4785A]/10 text-[#C4785A]">{post.category}</span>
+                                            </div>
+                                            <h3 className={`text-xl sm:text-2xl font-display mb-3 group-hover:text-[#C4785A] transition-colors ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
+                                                {post.title}
+                                            </h3>
+                                            <p className={`mb-6 text-sm sm:text-base ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>
+                                                {post.content}
+                                            </p>
+                                            <a
+                                                href={post.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-2 text-[#C4785A] font-medium text-sm group-hover:gap-3 transition-all"
+                                            >
+                                                {post.cta} <ArrowRight size={16} />
+                                            </a>
                                         </div>
-                                        <h3 className={`text-xl sm:text-2xl font-display mb-3 group-hover:text-[#C4785A] transition-colors ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                            {post.title}
-                                        </h3>
-                                        <p className={`mb-6 text-sm sm:text-base ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>
-                                            {post.content}
-                                        </p>
-                                        <a
-                                            href={post.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center gap-2 text-[#C4785A] font-medium text-sm group-hover:gap-3 transition-all"
-                                        >
-                                            {post.cta} <ArrowRight size={16} />
-                                        </a>
+                                    </article>
+                                ))}
+                            </div>
+
+                            {/* Right Column: Sticky Architecture Diagram */}
+                            <div className="lg:sticky lg:top-24 mt-8 lg:mt-0">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    className={`relative rounded-2xl overflow-hidden shadow-2xl border cursor-pointer group ${isDarkMode ? 'bg-[#1C1C1C] border-white/10' : 'bg-white border-[#E8E4DB]'}`}
+                                    onClick={() => setArchImage('/projects/LegalAI_architecture.png')}
+                                >
+                                    <div className={`p-4 border-b flex items-center justify-between ${isDarkMode ? 'border-white/10' : 'border-[#E8E4DB]'}`}>
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                                            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                            <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                                            <span className={`ml-2 text-xs font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Production RAG Ecosystem Architecture</span>
+                                        </div>
+                                        <span className="text-xs text-[#C4785A] font-medium opacity-0 group-hover:opacity-100 transition-opacity">Click to Expand</span>
                                     </div>
-                                </article>
-                            ))}
+                                    <div className="aspect-[4/3] w-full bg-[#0a0a0a] flex items-center justify-center p-2 relative">
+                                        <img
+                                            src="/projects/LegalAI_architecture.png"
+                                            alt="Legal AI Production Architecture"
+                                            className="w-full h-full object-contain rounded transition-transform duration-500 group-hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                            <div className="bg-white/10 backdrop-blur-md px-6 py-3 rounded-full text-white font-medium border border-white/20 flex items-center gap-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path><path d="M8 11h6"></path><path d="M11 8v6"></path></svg>
+                                                Zoom Architecture
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -970,7 +1009,7 @@ function App() {
                             transition={{ delay: 0.1 }}
                             className="text-4xl md:text-5xl lg:text-6xl font-display text-white mb-6"
                         >
-                            Have a project in mind?
+                            Open to New Opportunities
                         </motion.h2>
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
@@ -978,7 +1017,7 @@ function App() {
                             transition={{ delay: 0.2 }}
                             className="text-white/80 text-lg mb-10 max-w-xl mx-auto"
                         >
-                            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+                            I'm currently looking for full-time roles as a Gen AI Architect or ML Engineer. Let's build the future of AI together.
                         </motion.p>
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -994,14 +1033,12 @@ function App() {
                                 <Linkedin size={18} />
                                 LinkedIn
                             </a>
-                            <a
-                                href="https://docs.google.com/forms/d/e/1FAIpQLScYjRrX3lLGVRYD9693XlT4wKwTVofWqVcLgA5ra2UQQS9Rcw/viewform"
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            <button
+                                onClick={() => setIsContactModalOpen(true)}
                                 className="btn bg-white/20 text-white hover:bg-white/30"
                             >
                                 📝 Contact Form
-                            </a>
+                            </button>
                         </motion.div>
 
                         {/* LinkedIn Profile Badge - User's Uploaded Image */}
@@ -1086,6 +1123,12 @@ function App() {
                         isDarkMode={isDarkMode}
                     />
                 )}
+
+                <ContactModal
+                    isOpen={isContactModalOpen}
+                    onClose={() => setIsContactModalOpen(false)}
+                    isDarkMode={isDarkMode}
+                />
 
                 {/* Scroll to Top Button */}
                 <AnimatePresence>

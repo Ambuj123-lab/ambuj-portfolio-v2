@@ -431,10 +431,11 @@ function App() {
                                         className="p-3 bg-[#0A66C2] text-white rounded-full hover:bg-[#004182] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
                                         <Linkedin size={20} />
                                     </a>
-                                    <a href="mailto:kumarambuj8@gmail.com"
+                                    <button
+                                        onClick={() => setIsContactModalOpen(true)}
                                         className="p-3 bg-[#EA4335] text-white rounded-full hover:bg-[#C5221F] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
                                         <Mail size={20} />
-                                    </a>
+                                    </button>
                                 </motion.div>
                             </div>
 
@@ -1047,10 +1048,10 @@ function App() {
                             transition={{ delay: 0.3 }}
                             className="flex flex-wrap justify-center gap-4"
                         >
-                            <a href="mailto:kumarambuj8@gmail.com" className="btn btn-white" title="kumarambuj8@gmail.com">
+                            <button onClick={() => setIsContactModalOpen(true)} className="btn btn-white" title="kumarambuj8@gmail.com">
                                 <Mail size={18} />
                                 Email Me
-                            </a>
+                            </button>
                             <a href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/" target="_blank" rel="noopener noreferrer" className="btn bg-white/20 text-white hover:bg-white/30">
                                 <Linkedin size={18} />
                                 LinkedIn
@@ -1099,9 +1100,9 @@ function App() {
                             <a href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/" target="_blank" rel="noopener noreferrer" className="text-[#858585] hover:text-[#0A66C2] transition-colors">
                                 <Linkedin size={18} />
                             </a>
-                            <a href="mailto:kumarambuj8@gmail.com" className="text-[#858585] hover:text-[#EA4335] transition-colors">
+                            <button onClick={() => setIsContactModalOpen(true)} className="text-[#858585] hover:text-[#EA4335] transition-colors">
                                 <Mail size={18} />
-                            </a>
+                            </button>
                             <span className="text-[#858585]">•</span>
                             <a
                                 href="https://stats.uptimerobot.com/4tYmSQnuBE"
@@ -1120,7 +1121,7 @@ function App() {
                 {/* Widgets & Modals */}
                 <div className="relative z-50">
                     <ChatWidget />
-                    <CommandPalette />
+                    <CommandPalette onOpenContact={() => setIsContactModalOpen(true)} />
                 </div>
                 <PWAModal isOpen={isPWAOpen} onClose={() => setIsPWAOpen(false)} isDarkMode={isDarkMode} />
                 <ImageViewer

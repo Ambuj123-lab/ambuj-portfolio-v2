@@ -10,7 +10,11 @@ interface CommandItem {
     category: string;
 }
 
-export default function CommandPalette() {
+interface CommandPaletteProps {
+    onOpenContact?: () => void;
+}
+
+export default function CommandPalette({ onOpenContact }: CommandPaletteProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [search, setSearch] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
@@ -46,10 +50,16 @@ export default function CommandPalette() {
         },
         {
             id: 'contact',
-            label: 'Contact Me',
+            label: 'Send a Message',
             icon: <Mail size={18} />,
-            action: () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }),
-            category: 'Navigation'
+            action: () => {
+                if (onOpenContact) {
+                    onOpenContact();
+                } else {
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                }
+            },
+            category: 'Quick Actions'
         },
         {
             id: 'email',

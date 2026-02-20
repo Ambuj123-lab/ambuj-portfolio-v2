@@ -253,7 +253,8 @@ h3 {
 
 /* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -263,7 +264,6 @@ h3 {
 ::-webkit-scrollbar-thumb {
   background: var(--terracotta);
   border-radius: 10px;
-  border: 2px solid var(--cream);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -277,7 +277,6 @@ h3 {
 
 .dark ::-webkit-scrollbar-thumb {
   background: var(--terracotta);
-  border: 2px solid #0a0a0a;
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {

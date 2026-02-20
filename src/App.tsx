@@ -24,6 +24,7 @@ function App() {
     const [titleIndex, setTitleIndex] = useState(0);
     const [displayText, setDisplayText] = useState('');
     const [isDeleting, setIsDeleting] = useState(false);
+    const [activeProjectFilter, setActiveProjectFilter] = useState('All');
     const [isViewerOpen, setIsViewerOpen] = useState(false);
     const [isPWAOpen, setIsPWAOpen] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -356,21 +357,25 @@ function App() {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.1 }}
-                                    className="text-5xl md:text-6xl lg:text-7xl font-display leading-[1.1]"
+                                    className="text-5xl md:text-6xl lg:text-7xl font-display leading-[1.1] min-h-[140px] md:min-h-[160px]"
                                 >
-                                    Building Production-Grade<br />
-                                    <span className="text-[#C4785A]">RAG & GenAI Systems</span>
+                                    I specialize in <br />
+                                    <span className="text-[#C4785A]">
+                                        {displayText}
+                                        <span className="animate-pulse ml-1 text-[#C4785A]">|</span>
+                                    </span>
                                 </motion.h1>
 
-                                {/* Typewriter */}
+                                {/* Subtitle */}
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.2 }}
                                     className="text-lg text-[#5A5855] max-w-xl"
                                 >
-                                    <span className={isDarkMode ? "text-white" : "text-[#1C1C1C]"}>{displayText}</span>
-                                    <span className="text-[#C4785A] animate-pulse">|</span>
+                                    <span className={isDarkMode ? "text-gray-400" : "text-[#5A5855]"}>
+                                        Transforming complex challenges into elegant, production-ready AI systems and full-stack web applications.
+                                    </span>
                                 </motion.div>
 
                                 {/* Buttons + QR Placeholder */}
@@ -426,25 +431,10 @@ function App() {
                                         className="p-3 bg-[#0A66C2] text-white rounded-full hover:bg-[#004182] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
                                         <Linkedin size={20} />
                                     </a>
-                                    {/* Email - Red */}
                                     <a href="mailto:kumarambuj8@gmail.com"
                                         className="p-3 bg-[#EA4335] text-white rounded-full hover:bg-[#C5221F] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
                                         <Mail size={20} />
                                     </a>
-                                    {/* Resume View Button - Animated */}
-                                    <a
-                                        href="/resume.pdf"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="group flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-[#C4785A] to-[#E8A87C] text-white rounded-full hover:shadow-xl transition-all shadow-lg hover:-translate-y-1 font-medium text-sm"
-                                    >
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:scale-110 transition-transform">
-                                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-                                            <circle cx="12" cy="12" r="3" />
-                                        </svg>
-                                        <span className="group-hover:tracking-wider transition-all">View Resume</span>
-                                    </a>
-
                                 </motion.div>
                             </div>
 
@@ -719,100 +709,128 @@ function App() {
                             </p>
                         </div>
 
-                        {/* ALL PROJECTS - No slicing */}
-                        <div className="grid md:grid-cols-2 gap-8">
-                            {PROJECTS_DATA.map((project, index) => (
-                                <motion.div
-                                    key={index}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.1 * index, duration: 0.3 }}
-                                    whileHover={{
-                                        scale: 1.02,
-                                        y: -5,
-                                    }}
-                                    className="group block p-4 rounded-xl transition-all duration-300 tilt-card glow-hover"
+                        {/* Project Category Filters */}
+                        <div className="flex flex-wrap items-center gap-2 mb-8">
+                            {['All', 'Agentic RAG', 'AI / ML', 'Full Stack'].map((filter) => (
+                                <button
+                                    key={filter}
+                                    onClick={() => setActiveProjectFilter(filter)}
+                                    className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeProjectFilter === filter
+                                        ? 'bg-[#C4785A] text-white shadow-lg shadow-[#C4785A]/20 scale-105'
+                                        : isDarkMode
+                                            ? 'bg-[#1C1C1C] text-gray-400 hover:text-white hover:bg-[#2A2A2A] border border-white/5'
+                                            : 'bg-white text-[#5A5855] hover:text-[#1C1C1C] border border-[#E8E4DB] shadow-sm'
+                                        }`}
                                 >
-                                    <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
-                                        <div className="img-reveal mb-5">
-                                            <img
-                                                src={project.image}
-                                                alt={project.title}
-                                                className="w-full aspect-video object-cover"
-                                            />
-                                        </div>
-                                        <div className="flex justify-between items-start gap-4">
-                                            <div>
-                                                <h3 className={`font-display text-xl mb-2 group-hover:text-[#C4785A] transition-colors ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                                    {project.title}
-                                                </h3>
-                                                <p className="text-sm text-[#5A5855] line-clamp-2 mb-3">{project.description}</p>
-                                                <div className="flex flex-wrap gap-2">
-                                                    {project.tags.slice(0, 3).map((tag, i) => (
-                                                        <span key={i} className={isDarkMode ? "tag-dark" : "tag"}>{tag}</span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                            <ExternalLink size={18} className="text-[#5A5855] group-hover:text-[#C4785A] transition-colors flex-shrink-0" />
-                                        </div>
-                                    </a>
-                                    {/* Action Buttons */}
-                                    {(project.architectureDiagram || project.caseStudyId) && (
-                                        <div className="mt-4 flex flex-col sm:flex-row gap-3">
-                                            {project.caseStudyId && (
-                                                <button
-                                                    onClick={() => setActiveCaseStudyId(project.caseStudyId!)}
-                                                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300"
-                                                    style={{
-                                                        background: isDarkMode
-                                                            ? 'linear-gradient(135deg, rgba(196,120,90,0.2), rgba(196,120,90,0.1))'
-                                                            : 'linear-gradient(135deg, rgba(196,120,90,0.15), rgba(196,120,90,0.05))',
-                                                        border: '1px solid rgba(196,120,90,0.4)',
-                                                        color: '#C4785A',
-                                                    }}
-                                                    onMouseEnter={(e) => {
-                                                        e.currentTarget.style.background = 'linear-gradient(135deg, #C4785A, #E8A87C)';
-                                                        e.currentTarget.style.color = '#fff';
-                                                        e.currentTarget.style.borderColor = 'transparent';
-                                                    }}
-                                                    onMouseLeave={(e) => {
-                                                        e.currentTarget.style.background = isDarkMode
-                                                            ? 'linear-gradient(135deg, rgba(196,120,90,0.2), rgba(196,120,90,0.1))'
-                                                            : 'linear-gradient(135deg, rgba(196,120,90,0.15), rgba(196,120,90,0.05))';
-                                                        e.currentTarget.style.color = '#C4785A';
-                                                        e.currentTarget.style.borderColor = 'rgba(196,120,90,0.4)';
-                                                    }}
-                                                >
-                                                    📄 Read Case Study
-                                                </button>
-                                            )}
-                                            {project.architectureDiagram && (
-                                                <button
-                                                    onClick={() => setArchImage(project.architectureDiagram!)}
-                                                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300"
-                                                    style={{
-                                                        background: isDarkMode
-                                                            ? 'rgba(255,255,255,0.05)'
-                                                            : 'rgba(0,0,0,0.05)',
-                                                        border: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)',
-                                                        color: isDarkMode ? '#aaa' : '#666',
-                                                    }}
-                                                    onMouseEnter={(e) => {
-                                                        e.currentTarget.style.background = isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
-                                                        e.currentTarget.style.color = isDarkMode ? '#fff' : '#333';
-                                                    }}
-                                                    onMouseLeave={(e) => {
-                                                        e.currentTarget.style.background = isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';
-                                                        e.currentTarget.style.color = isDarkMode ? '#aaa' : '#666';
-                                                    }}
-                                                >
-                                                    🏗️ Architecture
-                                                </button>
-                                            )}
-                                        </div>
-                                    )}
-                                </motion.div>
+                                    {filter}
+                                </button>
                             ))}
+                        </div>
+
+                        {/* Filtered Projects Grid */}
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <AnimatePresence mode="popLayout">
+                                {PROJECTS_DATA.filter(project => {
+                                    if (activeProjectFilter === 'All') return true;
+                                    if (activeProjectFilter === 'Agentic RAG') return project.tags.some(tag => ['LangGraph', 'RAG', 'Agentic'].some(t => tag.includes(t)));
+                                    if (activeProjectFilter === 'AI / ML') return project.tags.some(tag => ['AI', 'ML', 'Llama', 'Gemini'].some(t => tag.includes(t)));
+                                    if (activeProjectFilter === 'Full Stack') return project.tags.some(tag => ['React', 'FastAPI', 'System Design'].some(t => tag.includes(t)) && !project.tags.some(t => t.includes('RAG')));
+                                    return true;
+                                }).map((project, index) => (
+                                    <motion.div
+                                        key={project.title}
+                                        layout
+                                        initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                                        exit={{ opacity: 0, scale: 0.9 }}
+                                        transition={{ duration: 0.3, delay: 0.05 * index }}
+                                        whileHover={{
+                                            scale: 1.02,
+                                            y: -5,
+                                        }}
+                                        className="group block p-4 rounded-xl transition-all duration-300 tilt-card glow-hover"
+                                    >
+                                        <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
+                                            <div className="img-reveal mb-5">
+                                                <img
+                                                    src={project.image}
+                                                    alt={project.title}
+                                                    className="w-full aspect-video object-cover"
+                                                />
+                                            </div>
+                                            <div className="flex justify-between items-start gap-4">
+                                                <div>
+                                                    <h3 className={`font-display text-xl mb-2 group-hover:text-[#C4785A] transition-colors ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
+                                                        {project.title}
+                                                    </h3>
+                                                    <p className="text-sm text-[#5A5855] line-clamp-2 mb-3">{project.description}</p>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {project.tags.slice(0, 3).map((tag, i) => (
+                                                            <span key={i} className={isDarkMode ? "tag-dark" : "tag"}>{tag}</span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                                <ExternalLink size={18} className="text-[#5A5855] group-hover:text-[#C4785A] transition-colors flex-shrink-0" />
+                                            </div>
+                                        </a>
+                                        {/* Action Buttons */}
+                                        {(project.architectureDiagram || project.caseStudyId) && (
+                                            <div className="mt-4 flex flex-col sm:flex-row gap-3">
+                                                {project.caseStudyId && (
+                                                    <button
+                                                        onClick={() => setActiveCaseStudyId(project.caseStudyId!)}
+                                                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300"
+                                                        style={{
+                                                            background: isDarkMode
+                                                                ? 'linear-gradient(135deg, rgba(196,120,90,0.2), rgba(196,120,90,0.1))'
+                                                                : 'linear-gradient(135deg, rgba(196,120,90,0.15), rgba(196,120,90,0.05))',
+                                                            border: '1px solid rgba(196,120,90,0.4)',
+                                                            color: '#C4785A',
+                                                        }}
+                                                        onMouseEnter={(e) => {
+                                                            e.currentTarget.style.background = 'linear-gradient(135deg, #C4785A, #E8A87C)';
+                                                            e.currentTarget.style.color = '#fff';
+                                                            e.currentTarget.style.borderColor = 'transparent';
+                                                        }}
+                                                        onMouseLeave={(e) => {
+                                                            e.currentTarget.style.background = isDarkMode
+                                                                ? 'linear-gradient(135deg, rgba(196,120,90,0.2), rgba(196,120,90,0.1))'
+                                                                : 'linear-gradient(135deg, rgba(196,120,90,0.15), rgba(196,120,90,0.05))';
+                                                            e.currentTarget.style.color = '#C4785A';
+                                                            e.currentTarget.style.borderColor = 'rgba(196,120,90,0.4)';
+                                                        }}
+                                                    >
+                                                        📄 Read Case Study
+                                                    </button>
+                                                )}
+                                                {project.architectureDiagram && (
+                                                    <button
+                                                        onClick={() => setArchImage(project.architectureDiagram!)}
+                                                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300"
+                                                        style={{
+                                                            background: isDarkMode
+                                                                ? 'rgba(255,255,255,0.05)'
+                                                                : 'rgba(0,0,0,0.05)',
+                                                            border: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)',
+                                                            color: isDarkMode ? '#aaa' : '#666',
+                                                        }}
+                                                        onMouseEnter={(e) => {
+                                                            e.currentTarget.style.background = isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+                                                            e.currentTarget.style.color = isDarkMode ? '#fff' : '#333';
+                                                        }}
+                                                        onMouseLeave={(e) => {
+                                                            e.currentTarget.style.background = isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';
+                                                            e.currentTarget.style.color = isDarkMode ? '#aaa' : '#666';
+                                                        }}
+                                                    >
+                                                        🏗️ Architecture
+                                                    </button>
+                                                )}
+                                            </div>
+                                        )}
+                                    </motion.div>
+                                ))}
+                            </AnimatePresence>
                         </div>
                     </div>
                 </section>

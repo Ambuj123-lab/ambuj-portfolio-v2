@@ -8,12 +8,12 @@ interface Props {
 
 export default function AgenticTrace({ isDarkMode }: Props) {
     const nodes = [
-        { id: 1, icon: MessageSquare, label: "User Query", desc: "Legal clauses?" },
-        { id: 2, icon: Network, label: "Router Agent", desc: "Intent Strategy" },
-        { id: 3, icon: Database, label: "Vector Search", desc: "Pinecone / Qdrant" },
+        { id: 1, icon: MessageSquare, label: "User Query", desc: "Non-compete clause?" },
+        { id: 2, icon: Network, label: "LangGraph Router", desc: "Intent & Strategy" },
+        { id: 3, icon: Database, label: "Vector Search", desc: "ChromaDB / Qdrant" },
         { id: 4, icon: Server, label: "Document Store", desc: "Supabase (Parent Chunks)" },
-        { id: 5, icon: BrainCircuit, label: "LLM Gen", desc: "Llama 3 inference" },
-        { id: 6, icon: CheckCircle, label: "Evaluator", desc: "Hallucination Guard" },
+        { id: 5, icon: BrainCircuit, label: "LLM Generation", desc: "Llama 3 via OpenRouter" },
+        { id: 6, icon: CheckCircle, label: "Critic Evaluator", desc: "Hallucination Guard" },
     ];
 
     // Colors
@@ -67,22 +67,22 @@ export default function AgenticTrace({ isDarkMode }: Props) {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, margin: "-100px" }}
-                        className="flex flex-col xl:flex-row items-center justify-between gap-6 xl:gap-2 relative z-10 w-full"
+                        className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-2 relative z-10 w-full"
                     >
                         {nodes.map((node, index) => (
-                            <div key={node.id} className="relative flex-1 w-full flex flex-col items-center group">
+                            <div key={node.id} className="relative flex-1 w-full lg:w-auto flex flex-col items-center group">
                                 {/* The Component Box */}
                                 <motion.div
                                     variants={blockVariants}
-                                    className={`w-full max-w-[280px] xl:max-w-[170px] p-5 xl:p-4 rounded-xl border ${bgClass} shadow-lg flex flex-col items-center text-center relative z-20 transition-all duration-300 group-hover:shadow-[0_0_25px_rgba(196,120,90,0.15)] group-hover:-translate-y-1 bg-gradient-to-br ${isDarkMode ? 'from-white/[0.02] to-transparent' : 'from-black/[0.01] to-transparent'}`}
+                                    className={`w-full max-w-[280px] lg:max-w-full p-5 lg:p-4 rounded-xl border ${bgClass} shadow-lg flex flex-col items-center text-center relative z-20 transition-all duration-300 group-hover:shadow-[0_0_25px_rgba(196,120,90,0.15)] group-hover:-translate-y-1 bg-gradient-to-br ${isDarkMode ? 'from-white/[0.02] to-transparent' : 'from-black/[0.01] to-transparent'}`}
                                 >
                                     <div className={`w-12 h-12 rounded-full mb-3 flex items-center justify-center bg-[#C4785A]/10 ${accent} group-hover:scale-110 transition-transform duration-300`}>
                                         <node.icon size={22} className="relative z-10" />
                                         {/* Subtle icon glow */}
                                         <div className="absolute inset-0 bg-[#C4785A] blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-full"></div>
                                     </div>
-                                    <h3 className={`font-semibold text-sm xl:text-xs 2xl:text-sm mb-1 ${textPrimary}`}>{node.label}</h3>
-                                    <p className={`text-xs xl:text-[10px] 2xl:text-xs ${textSecondary}`}>{node.desc}</p>
+                                    <h3 className={`font-semibold text-sm lg:text-xs 2xl:text-sm mb-1 ${textPrimary}`}>{node.label}</h3>
+                                    <p className={`text-xs lg:text-[10px] 2xl:text-xs ${textSecondary}`}>{node.desc}</p>
 
                                     {/* Continuous Pulse effect wrapper */}
                                     <motion.div
@@ -102,7 +102,7 @@ export default function AgenticTrace({ isDarkMode }: Props) {
 
                                 {/* Desktop Electric Beam */}
                                 {index < nodes.length - 1 && (
-                                    <div className="hidden xl:block absolute top-1/2 left-[calc(50%+85px)] right-[calc(-50%+85px)] h-[2px] -translate-y-1/2 z-0 overflow-hidden">
+                                    <div className="hidden lg:block absolute top-[24px] left-[50%] w-full h-[2px] z-0 overflow-hidden">
                                         <div className={`w-full h-full ${isDarkMode ? 'bg-white/5' : 'bg-black/5'}`}></div>
 
                                         {/* Electric Current Animation */}
@@ -121,7 +121,7 @@ export default function AgenticTrace({ isDarkMode }: Props) {
 
                                 {/* Mobile/Tablet Downward Beam */}
                                 {index < nodes.length - 1 && (
-                                    <div className="xl:hidden w-[2px] h-10 relative my-1 z-0 overflow-hidden">
+                                    <div className="lg:hidden w-[2px] h-10 relative my-1 z-0 overflow-hidden">
                                         <div className={`w-full h-full flex justify-center ${isDarkMode ? 'bg-white/5' : 'bg-black/5'}`}></div>
 
                                         <motion.div

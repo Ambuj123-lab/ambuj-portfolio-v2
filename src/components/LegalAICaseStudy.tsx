@@ -260,7 +260,7 @@ const LegalAICaseStudy: React.FC = () => {
                     </div>
 
                     {/* Architecture Diagram */}
-                    <Img src="/projects/LegalAI_architecture.png" alt="System Architecture" />
+                    <Img src="/projects/LegalAI_architecture_animated.svg" alt="System Architecture" />
                     <Cap>Full System Architecture: React Frontend &rarr; FastAPI Backend &rarr; LangGraph Orchestrator &rarr; Qdrant Vector DB</Cap>
 
                     {/* ═══ 1. EVOLUTION ═══ */}
@@ -522,7 +522,7 @@ const LegalAICaseStudy: React.FC = () => {
                     </div>
 
                     {/* Architecture Diagram */}
-                    <Img src="/projects/LegalAI_architecture.png" alt="System Architecture" />
+                    <Img src="/projects/LegalAI_architecture_animated.svg" alt="System Architecture" />
                     <Cap>Full System Architecture: React Frontend &rarr; FastAPI Backend &rarr; LangGraph Orchestrator &rarr; Qdrant Vector DB</Cap>
 
                     {/* ═══ 1. सफर ═══ */}

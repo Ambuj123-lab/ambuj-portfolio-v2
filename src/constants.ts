@@ -102,8 +102,8 @@ export const PROJECTS_DATA: Project[] = [
     icon: 'fas fa-balance-scale',
     description: 'Production-grade Legal AI with LangGraph orchestration, Parent-Child chunking on Qdrant Cloud, PII masking (Presidio + spaCy), Google OAuth 2.0, SSE streaming, Circuit Breaker pattern, Langfuse observability, and SHA-256 hash-based Sync Engine. Built with React, FastAPI, Qwen 3 235B.',
     tags: ['LangGraph', 'Qdrant', 'FastAPI', 'Presidio', 'Langfuse', 'OAuth 2.0'],
-    demoLink: 'https://competitive-elaine-ambuj-ragai-f52aa725.koyeb.app/',
-    architectureDiagram: '/projects/LegalAI_architecture.png',
+    demoLink: 'https://indian-legal-ai-expert.onrender.com/',
+    architectureDiagram: '/projects/LegalAI_architecture_animated.svg',
     caseStudyId: 'legal-ai'
   },
   {

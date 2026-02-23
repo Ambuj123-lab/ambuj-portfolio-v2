@@ -1,0 +1,383 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 860" width="100%" height="100%">
+<defs>
+  <!-- Background -->
+  <radialGradient id="bgRad" cx="40%" cy="35%" r="70%">
+    <stop offset="0%" stop-color="#0a0f1e"/>
+    <stop offset="100%" stop-color="#050810"/>
+  </radialGradient>
+
+  <!-- Node gradients -->
+  <linearGradient id="gBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#0d1f35"/>
+  </linearGradient>
+  <linearGradient id="gPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#2d1b4e"/><stop offset="100%" stop-color="#150d25"/>
+  </linearGradient>
+  <linearGradient id="gGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#0d2b1e"/><stop offset="100%" stop-color="#051410"/>
+  </linearGradient>
+  <linearGradient id="gOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#2d1a05"/><stop offset="100%" stop-color="#160c00"/>
+  </linearGradient>
+  <linearGradient id="gRed" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#2d0d0d"/><stop offset="100%" stop-color="#150404"/>
+  </linearGradient>
+  <linearGradient id="gIndigo" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#1a1a40"/><stop offset="100%" stop-color="#0a0a20"/>
+  </linearGradient>
+
+  <!-- DB cylinder gradients -->
+  <linearGradient id="dbMongo" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#1a3a2a"/><stop offset="100%" stop-color="#0d1f15"/>
+  </linearGradient>
+  <linearGradient id="dbRedis" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#3a1a1a"/><stop offset="100%" stop-color="#1f0d0d"/>
+  </linearGradient>
+  <linearGradient id="dbChroma" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#2a1a3a"/><stop offset="100%" stop-color="#150d20"/>
+  </linearGradient>
+
+  <!-- Glow filters -->
+  <filter id="glow-blue" x="-40%" y="-40%" width="180%" height="180%">
+    <feGaussianBlur stdDeviation="4" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glow-purple" x="-40%" y="-40%" width="180%" height="180%">
+    <feGaussianBlur stdDeviation="5" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glow-green" x="-40%" y="-40%" width="180%" height="180%">
+    <feGaussianBlur stdDeviation="4" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glow-orange" x="-40%" y="-40%" width="180%" height="180%">
+    <feGaussianBlur stdDeviation="5" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="shadow" x="-10%" y="-10%" width="130%" height="140%">
+    <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity="0.6"/>
+  </filter>
+
+  <!-- Arrow markers -->
+  <marker id="arr-b" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+    <path d="M0,0 L8,4 L0,8 z" fill="#3b82f6"/>
+  </marker>
+  <marker id="arr-p" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+    <path d="M0,0 L8,4 L0,8 z" fill="#8b5cf6"/>
+  </marker>
+  <marker id="arr-g" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+    <path d="M0,0 L8,4 L0,8 z" fill="#10b981"/>
+  </marker>
+  <marker id="arr-o" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+    <path d="M0,0 L8,4 L0,8 z" fill="#f59e0b"/>
+  </marker>
+  <marker id="arr-r" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+    <path d="M0,0 L8,4 L0,8 z" fill="#ef4444"/>
+  </marker>
+
+  <!-- Grid pattern -->
+  <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+    <path d="M50,0 L0,0 0,50" fill="none" stroke="#0f1929" stroke-width="0.6"/>
+  </pattern>
+</defs>
+
+<style>
+  /* Zone pulses */
+  .zone-client { animation: zc 4s ease-in-out infinite; }
+  .zone-frontend { animation: zf 4.5s ease-in-out infinite; }
+  .zone-backend { animation: zb 5s ease-in-out infinite; }
+  .zone-persist { animation: zp 4s ease-in-out infinite; }
+  .zone-security { animation: zs 4.5s ease-in-out infinite; }
+  .zone-ai { animation: za 5s ease-in-out infinite; }
+
+  @keyframes zc { 0%,100%{opacity:0.7} 50%{opacity:1; filter:drop-shadow(0 0 10px rgba(239,68,68,0.3));} }
+  @keyframes zf { 0%,100%{opacity:0.7} 50%{opacity:1; filter:drop-shadow(0 0 10px rgba(59,130,246,0.3));} }
+  @keyframes zb { 0%,100%{opacity:0.7} 50%{opacity:1; filter:drop-shadow(0 0 10px rgba(139,92,246,0.3));} }
+  @keyframes zp { 0%,100%{opacity:0.7} 50%{opacity:1; filter:drop-shadow(0 0 10px rgba(99,102,241,0.3));} }
+  @keyframes zs { 0%,100%{opacity:0.7} 50%{opacity:1; filter:drop-shadow(0 0 10px rgba(16,185,129,0.3));} }
+  @keyframes za { 0%,100%{opacity:0.7} 50%{opacity:1; filter:drop-shadow(0 0 10px rgba(245,158,11,0.3));} }
+
+  /* Node pulses */
+  .node-blue { animation: nb 3s ease-in-out infinite; }
+  .node-purple { animation: np 3.5s ease-in-out infinite; }
+  .node-green { animation: ng 3s ease-in-out infinite; }
+  .node-orange { animation: no 2.8s ease-in-out infinite; }
+  .node-red { animation: nr 3.2s ease-in-out infinite; }
+  .node-llm { animation: nl 1.8s ease-in-out infinite; }
+  .node-db { animation: nd 4s ease-in-out infinite; }
+
+  @keyframes nb { 0%,100%{filter:drop-shadow(0 0 4px #3b82f6) drop-shadow(0 6px 8px rgba(0,0,0,0.5));} 50%{filter:drop-shadow(0 0 12px #3b82f6) drop-shadow(0 0 24px rgba(59,130,246,0.25)) drop-shadow(0 6px 8px rgba(0,0,0,0.5));} }
+  @keyframes np { 0%,100%{filter:drop-shadow(0 0 4px #8b5cf6) drop-shadow(0 6px 8px rgba(0,0,0,0.5));} 50%{filter:drop-shadow(0 0 14px #8b5cf6) drop-shadow(0 0 28px rgba(139,92,246,0.25)) drop-shadow(0 6px 8px rgba(0,0,0,0.5));} }
+  @keyframes ng { 0%,100%{filter:drop-shadow(0 0 4px #10b981) drop-shadow(0 6px 8px rgba(0,0,0,0.5));} 50%{filter:drop-shadow(0 0 12px #10b981) drop-shadow(0 0 24px rgba(16,185,129,0.25)) drop-shadow(0 6px 8px rgba(0,0,0,0.5));} }
+  @keyframes no { 0%,100%{filter:drop-shadow(0 0 4px #f59e0b) drop-shadow(0 6px 8px rgba(0,0,0,0.5));} 50%{filter:drop-shadow(0 0 14px #f59e0b) drop-shadow(0 0 28px rgba(245,158,11,0.25)) drop-shadow(0 6px 8px rgba(0,0,0,0.5));} }
+  @keyframes nr { 0%,100%{filter:drop-shadow(0 0 4px #ef4444) drop-shadow(0 6px 8px rgba(0,0,0,0.5));} 50%{filter:drop-shadow(0 0 12px #ef4444) drop-shadow(0 0 24px rgba(239,68,68,0.25)) drop-shadow(0 6px 8px rgba(0,0,0,0.5));} }
+  @keyframes nl { 0%,100%{filter:drop-shadow(0 0 6px #f59e0b) drop-shadow(0 6px 8px rgba(0,0,0,0.5));} 50%{filter:drop-shadow(0 0 20px #f59e0b) drop-shadow(0 0 40px rgba(245,158,11,0.4)) drop-shadow(0 6px 8px rgba(0,0,0,0.5));} }
+  @keyframes nd { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-5px);} }
+
+  /* Flow dots */
+  .dot-b { animation: db 1.4s ease-in-out infinite; }
+  .dot-p { animation: dp 1.4s ease-in-out infinite; }
+  .dot-g { animation: dg 1.4s ease-in-out infinite; }
+  .dot-o { animation: do 1.4s ease-in-out infinite; }
+
+  @keyframes db { 0%,100%{opacity:0.5;} 50%{opacity:1; filter:drop-shadow(0 0 5px #60a5fa);} }
+  @keyframes dp { 0%,100%{opacity:0.5;} 50%{opacity:1; filter:drop-shadow(0 0 5px #a78bfa);} }
+  @keyframes dg { 0%,100%{opacity:0.5;} 50%{opacity:1; filter:drop-shadow(0 0 5px #34d399);} }
+  @keyframes do { 0%,100%{opacity:0.5;} 50%{opacity:1; filter:drop-shadow(0 0 5px #fbbf24);} }
+
+  /* Title glow */
+  .title { animation: tg 4s ease-in-out infinite; }
+  @keyframes tg { 0%,100%{filter:drop-shadow(0 0 8px rgba(139,92,246,0.5));} 50%{filter:drop-shadow(0 0 20px rgba(139,92,246,0.8));} }
+
+  /* DB float */
+  .db-float { animation: df 3.5s ease-in-out infinite; }
+  @keyframes df { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
+</style>
+
+<!-- Background -->
+<rect width="1400" height="860" fill="url(#bgRad)"/>
+<rect width="1400" height="860" fill="url(#grid)"/>
+
+<!-- Ambient glow blobs -->
+<circle cx="350" cy="430" r="280" fill="#3b82f6" opacity="0.03"/>
+<circle cx="900" cy="300" r="200" fill="#8b5cf6" opacity="0.04"/>
+<circle cx="1200" cy="580" r="220" fill="#f59e0b" opacity="0.03"/>
+<circle cx="700" cy="150" r="180" fill="#10b981" opacity="0.03"/>
+
+<!-- Title -->
+<g class="title">
+  <text x="50" y="58" fill="#f8fafc" font-family="'Segoe UI',sans-serif" font-size="26" font-weight="800" letter-spacing="1.5">CITIZEN SAFETY AI</text>
+  <text x="50" y="82" fill="#8b5cf6" font-family="'Segoe UI',sans-serif" font-size="14" font-weight="600" letter-spacing="3">SYSTEM ARCHITECTURE 2026</text>
+</g>
+<text x="50" y="102" fill="#475569" font-family="'Segoe UI',sans-serif" font-size="11" letter-spacing="1">Production-Grade RAG · GDPR Compliant · Fault Tolerant · Observable</text>
+<rect x="50" y="112" width="320" height="2" rx="1" fill="#8b5cf6" opacity="0.7"/>
+
+<!-- Watermark -->
+<text x="1360" y="848" text-anchor="end" fill="#334155" font-family="'Segoe UI',sans-serif" font-size="11">Architected by <tspan fill="#38bdf8" font-weight="700">Ambuj Kumar Tripathi</tspan> © 2026</text>
+
+<!-- ====== ZONE BACKGROUNDS (pill/rounded, not sharp rectangles) ====== -->
+
+<!-- Client Zone -->
+<rect x="42" y="390" width="155" height="195" rx="20" fill="#ef4444" fill-opacity="0.06" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="6,4" class="zone-client"/>
+<text x="120" y="412" text-anchor="middle" fill="#fca5a5" font-family="sans-serif" font-size="9" font-weight="700" letter-spacing="2">CLIENT</text>
+
+<!-- Frontend Zone -->
+<rect x="215" y="390" width="195" height="195" rx="20" fill="#3b82f6" fill-opacity="0.06" stroke="#3b82f6" stroke-width="1.2" stroke-dasharray="6,4" class="zone-frontend"/>
+<text x="312" y="412" text-anchor="middle" fill="#93c5fd" font-family="sans-serif" font-size="9" font-weight="700" letter-spacing="2">FRONTEND</text>
+
+<!-- Backend Zone -->
+<rect x="428" y="380" width="355" height="310" rx="20" fill="#8b5cf6" fill-opacity="0.06" stroke="#8b5cf6" stroke-width="1.2" stroke-dasharray="6,4" class="zone-backend"/>
+<text x="605" y="402" text-anchor="middle" fill="#c4b5fd" font-family="sans-serif" font-size="9" font-weight="700" letter-spacing="2">FASTAPI BACKEND</text>
+
+<!-- Persistence Zone (top center) -->
+<rect x="520" y="130" width="250" height="220" rx="20" fill="#6366f1" fill-opacity="0.06" stroke="#6366f1" stroke-width="1.2" stroke-dasharray="6,4" class="zone-persist"/>
+<text x="645" y="152" text-anchor="middle" fill="#a5b4fc" font-family="sans-serif" font-size="9" font-weight="700" letter-spacing="2">PERSISTENCE</text>
+
+<!-- Security Zone -->
+<rect x="808" y="440" width="190" height="215" rx="20" fill="#10b981" fill-opacity="0.06" stroke="#10b981" stroke-width="1.2" stroke-dasharray="6,4" class="zone-security"/>
+<text x="903" y="462" text-anchor="middle" fill="#6ee7b7" font-family="sans-serif" font-size="9" font-weight="700" letter-spacing="2">SECURITY</text>
+
+<!-- AI Layer Zone -->
+<rect x="1022" y="390" width="340" height="310" rx="20" fill="#f59e0b" fill-opacity="0.06" stroke="#f59e0b" stroke-width="1.2" stroke-dasharray="6,4" class="zone-ai"/>
+<text x="1192" y="412" text-anchor="middle" fill="#fcd34d" font-family="sans-serif" font-size="9" font-weight="700" letter-spacing="2">AI LAYER · LangChain RAG</text>
+
+<!-- ====== FLOW PATHS ====== -->
+
+<!-- Client -> Frontend -->
+<path id="f1" d="M198 490 L215 490" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-dasharray="6,3" marker-end="url(#arr-b)"/>
+<circle r="3.5" fill="#60a5fa" class="dot-b"><animateMotion dur="1.5s" repeatCount="indefinite"><mpath href="#f1"/></animateMotion></circle>
+
+<!-- Frontend -> Backend -->
+<path id="f2" d="M410 490 L428 490" fill="none" stroke="#8b5cf6" stroke-width="1.8" stroke-dasharray="6,3" marker-end="url(#arr-p)"/>
+<circle r="3.5" fill="#a78bfa" class="dot-p"><animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#f2"/></animateMotion></circle>
+
+<!-- Rate Limiter -> Circuit Breaker -->
+<path id="f3" d="M605 490 L605 540" fill="none" stroke="#8b5cf6" stroke-width="1.8" stroke-dasharray="6,3" marker-end="url(#arr-p)"/>
+<circle r="3.5" fill="#a78bfa" class="dot-p"><animateMotion dur="1.6s" repeatCount="indefinite"><mpath href="#f3"/></animateMotion></circle>
+
+<!-- Circuit Breaker -> RAG Engine -->
+<path id="f4" d="M605 590 L605 630" fill="none" stroke="#8b5cf6" stroke-width="1.8" stroke-dasharray="6,3" marker-end="url(#arr-p)"/>
+<circle r="3.5" fill="#a78bfa" class="dot-p"><animateMotion dur="1.6s" repeatCount="indefinite"><mpath href="#f4"/></animateMotion></circle>
+
+<!-- Backend -> Persistence (upward) -->
+<path id="f5" d="M605 380 C605 320, 645 280, 645 348" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-b)"/>
+<circle r="3" fill="#818cf8" class="dot-b"><animateMotion dur="2s" repeatCount="indefinite"><mpath href="#f5"/></animateMotion></circle>
+
+<!-- Backend -> MongoDB (upward curve) -->
+<path id="f6" d="M560 380 C560 280, 580 250, 580 248" fill="none" stroke="#6366f1" stroke-width="1.3" stroke-dasharray="4,3" marker-end="url(#arr-b)"/>
+<circle r="2.5" fill="#818cf8" class="dot-b"><animateMotion dur="2.5s" repeatCount="indefinite"><mpath href="#f6"/></animateMotion></circle>
+
+<!-- Backend -> Redis -->
+<path id="f7" d="M650 380 C650 290, 680 260, 690 248" fill="none" stroke="#6366f1" stroke-width="1.3" stroke-dasharray="4,3" marker-end="url(#arr-b)"/>
+<circle r="2.5" fill="#818cf8" class="dot-b"><animateMotion dur="2.8s" repeatCount="indefinite"><mpath href="#f7"/></animateMotion></circle>
+
+<!-- RAG -> Presidio -->
+<path id="f8" d="M783 648 C820 648, 840 590, 840 568" fill="none" stroke="#10b981" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arr-g)"/>
+<circle r="3.5" fill="#34d399" class="dot-g"><animateMotion dur="2s" repeatCount="indefinite"><mpath href="#f8"/></animateMotion></circle>
+
+<!-- RAG -> spaCy -->
+<path id="f9" d="M783 658 C840 658, 855 680, 855 668" fill="none" stroke="#10b981" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-g)"/>
+<circle r="3" fill="#34d399" class="dot-g"><animateMotion dur="2.3s" repeatCount="indefinite"><mpath href="#f9"/></animateMotion></circle>
+
+<!-- Presidio -> ChromaDB -->
+<path id="f10" d="M998 556 L1040 556" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arr-o)"/>
+<circle r="3.5" fill="#fbbf24" class="dot-o"><animateMotion dur="1.5s" repeatCount="indefinite"><mpath href="#f10"/></animateMotion></circle>
+
+<!-- ChromaDB -> Llama -->
+<path id="f11" d="M1165 534 L1200 534" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arr-o)"/>
+<circle r="3.5" fill="#fbbf24" class="dot-o"><animateMotion dur="1.3s" repeatCount="indefinite"><mpath href="#f11"/></animateMotion></circle>
+
+<!-- RAG -> Google Embeddings -->
+<path id="f12" d="M783 668 C900 720, 1020 700, 1040 680" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-o)"/>
+<circle r="3" fill="#fbbf24" class="dot-o"><animateMotion dur="2.5s" repeatCount="indefinite"><mpath href="#f12"/></animateMotion></circle>
+
+<!-- Langfuse observability line -->
+<path id="f13" d="M605 380 C605 250, 700 200, 760 195" fill="none" stroke="#6366f1" stroke-width="1.2" stroke-dasharray="4,4" opacity="0.5"/>
+<circle r="2.5" fill="#818cf8" opacity="0.6"><animateMotion dur="3s" repeatCount="indefinite"><mpath href="#f13"/></animateMotion></circle>
+
+<!-- ====== NODES (pill/capsule shapes) ====== -->
+
+<!-- Browser/PWA -->
+<g class="node-red">
+  <rect x="55" y="462" width="130" height="44" rx="22" fill="url(#gRed)" stroke="#ef4444" stroke-width="1.8" filter="url(#shadow)"/>
+  <text x="120" y="489" text-anchor="middle" fill="#fecaca" font-family="'Segoe UI',sans-serif" font-size="12" font-weight="600">Browser / PWA</text>
+</g>
+
+<!-- Google OAuth -->
+<g class="node-blue">
+  <rect x="228" y="462" width="168" height="44" rx="22" fill="url(#gBlue)" stroke="#3b82f6" stroke-width="1.8" filter="url(#shadow)"/>
+  <text x="312" y="489" text-anchor="middle" fill="#bfdbfe" font-family="'Segoe UI',sans-serif" font-size="12" font-weight="600">Google OAuth 2.0</text>
+</g>
+
+<!-- Dashboard UI -->
+<g class="node-blue">
+  <rect x="248" y="524" width="130" height="44" rx="22" fill="url(#gBlue)" stroke="#3b82f6" stroke-width="1.6" filter="url(#shadow)"/>
+  <text x="313" y="551" text-anchor="middle" fill="#bfdbfe" font-family="'Segoe UI',sans-serif" font-size="12" font-weight="600">Dashboard UI</text>
+</g>
+
+<!-- Rate Limiter -->
+<g class="node-purple">
+  <rect x="458" y="462" width="294" height="44" rx="22" fill="url(#gPurple)" stroke="#8b5cf6" stroke-width="1.8" filter="url(#shadow)"/>
+  <text x="605" y="484" text-anchor="middle" fill="#ddd6fe" font-family="'Segoe UI',sans-serif" font-size="11" font-weight="600">SlowAPI Rate Limiter</text>
+  <text x="605" y="499" text-anchor="middle" fill="#8b5cf6" font-family="'Segoe UI',sans-serif" font-size="10">5–20 req/min · IP-based</text>
+</g>
+
+<!-- Circuit Breaker -->
+<g class="node-purple">
+  <rect x="458" y="540" width="294" height="44" rx="22" fill="url(#gPurple)" stroke="#8b5cf6" stroke-width="2" filter="url(#shadow)">
+    <animate attributeName="stroke-opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/>
+  </rect>
+  <text x="605" y="562" text-anchor="middle" fill="#ddd6fe" font-family="'Segoe UI',sans-serif" font-size="11" font-weight="600">Circuit Breaker</text>
+  <text x="605" y="577" text-anchor="middle" fill="#8b5cf6" font-family="'Segoe UI',sans-serif" font-size="10">pybreaker · fail_max=5 · 120s reset</text>
+</g>
+
+<!-- RAG Engine -->
+<g class="node-purple">
+  <rect x="458" y="620" width="294" height="52" rx="26" fill="url(#gPurple)" stroke="#a78bfa" stroke-width="2.2" filter="url(#shadow)">
+    <animate attributeName="stroke-width" values="1.5;3;1.5" dur="2.5s" repeatCount="indefinite"/>
+  </rect>
+  <text x="605" y="643" text-anchor="middle" fill="#ede9fe" font-family="'Segoe UI',sans-serif" font-size="12" font-weight="700">LangChain RAG Engine</text>
+  <text x="605" y="660" text-anchor="middle" fill="#8b5cf6" font-family="'Segoe UI',sans-serif" font-size="10">Parent-Child · Idempotent Upsert</text>
+</g>
+
+<!-- ====== PERSISTENCE DBs (cylinders) ====== -->
+
+<!-- MongoDB Atlas -->
+<g class="db-float" filter="url(#shadow)">
+  <ellipse cx="580" cy="170" rx="70" ry="14" fill="#1a3a2a" stroke="#10b981" stroke-width="1.5"/>
+  <rect x="510" y="170" width="140" height="55" fill="url(#dbMongo)" stroke="#10b981" stroke-width="1.5"/>
+  <ellipse cx="580" cy="225" rx="70" ry="14" fill="#0d2b1e" stroke="#10b981" stroke-width="1.5"/>
+  <text x="580" y="198" text-anchor="middle" fill="#6ee7b7" font-family="'Segoe UI',sans-serif" font-size="12" font-weight="700">MongoDB Atlas</text>
+  <text x="580" y="213" text-anchor="middle" fill="#34d399" font-family="'Segoe UI',sans-serif" font-size="10">Chat History · TTL 30d</text>
+</g>
+
+<!-- Upstash Redis -->
+<g class="db-float" style="animation-delay:0.8s" filter="url(#shadow)">
+  <ellipse cx="718" cy="170" rx="70" ry="14" fill="#3a1a1a" stroke="#ef4444" stroke-width="1.5"/>
+  <rect x="648" y="170" width="140" height="55" fill="url(#dbRedis)" stroke="#ef4444" stroke-width="1.5"/>
+  <ellipse cx="718" cy="225" rx="70" ry="14" fill="#1f0d0d" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="718" y="198" text-anchor="middle" fill="#fca5a5" font-family="'Segoe UI',sans-serif" font-size="12" font-weight="700">Upstash Redis</text>
+  <text x="718" y="213" text-anchor="middle" fill="#ef4444" font-family="'Segoe UI',sans-serif" font-size="10">Cache · SHA-256 · 1hr TTL</text>
+</g>
+
+<!-- Langfuse -->
+<g class="node-purple" filter="url(#shadow)">
+  <rect x="560" y="268" width="170" height="52" rx="26" fill="url(#gIndigo)" stroke="#6366f1" stroke-width="1.8"/>
+  <text x="645" y="291" text-anchor="middle" fill="#c7d2fe" font-family="'Segoe UI',sans-serif" font-size="12" font-weight="700">Langfuse</text>
+  <text x="645" y="308" text-anchor="middle" fill="#6366f1" font-family="'Segoe UI',sans-serif" font-size="10">Traces · Token Cost · Latency</text>
+</g>
+
+<!-- ====== SECURITY NODES ====== -->
+
+<!-- Presidio PII -->
+<g class="node-green">
+  <rect x="820" y="540" width="168" height="44" rx="22" fill="url(#gGreen)" stroke="#10b981" stroke-width="2" filter="url(#shadow)"/>
+  <text x="904" y="562" text-anchor="middle" fill="#d1fae5" font-family="'Segoe UI',sans-serif" font-size="11" font-weight="600">Presidio PII Masking</text>
+  <text x="904" y="577" text-anchor="middle" fill="#10b981" font-family="'Segoe UI',sans-serif" font-size="9">Aadhaar · Phone · Email</text>
+</g>
+
+<!-- spaCy NLP -->
+<g class="node-green">
+  <rect x="840" y="618" width="130" height="44" rx="22" fill="url(#gGreen)" stroke="#10b981" stroke-width="1.8" filter="url(#shadow)"/>
+  <text x="905" y="640" text-anchor="middle" fill="#d1fae5" font-family="'Segoe UI',sans-serif" font-size="12" font-weight="600">spaCy NLP</text>
+  <text x="905" y="655" text-anchor="middle" fill="#10b981" font-family="'Segoe UI',sans-serif" font-size="9">Trilingual Detection</text>
+</g>
+
+<!-- ====== AI LAYER ====== -->
+
+<!-- ChromaDB -->
+<g class="db-float" style="animation-delay:1.2s" filter="url(#shadow)">
+  <ellipse cx="1100" cy="505" rx="60" ry="12" fill="#2a1a3a" stroke="#8b5cf6" stroke-width="1.8"/>
+  <rect x="1040" y="505" width="120" height="50" fill="url(#dbChroma)" stroke="#8b5cf6" stroke-width="1.8"/>
+  <ellipse cx="1100" cy="555" rx="60" ry="12" fill="#150d20" stroke="#8b5cf6" stroke-width="1.8"/>
+  <text x="1100" y="530" text-anchor="middle" fill="#ddd6fe" font-family="'Segoe UI',sans-serif" font-size="12" font-weight="700">ChromaDB</text>
+  <text x="1100" y="547" text-anchor="middle" fill="#8b5cf6" font-family="'Segoe UI',sans-serif" font-size="10">644 Vectors · Jina Embed</text>
+</g>
+
+<!-- Llama 3.3 70B (main LLM - most prominent) -->
+<g class="node-llm">
+  <rect x="1200" y="508" width="148" height="60" rx="30" fill="#1a0a00" stroke="#f59e0b" stroke-width="2.5" filter="url(#shadow)"/>
+  <text x="1274" y="534" text-anchor="middle" fill="#fef3c7" font-family="'Segoe UI',sans-serif" font-size="13" font-weight="800">Llama 3.3 70B</text>
+  <text x="1274" y="552" text-anchor="middle" fill="#f59e0b" font-family="'Segoe UI',sans-serif" font-size="10">via Groq · sub-5s response</text>
+</g>
+
+<!-- Google Embeddings -->
+<g class="node-orange">
+  <rect x="1040" y="648" width="195" height="44" rx="22" fill="url(#gOrange)" stroke="#f59e0b" stroke-width="1.8" filter="url(#shadow)"/>
+  <text x="1137" y="670" text-anchor="middle" fill="#fef3c7" font-family="'Segoe UI',sans-serif" font-size="12" font-weight="600">Google Embeddings</text>
+  <text x="1137" y="685" text-anchor="middle" fill="#f59e0b" font-family="'Segoe UI',sans-serif" font-size="9">Jina AI · 10M token quota</text>
+</g>
+
+<!-- Confidence Scoring -->
+<g class="node-orange">
+  <rect x="1040" y="720" width="195" height="44" rx="22" fill="url(#gOrange)" stroke="#f59e0b" stroke-width="1.6" filter="url(#shadow)"/>
+  <text x="1137" y="742" text-anchor="middle" fill="#fef3c7" font-family="'Segoe UI',sans-serif" font-size="12" font-weight="600">Confidence Scoring</text>
+  <text x="1137" y="757" text-anchor="middle" fill="#f59e0b" font-family="'Segoe UI',sans-serif" font-size="9">70–85% · Cosine Similarity</text>
+</g>
+
+<!-- Emergency Disclaimers -->
+<g class="node-red">
+  <rect x="1255" y="620" width="90" height="60" rx="16" fill="url(#gRed)" stroke="#ef4444" stroke-width="1.8" filter="url(#shadow)"/>
+  <text x="1300" y="645" text-anchor="middle" fill="#fecaca" font-family="'Segoe UI',sans-serif" font-size="11" font-weight="700">Safety</text>
+  <text x="1300" y="660" text-anchor="middle" fill="#fecaca" font-family="'Segoe UI',sans-serif" font-size="11" font-weight="700">Guard</text>
+  <text x="1300" y="673" text-anchor="middle" fill="#ef4444" font-family="'Segoe UI',sans-serif" font-size="9">112/100</text>
+</g>
+
+<!-- ====== EDGE LABELS ====== -->
+<g>
+  <rect x="178" y="476" width="36" height="18" rx="9" fill="#0f1929" stroke="#1e3a5f" stroke-width="1"/>
+  <text x="196" y="489" text-anchor="middle" fill="#60a5fa" font-family="sans-serif" font-size="9" font-weight="600">HTTPS</text>
+</g>
+<g>
+  <rect x="380" y="476" width="46" height="18" rx="9" fill="#0f1929" stroke="#2d1b4e" stroke-width="1"/>
+  <text x="403" y="489" text-anchor="middle" fill="#a78bfa" font-family="sans-serif" font-size="9" font-weight="600">REST/WS</text>
+</g>
+<g>
+  <rect x="786" y="630" width="30" height="18" rx="9" fill="#071a12" stroke="#065f46" stroke-width="1"/>
+  <text x="801" y="643" text-anchor="middle" fill="#34d399" font-family="sans-serif" font-size="9" font-weight="600">NLP</text>
+</g>
+<g>
+  <rect x="1000" y="542" width="38" height="18" rx="9" fill="#1a0f02" stroke="#92400e" stroke-width="1"/>
+  <text x="1019" y="555" text-anchor="middle" fill="#fbbf24" font-family="sans-serif" font-size="9" font-weight="600">Vector</text>
+</g>
+</svg>

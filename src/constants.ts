@@ -108,7 +108,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     title: 'Citizen Safety AI | Enterprise RAG System',
-    image: '/projects/citizen-safety-architecture.png',
+    image: '/projects/citizen-safety-architecture_animated.svg',
     icon: 'fas fa-shield-alt',
     description: 'Production-grade RAG chatbot featuring real-time PII masking (Microsoft Presidio), Google OAuth 2.0 authentication, source-cited responses, and GDPR-compliant 30-day data TTL. Implemented batched embeddings with rate-limit awareness and Circuit Breaker pattern for fault tolerance. Built using React, FastAPI, LangChain, ChromaDB, and Llama 3.3 70B.',
     tags: ['RAG', 'LangChain', 'FastAPI', 'ChromaDB', 'Presidio', 'OAuth 2.0'],

@@ -986,7 +986,7 @@ function App() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     className={`relative rounded-2xl overflow-hidden shadow-2xl border cursor-pointer group ${isDarkMode ? 'bg-[#1C1C1C] border-white/10' : 'bg-white border-[#E8E4DB]'}`}
-                                    onClick={() => setArchImage('/projects/LegalAI_architecture.png')}
+                                    onClick={() => setArchImage('/projects/LegalAI_architecture_animated.svg')}
                                 >
                                     <div className={`p-4 border-b flex items-center justify-between ${isDarkMode ? 'border-white/10' : 'border-[#E8E4DB]'}`}>
                                         <div className="flex items-center gap-2">
@@ -999,7 +999,7 @@ function App() {
                                     </div>
                                     <div className="aspect-[4/3] w-full bg-[#0a0a0a] flex items-center justify-center p-2 relative">
                                         <img
-                                            src="/projects/LegalAI_architecture.png"
+                                            src="/projects/LegalAI_architecture_animated.svg"
                                             alt="Legal AI Production Architecture"
                                             className="w-full h-full object-contain rounded transition-transform duration-500 group-hover:scale-105"
                                         />

@@ -944,7 +944,7 @@ function App() {
                                         title: "Trust but Verify: Designing Reliable RAG Systems",
                                         content: "Production lessons from building enterprise-grade RAG systems with hallucination control, source citations, circuit breakers, rate-limit–aware embeddings, and real-time PII masking. Focused on reliability, observability, and compliance-first AI design.",
                                         cta: "View System Design",
-                                        link: "https://competitive-elaine-ambuj-ragai-f52aa725.koyeb.app/"
+                                        link: "https://indian-legal-ai-expert.onrender.com/"
                                     },
                                     {
                                         id: 2,

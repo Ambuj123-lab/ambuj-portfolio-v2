@@ -1098,14 +1098,14 @@ function App() {
                                     </button>
 
                                     {/* Secondary Buttons */}
-                                    <button
-                                        onClick={() => setIsContactModalOpen(true)}
-                                        className={`btn ${isDarkMode ? 'bg-white/5 text-white border-white/10 hover:bg-white/10' : 'bg-white text-[#1C1C1C] border-[#E8E4DB] hover:bg-gray-50 hover:border-gray-300'} border transition-all hover:-translate-y-0.5`}
+                                    <a
+                                        href="mailto:kumarambuj8@gmail.com"
+                                        className={`btn ${isDarkMode ? 'bg-white/5 text-white border-white/10 hover:bg-white/10' : 'bg-white text-[#1C1C1C] border-[#E8E4DB] hover:bg-gray-50 hover:border-gray-300'} border transition-all hover:-translate-y-0.5 inline-flex`}
                                         title="kumarambuj8@gmail.com"
                                     >
                                         <Mail size={18} />
                                         Email Me
-                                    </button>
+                                    </a>
 
                                     <a
                                         href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/"

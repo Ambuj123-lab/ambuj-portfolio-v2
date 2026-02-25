@@ -1032,72 +1032,114 @@ function App() {
                 </section>
 
                 {/* ===== CONTACT CTA ===== */}
-                <section className="py-24 px-6 bg-[#C4785A]" id="contact" >
-                    <div className="max-w-4xl mx-auto text-center">
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            className="text-white/70 text-sm uppercase tracking-widest mb-4"
-                        >
-                            Let's Connect
-                        </motion.p>
-                        <motion.h2
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 }}
-                            className="text-4xl md:text-5xl lg:text-6xl font-display text-white mb-6"
-                        >
-                            Open to New Opportunities
-                        </motion.h2>
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2 }}
-                            className="text-white/80 text-lg mb-10 max-w-xl mx-auto"
-                        >
-                            I'm currently looking for full-time roles as a Gen AI Architect or ML Engineer. Let's build the future of AI together.
-                        </motion.p>
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
-                            className="flex flex-wrap justify-center gap-4"
-                        >
-                            <button onClick={() => setIsContactModalOpen(true)} className="btn btn-white" title="kumarambuj8@gmail.com">
-                                <Mail size={18} />
-                                Email Me
-                            </button>
-                            <a href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/" target="_blank" rel="noopener noreferrer" className="btn bg-white/20 text-white hover:bg-white/30">
-                                <Linkedin size={18} />
-                                LinkedIn
-                            </a>
-                            <button
-                                onClick={() => setIsContactModalOpen(true)}
-                                className="btn bg-white/20 text-white hover:bg-white/30"
-                            >
-                                📝 Contact Form
-                            </button>
-                        </motion.div>
+                <section className="py-24 px-6 relative" id="contact">
+                    {/* Ambient Glow Behind Card */}
+                    <div className="absolute inset-0 pointer-events-none flex justify-center items-center overflow-hidden">
+                        <div className={`w-[60vw] h-[60vw] max-w-[600px] max-h-[600px] rounded-full blur-[100px] opacity-20 ${isDarkMode ? 'bg-[#C4785A]' : 'bg-[#C4785A]/40'}`}></div>
+                    </div>
 
-                        {/* LinkedIn Profile Badge - User's Uploaded Image */}
+                    <div className="max-w-5xl mx-auto relative z-10">
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4 }}
-                            className="mt-12"
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className={`rounded-3xl overflow-hidden backdrop-blur-xl border ${isDarkMode
+                                ? 'bg-[#111111]/80 border-white/10 shadow-2xl shadow-black/50'
+                                : 'bg-white border-[#E8E4DB] shadow-xl shadow-[#C4785A]/5'
+                                } p-10 md:p-16 relative`}
                         >
-                            <a
-                                href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-block rounded-xl overflow-hidden shadow-2xl hover:scale-105 transition-transform duration-300"
-                            >
-                                <img
-                                    src="/linkedin-badge.png"
-                                    alt="Ambuj Tripathi LinkedIn Profile"
-                                    className="max-w-[350px] w-full"
-                                />
-                            </a>
+                            {/* Decorative Top Accent */}
+                            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C4785A] to-transparent opacity-50"></div>
+
+                            <div className="text-center relative z-10">
+                                <motion.p
+                                    initial={{ opacity: 0, y: 10 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    className="text-[#C4785A] text-sm font-semibold uppercase tracking-widest mb-4"
+                                >
+                                    Let's Connect
+                                </motion.p>
+
+                                <motion.h2
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.1 }}
+                                    className={`text-4xl md:text-5xl lg:text-6xl font-display mb-6 ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}
+                                >
+                                    Open to New Opportunities
+                                </motion.h2>
+
+                                <motion.p
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.2 }}
+                                    className={`text-lg mb-10 max-w-xl mx-auto ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}
+                                >
+                                    I'm currently looking for full-time roles as a Gen AI Architect or ML Engineer. Let's build the future of AI together.
+                                </motion.p>
+
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.3 }}
+                                    className="flex flex-wrap justify-center gap-4"
+                                >
+                                    {/* Primary Button */}
+                                    <button
+                                        onClick={() => setIsContactModalOpen(true)}
+                                        className="btn bg-gradient-to-r from-[#C4785A] to-[#E8A87C] text-white hover:shadow-lg hover:shadow-[#C4785A]/25 border border-transparent hover:-translate-y-0.5 transition-all"
+                                    >
+                                        📝 Contact Form
+                                    </button>
+
+                                    {/* Secondary Buttons */}
+                                    <button
+                                        onClick={() => setIsContactModalOpen(true)}
+                                        className={`btn ${isDarkMode ? 'bg-white/5 text-white border-white/10 hover:bg-white/10' : 'bg-white text-[#1C1C1C] border-[#E8E4DB] hover:bg-gray-50 hover:border-gray-300'} border transition-all hover:-translate-y-0.5`}
+                                        title="kumarambuj8@gmail.com"
+                                    >
+                                        <Mail size={18} />
+                                        Email Me
+                                    </button>
+
+                                    <a
+                                        href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={`btn ${isDarkMode ? 'bg-[#0A66C2]/10 text-[#0A66C2] border-[#0A66C2]/20 hover:bg-[#0A66C2]/20' : 'bg-[#0A66C2]/5 text-[#0A66C2] border-[#0A66C2]/20 hover:bg-[#0A66C2]/10'} border transition-all hover:-translate-y-0.5`}
+                                    >
+                                        <Linkedin size={18} />
+                                        LinkedIn
+                                    </a>
+                                </motion.div>
+
+                                {/* LinkedIn Profile Badge - User's Uploaded Image */}
+                                <motion.div
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.4 }}
+                                    className="mt-14"
+                                >
+                                    <a
+                                        href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-block rounded-2xl overflow-hidden shadow-2xl hover:scale-105 transition-transform duration-500 hover:shadow-[#0A66C2]/20 border border-white/5"
+                                    >
+                                        <img
+                                            src="/linkedin-badge.png"
+                                            alt="Ambuj Tripathi LinkedIn Profile"
+                                            className="max-w-[350px] w-full"
+                                        />
+                                    </a>
+                                </motion.div>
+                            </div>
                         </motion.div>
                     </div>
                 </section>

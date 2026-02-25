@@ -11,7 +11,7 @@ import ChatWidget from './components/ChatWidget';
 import ImageViewer from './components/ImageViewer';
 import PWAModal from './components/PWAModal';
 import BentoCard from './components/BentoCard';
-import AnimatedTerminal from './components/AnimatedTerminal';
+import SkillUniverse from './components/SkillUniverse';
 import SplashScreen from './components/SplashScreen';
 import CommandPalette from './components/CommandPalette';
 import ArchitectureModal from './components/ArchitectureModal';
@@ -469,13 +469,13 @@ function App() {
                                     </div>
                                 </motion.div>
 
-                                {/* Animated Terminal - Full Width */}
+                                {/* Skill Universe Animation */}
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.5 }}
                                 >
-                                    <AnimatedTerminal />
+                                    <SkillUniverse />
                                 </motion.div>
                             </motion.div>
                         </div>

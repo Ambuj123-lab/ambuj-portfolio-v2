@@ -524,3 +524,14 @@ html {
 .animate-matrix-fall {
   animation: matrix-fall linear infinite;
 }
+
+/* ===== SKILL UNIVERSE ANIMATIONS ===== */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-9px); }
+}
+
+@keyframes glow-breathe {
+  0%, 100% { filter: brightness(1); }
+  50%       { filter: brightness(1.35); }
+}

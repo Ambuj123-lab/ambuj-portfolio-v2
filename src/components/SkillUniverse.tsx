@@ -224,7 +224,7 @@ export default function SkillUniverse({ isDarkMode = true }: { isDarkMode?: bool
             className="relative w-full overflow-hidden rounded-2xl"
             style={{
                 background: isDarkMode ? '#0e0d0c' : '#f4f2ee',
-                minHeight: 'clamp(440px, 60vw, 680px)',
+                minHeight: 'clamp(500px, 45vw, 680px)',
                 fontFamily: "'Inter', sans-serif",
                 border: isDarkMode ? 'none' : '1px solid rgba(28,28,28,0.08)',
             }}
@@ -286,9 +286,9 @@ function Quad({ cl, animDelay, isDarkMode = true }: { cl: typeof CLUSTERS[0]; an
             data-c={cl.id}
             className="relative flex flex-col items-center justify-start overflow-hidden group"
             style={{
-                border: isDarkMode ? '1px solid rgba(245,240,235,0.04)' : '1px solid rgba(28,28,28,0.07)',
-                padding: 'clamp(8px,2vw,20px) clamp(8px,2vw,24px)',
-                minHeight: 'clamp(180px,25vw,310px)',
+                border: isDarkMode ? '1px solid rgba(245,240,235,0.03)' : '1px solid rgba(28,28,28,0.05)',
+                padding: 'clamp(6px,1.5vw,16px) clamp(6px,1.5vw,18px)',
+                minHeight: 'clamp(160px,22vw,280px)',
                 transition: 'border-color 0.4s',
             }}
         >

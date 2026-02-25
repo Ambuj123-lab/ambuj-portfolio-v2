@@ -340,11 +340,11 @@ function App() {
                         ></motion.div>
                     </div>
 
-                    <div className="max-w-6xl mx-auto relative z-10">
-                        <div className="grid lg:grid-cols-3 gap-12 items-start">
+                    <div className="max-w-7xl mx-auto relative z-10">
+                        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
 
-                            {/* Left: Text Content (2 cols) */}
-                            <div className="lg:col-span-2 space-y-8">
+                            {/* Left: Text Content (1 col now, taking 50%) */}
+                            <div className="space-y-8">
                                 <motion.p
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
@@ -439,12 +439,12 @@ function App() {
                                 </motion.div>
                             </div>
 
-                            {/* Right: Terminal + Status */}
+                            {/* Right: SkillUniverse + Status (1 col now, taking 50%) */}
                             <motion.div
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.3 }}
-                                className="lg:col-span-1 space-y-4"
+                                className="space-y-4 w-full"
                             >
                                 {/* Open to Work - Compact */}
                                 <motion.div

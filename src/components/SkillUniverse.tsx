@@ -62,7 +62,7 @@ const CONN_PAIRS: [string, string][] = [
     ['vec', 'dep'], ['sec', 'dep'], ['vec', 'sec']
 ];
 
-export default function SkillUniverse() {
+export default function SkillUniverse({ isDarkMode = true }: { isDarkMode?: boolean }) {
     const starsRef = useRef<HTMLCanvasElement>(null);
     const connectRef = useRef<HTMLCanvasElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -106,7 +106,9 @@ export default function SkillUniverse() {
         function animate() {
             stTime += 0.009;
             sctx.clearRect(0, 0, sc!.width, sc!.height);
-            sctx.fillStyle = '#0e0d0c'; sctx.fillRect(0, 0, sc!.width, sc!.height);
+            // Background adapts to dark/light mode
+            sctx.fillStyle = isDarkMode ? '#0e0d0c' : '#f4f2ee';
+            sctx.fillRect(0, 0, sc!.width, sc!.height);
 
             // Nebulas
             ([
@@ -126,7 +128,9 @@ export default function SkillUniverse() {
             stars.forEach(s => {
                 const tw = 0.45 + 0.55 * Math.sin(stTime * s.spd + s.tw);
                 sctx.beginPath(); sctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-                sctx.fillStyle = `rgba(245,240,235,${s.a * tw})`; sctx.fill();
+                // In light mode stars are darker dots
+                const starColor = isDarkMode ? `rgba(245,240,235,${s.a * tw})` : `rgba(28,28,28,${s.a * tw * 0.6})`;
+                sctx.fillStyle = starColor; sctx.fill();
             });
 
             // Meteors
@@ -141,7 +145,8 @@ export default function SkillUniverse() {
                 sctx.beginPath(); sctx.moveTo(tx, ty); sctx.lineTo(m.x, m.y);
                 sctx.strokeStyle = mg; sctx.lineWidth = m.w; sctx.stroke();
                 sctx.beginPath(); sctx.arc(m.x, m.y, m.w * 1.5, 0, Math.PI * 2);
-                sctx.fillStyle = `rgba(245,240,235,${m.alpha * 0.85})`; sctx.fill();
+                const meteorColor = isDarkMode ? `rgba(245,240,235,${m.alpha * 0.85})` : `rgba(28,28,28,${m.alpha * 0.5})`;
+                sctx.fillStyle = meteorColor; sctx.fill();
                 m.x += m.vx; m.y += m.vy; m.alpha -= 0.011;
                 if (m.x < -200 || m.y > sc!.height + 100) m.alpha = 0;
             });
@@ -218,9 +223,10 @@ export default function SkillUniverse() {
             ref={containerRef}
             className="relative w-full overflow-hidden rounded-2xl"
             style={{
-                background: '#0e0d0c',
+                background: isDarkMode ? '#0e0d0c' : '#f4f2ee',
                 minHeight: 'clamp(440px, 60vw, 680px)',
                 fontFamily: "'Inter', sans-serif",
+                border: isDarkMode ? 'none' : '1px solid rgba(28,28,28,0.08)',
             }}
         >
             {/* ── Canvas layers ── */}
@@ -230,10 +236,10 @@ export default function SkillUniverse() {
             {/* ── Header ── */}
             <div className="relative z-20 flex flex-wrap justify-between items-start px-4 sm:px-6 pt-5 pb-2 gap-3">
                 <div>
-                    <h2 style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 'clamp(18px,3vw,26px)', letterSpacing: '4px', color: '#f5f0eb', lineHeight: 1 }}>
+                    <h2 style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 'clamp(18px,3vw,26px)', letterSpacing: '4px', color: isDarkMode ? '#f5f0eb' : '#1C1C1C', lineHeight: 1 }}>
                         Ambuj Kumar Tripathi
                     </h2>
-                    <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: '9px', color: 'rgba(245,240,235,0.35)', letterSpacing: '2px', marginTop: '4px' }}>
+                    <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: '9px', color: isDarkMode ? 'rgba(245,240,235,0.35)' : 'rgba(28,28,28,0.45)', letterSpacing: '2px', marginTop: '4px' }}>
                         skill universe · 4 clusters · 26 skills
                     </p>
                 </div>
@@ -245,7 +251,7 @@ export default function SkillUniverse() {
                     ].map(s => (
                         <div key={s.l} className="text-right">
                             <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 'clamp(14px,2vw,20px)', lineHeight: 1, color: s.c }}>{s.n}</div>
-                            <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: '7px', color: 'rgba(245,240,235,0.4)', letterSpacing: '1.5px', marginTop: '2px' }}>{s.l}</div>
+                            <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: '7px', color: isDarkMode ? 'rgba(245,240,235,0.4)' : 'rgba(28,28,28,0.45)', letterSpacing: '1.5px', marginTop: '2px' }}>{s.l}</div>
                         </div>
                     ))}
                     {/* Live pill */}
@@ -259,13 +265,12 @@ export default function SkillUniverse() {
                 </div>
             </div>
 
-            {/* ── Grid of 4 quads ── */}
+            {/* ── Grid of 4 quads: 1 col mobile, 2 col sm+ ── */}
             <div
-                className="relative z-10"
-                style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: '0' }}
+                className="relative z-10 grid grid-cols-1 sm:grid-cols-2"
             >
                 {CLUSTERS.map((cl, idx) => (
-                    <Quad key={cl.id} cl={cl} animDelay={[0.2, 0.35, 0.5, 0.65][idx]} />
+                    <Quad key={cl.id} cl={cl} animDelay={[0.2, 0.35, 0.5, 0.65][idx]} isDarkMode={isDarkMode} />
                 ))}
             </div>
         </div>
@@ -273,7 +278,7 @@ export default function SkillUniverse() {
 }
 
 
-function Quad({ cl, animDelay }: { cl: typeof CLUSTERS[0]; animDelay: number }) {
+function Quad({ cl, animDelay, isDarkMode = true }: { cl: typeof CLUSTERS[0]; animDelay: number; isDarkMode?: boolean }) {
     const [hoveredSkill, setHoveredSkill] = React.useState<{ name: string; proj: string } | null>(null);
 
     return (
@@ -281,7 +286,7 @@ function Quad({ cl, animDelay }: { cl: typeof CLUSTERS[0]; animDelay: number }) 
             data-c={cl.id}
             className="relative flex flex-col items-center justify-start overflow-hidden group"
             style={{
-                border: '1px solid rgba(245,240,235,0.04)',
+                border: isDarkMode ? '1px solid rgba(245,240,235,0.04)' : '1px solid rgba(28,28,28,0.07)',
                 padding: 'clamp(8px,2vw,20px) clamp(8px,2vw,24px)',
                 minHeight: 'clamp(180px,25vw,310px)',
                 transition: 'border-color 0.4s',

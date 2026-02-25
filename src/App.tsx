@@ -475,7 +475,7 @@ function App() {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.5 }}
                                 >
-                                    <SkillUniverse />
+                                    <SkillUniverse isDarkMode={isDarkMode} />
                                 </motion.div>
                             </motion.div>
                         </div>
@@ -770,6 +770,21 @@ function App() {
                                                             <span key={i} className={isDarkMode ? "tag-dark" : "tag"}>{tag}</span>
                                                         ))}
                                                     </div>
+                                                    {/* Impact Metrics */}
+                                                    {project.impact && project.impact.length > 0 && (
+                                                        <div className="flex flex-wrap gap-2 mt-3">
+                                                            {project.impact.map((metric, i) => (
+                                                                <span key={i} className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-1 rounded-full"
+                                                                    style={{
+                                                                        background: isDarkMode ? 'rgba(196,120,90,0.1)' : 'rgba(196,120,90,0.08)',
+                                                                        border: '1px solid rgba(196,120,90,0.3)',
+                                                                        color: '#C4785A'
+                                                                    }}>
+                                                                    <span>⚡</span>{metric}
+                                                                </span>
+                                                            ))}
+                                                        </div>
+                                                    )}
                                                 </div>
                                                 <ExternalLink size={18} className="text-[#5A5855] group-hover:text-[#C4785A] transition-colors flex-shrink-0" />
                                             </div>

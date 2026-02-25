@@ -104,7 +104,8 @@ export const PROJECTS_DATA: Project[] = [
     tags: ['LangGraph', 'Qdrant', 'FastAPI', 'Presidio', 'Langfuse', 'OAuth 2.0'],
     demoLink: 'https://indian-legal-ai-expert.onrender.com/',
     architectureDiagram: '/projects/LegalAI_architecture_animated.svg',
-    caseStudyId: 'legal-ai'
+    caseStudyId: 'legal-ai',
+    impact: ['8,896 child vectors', '300K tokens saved', 'Zero orphaned vectors', 'GDPR-compliant']
   },
   {
     title: 'Citizen Safety AI | Enterprise RAG System',
@@ -113,7 +114,8 @@ export const PROJECTS_DATA: Project[] = [
     description: 'Production-grade RAG chatbot featuring real-time PII masking (Microsoft Presidio), Google OAuth 2.0 authentication, source-cited responses, and GDPR-compliant 30-day data TTL. Implemented batched embeddings with rate-limit awareness and Circuit Breaker pattern for fault tolerance. Built using React, FastAPI, LangChain, ChromaDB, and Llama 3.3 70B.',
     tags: ['RAG', 'LangChain', 'FastAPI', 'ChromaDB', 'Presidio', 'OAuth 2.0'],
     demoLink: 'https://citizen-safety-ai-assistant.vercel.app/',
-    architectureDiagram: '/projects/citizen-safety-architecture_animated.svg'
+    architectureDiagram: '/projects/citizen-safety-architecture_animated.svg',
+    impact: ['30-day GDPR TTL', 'PII masked in real-time', 'Circuit Breaker fault-tolerant', 'Batched embeddings']
   },
   {
     title: 'Geo Narrator AI',
@@ -121,7 +123,8 @@ export const PROJECTS_DATA: Project[] = [
     icon: 'fas fa-globe-asia',
     description: 'AI-Powered Geospatial Intelligence Platform that transforms any location into a rich narrative experience. Discover history, culture, architecture, and hidden stories using advanced AI.',
     tags: ['Geospatial AI', 'Google Gemini', 'React', 'Maps API'],
-    demoLink: 'https://geo-narrator-ai.onrender.com/'
+    demoLink: 'https://geo-narrator-ai.onrender.com/',
+    impact: ['Any location worldwide', 'Gemini-powered stories', 'Real-time enrichment']
   },
   {
     title: 'Chain Reaction Multi Agent System',
@@ -129,7 +132,8 @@ export const PROJECTS_DATA: Project[] = [
     icon: 'fas fa-project-diagram',
     description: 'Advanced Agentic Workflow Engine. Features zero-latency orchestration, multi-agent reasoning, and serverless architecture. A system designed for complex autonomous tasks.',
     tags: ['Multi-Agent', 'AI Orchestration', 'Serverless', 'System Design'],
-    demoLink: 'https://chainreaction-agent.onrender.com/'
+    demoLink: 'https://chainreaction-agent.onrender.com/',
+    impact: ['Zero-latency orchestration', 'Multi-agent reasoning', 'Serverless scale']
   },
   {
     title: 'LLM-Integrated Chatbot (Meta Llama 3.3 70B)',
@@ -137,7 +141,8 @@ export const PROJECTS_DATA: Project[] = [
     icon: 'fas fa-robot',
     description: 'Built scalable chatbot, stateless design, OpenRouter API, 25% faster query time for 100+ users. Integrated secure OpenRouter API with rate limiting and CORS. Implemented front-end to send full chatHistory as JSON with each request.',
     tags: ['Llama 3.3 70B', 'OpenRouter API', 'Python', 'JavaScript', 'Render.com'],
-    demoLink: 'https://ambuj-resume-bot.onrender.com/'
+    demoLink: 'https://ambuj-resume-bot.onrender.com/',
+    impact: ['25% faster query time', '100+ simultaneous users', 'Rate-limited & secure']
   },
   {
     title: 'PromptBuilder by Ambuj',
@@ -145,7 +150,8 @@ export const PROJECTS_DATA: Project[] = [
     icon: 'fas fa-magic',
     description: 'User-friendly web tool making AI accessible to non-technical users. Generates ready-to-use prompts for ChatGPT, Gemini, and Claude. Features a "Grok Prompt Laboratory" interface.',
     tags: ['HTML', 'CSS', 'JS', 'Netlify', 'Prompt Engineering'],
-    demoLink: 'https://ambuj-prompt-nexus.onrender.com/'
+    demoLink: 'https://ambuj-prompt-nexus.onrender.com/',
+    impact: ['Non-technical friendly', 'ChatGPT · Gemini · Claude', 'Zero setup needed']
   },
   {
     title: 'Chatbot | IBM WatsonX Assistant',
@@ -153,7 +159,8 @@ export const PROJECTS_DATA: Project[] = [
     icon: 'fas fa-cube',
     description: 'Created conversational AI chatbot with 95% intent recognition for 50+ daily queries. Developed 50+ intent dataset for natural dialogue flow. Integrated as "Ambuj Resume Analysis Bot".',
     tags: ['IBM WatsonX', 'HTML5', 'CSS3', 'Netlify'],
-    demoLink: 'https://ambuj-ai-profile.netlify.app/'
+    demoLink: 'https://ambuj-ai-profile.netlify.app/',
+    impact: ['95% intent recognition', '50+ daily queries', '50+ intent dataset']
   },
   {
     title: 'Professional Task Management System | Privacy-First PWA',
@@ -161,7 +168,8 @@ export const PROJECTS_DATA: Project[] = [
     icon: 'fas fa-tasks',
     description: 'Offline-first Task Manager built with React 18 & Tailwind CSS. Features localStorage-based state management, Service Workers, and JSON export/import. Speech + Audio APIs for smart feedback.',
     tags: ['React Hooks', 'Service Worker', 'Speech API', 'Local Storage', 'PWA'],
-    demoLink: 'https://ambuj-to-do-tool.netlify.app/'
+    demoLink: 'https://ambuj-to-do-tool.netlify.app/',
+    impact: ['100% offline capable', 'Speech API integration', 'Installable PWA']
   }
 ];
 

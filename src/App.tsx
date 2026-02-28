@@ -679,6 +679,37 @@ function App() {
                             </a>
                         </motion.div>
 
+                        {/* Featured Publication / Flipbook */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.4 }}
+                            className="mt-16 sm:mt-24"
+                        >
+                            <div className="flex flex-col items-center text-center mb-8">
+                                <p className="section-eyebrow !text-[#C4785A]">Publication</p>
+                                <h3 className={`text-3xl md:text-4xl font-display ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
+                                    My Published Book
+                                </h3>
+                                <p className={`mt-3 max-w-2xl text-sm md:text-base ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>
+                                    Read my newly published interactive flipbook directly in the browser.
+                                </p>
+                            </div>
+
+                            {/* Iframe Container */}
+                            <div className={`w-full rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-[#C4785A]/10 border ${isDarkMode ? 'bg-[#1a1a1a] border-white/10' : 'bg-white border-[#E8E4DB]'}`}>
+                                <iframe
+                                    allowFullScreen={true}
+                                    allow="clipboard-write"
+                                    scrolling="no"
+                                    className="w-full h-[400px] sm:h-[500px] md:h-[650px] outline-none border-none"
+                                    src="https://heyzine.com/flip-book/6b8aba4153.html"
+                                    title="Ambuj's Published Book"
+                                />
+                            </div>
+                        </motion.div>
+
                         {/* Skills Grid - All skills */}
                         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
                             {SKILLS_LIST.map((skill, index) => (

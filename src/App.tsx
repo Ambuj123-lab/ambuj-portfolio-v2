@@ -688,12 +688,12 @@ function App() {
                             className="mt-16 sm:mt-24"
                         >
                             <div className="flex flex-col items-center text-center mb-8">
-                                <p className="section-eyebrow !text-[#C4785A]">Publication</p>
+                                <p className="section-eyebrow !text-[#C4785A]">Interactive Profile</p>
                                 <h3 className={`text-3xl md:text-4xl font-display ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                    My Published Book
+                                    Comprehensive Portfolio Showcase
                                 </h3>
                                 <p className={`mt-3 max-w-2xl text-sm md:text-base ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>
-                                    Read my newly published interactive flipbook directly in the browser.
+                                    Explore my completed work, experiences, and professional background—all seamlessly compiled into one interactive flipbook.
                                 </p>
                             </div>
 
@@ -705,7 +705,7 @@ function App() {
                                     scrolling="no"
                                     className="w-full h-[400px] sm:h-[500px] md:h-[650px] outline-none border-none"
                                     src="https://heyzine.com/flip-book/6b8aba4153.html"
-                                    title="Ambuj's Published Book"
+                                    title="Ambuj's Comprehensive Portfolio"
                                 />
                             </div>
                         </motion.div>

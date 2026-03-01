@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Constitution of India AI — Ambuj Kumar Tripathi</title>
+    <title>Indian Legal AI — Ambuj Kumar Tripathi</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap"
         rel="stylesheet">
@@ -963,6 +963,72 @@
             color: var(--copper-dk);
             flex-shrink: 0;
         }
+
+
+        /* Back button */
+        #back-btn {
+            position: fixed;
+            top: 1.2rem;
+            left: 1.2rem;
+            z-index: 9999;
+            background: rgba(15, 24, 37, 0.88);
+            border: 1px solid var(--copper-dk);
+            color: var(--copper);
+            padding: 7px 14px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        #back-btn:hover {
+            border-color: var(--copper);
+            box-shadow: 0 0 15px var(--glow-c);
+            color: var(--copper-lt);
+            transform: translateX(-2px);
+        }
+
+        @media (max-width: 768px) {
+            #back-btn {
+                top: 0.7rem;
+                left: 0.7rem;
+                padding: 5px 10px;
+                font-size: 0.62rem;
+            }
+        }
+
+        /* Mobile swipe hint */
+        #swipe-hint {
+            display: none;
+            position: fixed;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 200;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--mist);
+            letter-spacing: 1px;
+            text-align: center;
+            pointer-events: none;
+            animation: fadeIn 0.5s ease forwards, fadeIn 1.5s ease reverse forwards 3s;
+        }
+
+        @media (max-width: 768px) {
+            #swipe-hint {
+                display: block;
+            }
+
+            body {
+                overflow: hidden;
+            }
+        }
     </style>
 </head>
 
@@ -982,6 +1048,9 @@
     <div id="cursor"></div>
     <div id="cursor-ring"></div>
 
+    <!-- MOBILE SWIPE HINT -->
+    <div id="swipe-hint">← SWIPE →</div>
+
     <div id="slide-counter"><span id="cur-slide">1</span> / <span id="tot-slide">9</span></div>
     <div id="key-hint">← → ARROW KEYS</div>
 
@@ -1000,7 +1069,7 @@
                     <span class="t2 animate-in"
                         style="animation:slideRight 0.7s ease forwards;animation-delay:0.6s">Legal AI</span>
                     <span class="t3 animate-in"
-                        style="animation:slideRight 0.7s ease forwards;animation-delay:0.8s">System</span>
+                        style="animation:slideRight 0.7s ease forwards;animation-delay:0.8s">Platform</span>
                 </div>
                 <div class="cover-divider animate-in" style="animation:fadeIn 0.5s ease forwards;animation-delay:1.0s">
                 </div>
@@ -1540,6 +1609,16 @@
         drawBg();
 
         window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+        // ── BACK BUTTON ─────────────────────────────────────────
+        function goBack(e) {
+            e.preventDefault();
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.close();
+            }
+        }
 
         // ── SLIDES ──────────────────────────────────────────────
         const slides = document.querySelectorAll('.slide');

@@ -202,6 +202,7 @@ function App() {
 
     const navLinks = [
         { href: '#work', label: 'Work' },
+        { href: '#flipbook', label: 'Flipbook' },
         { href: '#about', label: 'About' },
         { href: '#experience', label: 'Experience' },
         { href: '#contact', label: 'Contact' },

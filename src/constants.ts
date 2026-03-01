@@ -97,7 +97,7 @@ export const EXPERIENCE_DATA: Experience[] = [
 
 export const PROJECTS_DATA: Project[] = [
   {
-    title: 'Constitution of India AI Expert | Production RAG',
+    title: 'Constitution of India AI | Production RAG',
     image: '/projects/LegalAI_architecture_animated.svg',
     icon: 'fas fa-balance-scale',
     description: 'Production-grade Legal AI with LangGraph orchestration, Parent-Child chunking on Qdrant Cloud, PII masking (Presidio + spaCy), Google OAuth 2.0, SSE streaming, Circuit Breaker pattern, Langfuse observability, and SHA-256 hash-based Sync Engine. Built with React, FastAPI, Qwen 3 235B.',

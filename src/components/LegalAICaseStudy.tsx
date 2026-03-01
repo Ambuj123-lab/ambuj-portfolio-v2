@@ -766,7 +766,7 @@ const LegalAICaseStudy: React.FC = () => {
 
             {/* Footer */}
             <div className="mt-12 pt-8 border-t border-[#333] text-center text-[#858585] text-sm italic print:text-black">
-                &copy; 2026 Ambuj Kumar Tripathi. All rights reserved. | Constitution of India AI
+                &copy; 2026 Ambuj Kumar Tripathi. All rights reserved. | Indian Legal AI
             </div>
         </div>
     );

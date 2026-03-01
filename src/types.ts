@@ -19,6 +19,7 @@ export interface Project {
     demoLink: string;
     architectureDiagram?: string;
     caseStudyId?: string;
+    presentationLink?: string;
     impact?: string[];
 }
 

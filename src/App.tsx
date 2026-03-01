@@ -823,7 +823,7 @@ function App() {
                                             </div>
                                         </a>
                                         {/* Action Buttons */}
-                                        {(project.architectureDiagram || project.caseStudyId) && (
+                                        {(project.architectureDiagram || project.caseStudyId || project.presentationLink) && (
                                             <div className="mt-4 flex flex-col sm:flex-row gap-3">
                                                 {project.caseStudyId && (
                                                     <button
@@ -874,6 +874,35 @@ function App() {
                                                     >
                                                         🏗️ Architecture
                                                     </button>
+                                                )}
+                                                {project.presentationLink && (
+                                                    <a
+                                                        href={project.presentationLink}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300"
+                                                        style={{
+                                                            background: isDarkMode
+                                                                ? 'linear-gradient(135deg, rgba(196,120,90,0.2), rgba(196,120,90,0.1))'
+                                                                : 'linear-gradient(135deg, rgba(196,120,90,0.15), rgba(196,120,90,0.05))',
+                                                            border: '1px solid rgba(196,120,90,0.4)',
+                                                            color: '#C4785A',
+                                                        }}
+                                                        onMouseEnter={(e) => {
+                                                            e.currentTarget.style.background = 'linear-gradient(135deg, #C4785A, #E8A87C)';
+                                                            e.currentTarget.style.color = '#fff';
+                                                            e.currentTarget.style.borderColor = 'transparent';
+                                                        }}
+                                                        onMouseLeave={(e) => {
+                                                            e.currentTarget.style.background = isDarkMode
+                                                                ? 'linear-gradient(135deg, rgba(196,120,90,0.2), rgba(196,120,90,0.1))'
+                                                                : 'linear-gradient(135deg, rgba(196,120,90,0.15), rgba(196,120,90,0.05))';
+                                                            e.currentTarget.style.color = '#C4785A';
+                                                            e.currentTarget.style.borderColor = 'rgba(196,120,90,0.4)';
+                                                        }}
+                                                    >
+                                                        ▶️ Animated Deck
+                                                    </a>
                                                 )}
                                             </div>
                                         )}

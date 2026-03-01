@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Legal AI Expert — Ambuj Kumar Tripathi</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #060A12;
+            --slate: #0F1825;
+            --steel: #1E2D40;
+            --copper: #C4823E;
+            --copper-lt: #E0A055;
+            --copper-dk: #8A5228;
+            --white: #F0EDE8;
+            --pale: #8899AA;
+            --mist: #4A5A6A;
+            --green: #22C55E;
+            --green-dk: #0A3320;
+            --blue: #60A5FA;
+            --red: #F87171;
+            --glow-c: rgba(196, 130, 62, 0.35);
+            --glow-g: rgba(34, 197, 94, 0.35);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--ink);
+            font-family: 'Syne', sans-serif;
+            overflow: hidden;
+            cursor: none;
+            user-select: none;
+        }
+
+        #back-btn {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 9999;
+            background: rgba(15, 24, 37, 0.8);
+            border: 1px solid var(--copper-dk);
+            color: var(--copper);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #back-btn:hover {
+            border-color: var(--copper);
+            box-shadow: 0 0 15px var(--glow-c);
+            color: var(--copper-lt);
+            transform: translateX(-2px);
+        }
+
+        @media (max-width: 768px) {
+            #back-btn {
+                top: 1rem;
+                left: 1rem;
+                padding: 6px 12px;
+                font-size: 0.65rem;
+            }
+
+            #slide-counter {
+                top: 1rem !important;
+                right: 1rem !important;
+            }
+        }
+
+        #cursor {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--copper);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease;
+            mix-blend-mode: screen;
+        }
+
+        #cursor-ring {
+            position: fixed;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1.5px solid var(--copper);
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: all 0.15s ease;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+
+            #cursor,
+            #cursor-ring {
+                display: none !important;
+            }
+
+            body {
+                cursor: auto;
+            }
+        }
+
+        #bg-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .grain {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        #slides {
+            position: fixed;
+            inset: 0;
+            z-index: 10;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-snap-type: y mandatory;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.0s;
+            padding: 0 6vw;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 80px 4vw 80px 4vw;
+                overflow-y: auto;
+                display: block;
+                height: 100vh;
+                position: relative;
+                scroll-snap-align: start;
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            #slides {
+                position: static;
+                height: 100vh;
+                overflow-y: scroll;
+                pointer-events: auto;
+            }
+
+            .cover-left,
+            .cover-right {
+                flex: none !important;
+                width: 100% !important;
+                border: none !important;
+                padding: 2vh 0 !important;
+            }
+
+            #s1 {
+                flex-direction: column !important;
+            }
+
+            .prob-grid,
+            .stats-grid,
+            .features-grid,
+            .pc-container,
+            .sha-grid,
+            .metrics-grid,
+            .stack-grid {
+                grid-template-columns: 1fr !important;
+                gap: 15px !important;
+            }
+
+            .flow-paths {
+                grid-template-columns: 1fr !important;
+            }
+
+            .spine {
+                display: none;
+            }
+
+            #nav,
+            #key-hint {
+                display: none !important;
+            }
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .slide.entering .animate-in {
+            animation-play-state: running !important;
+        }
+
+        #nav {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--mist);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-dot.active {
+            background: var(--copper);
+            width: 24px;
+            border-radius: 3px;
+            box-shadow: 0 0 8px var(--glow-c);
+        }
+
+        #slide-counter {
+            position: fixed;
+            top: 1.8rem;
+            right: 2.5rem;
+            z-index: 100;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--mist);
+            letter-spacing: 2px;
+        }
+
+        #slide-counter span {
+            color: var(--copper);
+        }
+
+        .spine {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--copper-dk), var(--copper), var(--copper-dk));
+            z-index: 20;
+        }
+
+        #key-hint {
+            position: fixed;
+            bottom: 2rem;
+            right: 2.5rem;
+            z-index: 100;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--mist);
+            letter-spacing: 1px;
+        }
+
+        .animate-in {
+            animation-play-state: paused;
+            animation-fill-mode: both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideRight {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes glowPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px var(--glow-c), 0 0 40px var(--glow-c);
+            }
+
+            50% {
+                box-shadow: 0 0 40px var(--glow-c), 0 0 80px var(--glow-c);
+            }
+        }
+
+        @keyframes copperShimmer {
+            0% {
+                background-position: -200% center;
+            }
+
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        .tag {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            padding: 3px 10px;
+            border-radius: 3px;
+            background: var(--steel);
+            border: 1px solid var(--copper-dk);
+            color: var(--copper-lt);
+            letter-spacing: 0.5px;
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--copper);
+            letter-spacing: 4px;
+            margin-bottom: 0.6rem;
+            text-transform: uppercase;
+        }
+
+        .gcard {
+            background: rgba(15, 24, 37, 0.8);
+            border: 1px solid var(--copper-dk);
+            border-radius: 4px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gcard::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--copper), transparent);
+        }
+
+        .gcard:hover {
+            border-color: var(--copper);
+            box-shadow: 0 0 20px var(--glow-c);
+            transform: translateY(-2px);
+        }
+
+        .stat-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--copper-lt), var(--copper), var(--copper-dk));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-num.green-stat {
+            background: linear-gradient(135deg, #86efac, var(--green), #166534);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--pale);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .flow-node {
+            background: var(--slate);
+            border: 1.5px solid var(--copper);
+            border-radius: 4px;
+            padding: 0.6rem 1rem;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 12px var(--glow-c);
+        }
+
+        .flow-node::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--copper);
+        }
+
+        .flow-node-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--copper-lt);
+            letter-spacing: 1px;
+        }
+
+        .flow-node-sub {
+            font-size: 0.6rem;
+            color: var(--pale);
+            margin-top: 3px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .flow-node.green-node {
+            border-color: var(--green);
+            box-shadow: 0 0 12px var(--glow-g);
+        }
+
+        .flow-node.green-node::before {
+            background: var(--green);
+        }
+
+        .flow-node.green-node .flow-node-title {
+            color: var(--green);
+        }
+
+        .flow-node.red-node {
+            border-color: var(--red);
+            box-shadow: 0 0 12px rgba(248, 113, 113, 0.3);
+        }
+
+        .flow-node.red-node::before {
+            background: var(--red);
+        }
+
+        .flow-node.red-node .flow-node-title {
+            color: var(--red);
+        }
+
+        .prog-bar {
+            height: 3px;
+            background: var(--steel);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .prog-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--copper-dk), var(--copper-lt));
+            border-radius: 2px;
+            width: 0%;
+            transition: width 1.5s ease;
+            box-shadow: 0 0 8px var(--glow-c);
+        }
+
+        #s1 {
+            flex-direction: row;
+            align-items: stretch;
+            padding: 0;
+            gap: 0;
+        }
+
+        .cover-left {
+            flex: 1.4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5vh 5vw 5vh 7vw;
+            position: relative;
+        }
+
+        .cover-right {
+            flex: 0.6;
+            background: linear-gradient(180deg, #100804 0%, #1A0D05 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            position: relative;
+            border-left: 2px solid var(--copper-dk);
+        }
+
+        .cover-right::before {
+            content: '';
+            position: absolute;
+            left: -2px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--copper), transparent);
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        .cover-title-small {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(0.55rem, 1vw, 0.75rem);
+            color: var(--copper);
+            letter-spacing: 4px;
+            margin-bottom: 1.5vh;
+        }
+
+        .cover-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            line-height: 0.9;
+            margin-bottom: 2vh;
+        }
+
+        .cover-title .t1 {
+            display: block;
+            color: var(--white);
+        }
+
+        .cover-title .t2 {
+            display: block;
+            background: linear-gradient(90deg, var(--copper-lt), var(--copper));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cover-title .t3 {
+            display: block;
+            color: var(--white);
+        }
+
+        .cover-divider {
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--copper), transparent);
+            margin-bottom: 1.5vh;
+        }
+
+        .cover-sub {
+            font-size: clamp(0.75rem, 1.5vw, 1rem);
+            color: var(--pale);
+            margin-bottom: 2vh;
+        }
+
+        .cover-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 3vh;
+        }
+
+        .cover-author-name {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            font-weight: 800;
+            color: var(--white);
+        }
+
+        .cover-author-role {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--copper-lt);
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        .cover-stat {
+            width: 100%;
+            padding: 2.5vh 2vw;
+            border-bottom: 1px solid rgba(196, 130, 62, 0.15);
+            text-align: center;
+        }
+
+        .cover-stat:last-child {
+            border-bottom: none;
+        }
+
+        .cover-stat-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            background: linear-gradient(135deg, var(--copper-lt), var(--copper));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .cover-stat-lbl {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--mist);
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+
+        .prob-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5vw;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .prob-card {
+            background: var(--slate);
+            border-radius: 4px;
+            padding: 2.5vh 1.5vw;
+            border-top: 3px solid var(--copper);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prob-card.red-card {
+            border-top-color: var(--red);
+        }
+
+        .prob-card.blue-card {
+            border-top-color: var(--blue);
+        }
+
+        .prob-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1;
+            margin-bottom: 0.5vh;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5vw;
+            width: 100%;
+            max-width: 1100px;
+            margin-bottom: 2vh;
+        }
+
+        .stat-card {
+            padding: 2.5vh 1.5vw;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1vw;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .feat-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 1vw;
+            padding: 1.2vh 1vw;
+            border-left: 3px solid var(--copper-dk);
+            background: rgba(15, 24, 37, 0.6);
+        }
+
+        .flow-container {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            gap: 2vh;
+        }
+
+        .flow-paths {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5vw;
+            margin-top: 1vh;
+        }
+
+        .flow-path-card {
+            padding: 1.2vh 1vw;
+            border-left: 3px solid var(--copper);
+            background: rgba(15, 24, 37, 0.6);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .flow-path-card.green-path {
+            border-left-color: var(--green);
+        }
+
+        .flow-path-card.red-path {
+            border-left-color: var(--red);
+        }
+
+        .pc-container {
+            width: 100%;
+            max-width: 1100px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3vw;
+        }
+
+        .pc-side {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5vh;
+        }
+
+        .chunk-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-top: 1vh;
+        }
+
+        .chunk-parent {
+            height: 32px;
+            background: linear-gradient(90deg, rgba(196, 130, 62, 0.3), rgba(196, 130, 62, 0.05));
+            border: 1px solid var(--copper-dk);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--copper-lt);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chunk-children {
+            display: flex;
+            gap: 3px;
+            padding-left: 24px;
+        }
+
+        .chunk-child {
+            flex: 1;
+            height: 20px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.5rem;
+            color: var(--green);
+        }
+
+        .sha-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5vw;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .sha-card {
+            padding: 2vh 1.5vw;
+            border-radius: 4px;
+            background: var(--slate);
+            border: 1.5px solid var(--copper-dk);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sha-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .sha-new::before {
+            background: var(--green);
+        }
+
+        .sha-mismatch::before {
+            background: var(--copper);
+        }
+
+        .sha-removed::before {
+            background: var(--red);
+        }
+
+        .sha-match::before {
+            background: var(--mist);
+        }
+
+        .sha-outcome {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            line-height: 1;
+            margin-bottom: 0.5vh;
+        }
+
+        .sha-new .sha-outcome {
+            color: var(--green);
+        }
+
+        .sha-mismatch .sha-outcome {
+            color: var(--copper-lt);
+        }
+
+        .sha-removed .sha-outcome {
+            color: var(--red);
+        }
+
+        .sha-match .sha-outcome {
+            color: var(--mist);
+        }
+
+        .sec-list {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            gap: 1vh;
+        }
+
+        .sec-item {
+            display: flex;
+            gap: 1.5vw;
+            align-items: flex-start;
+            padding: 1.5vh 1.5vw;
+            background: var(--slate);
+            border-radius: 4px;
+            border-left: 3px solid var(--copper-dk);
+            transition: all 0.3s;
+        }
+
+        .sec-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--copper-dk);
+            line-height: 1;
+            flex-shrink: 0;
+            width: 2rem;
+            text-align: center;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5vw;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: 3vh 1.5vw;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40%;
+            height: 1px;
+            background: var(--copper-dk);
+        }
+
+        .stack-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5vw;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .stack-cat {
+            background: var(--slate);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--copper-dk);
+            transition: all 0.3s;
+        }
+
+        .stack-cat-header {
+            padding: 0.8vh 1vw;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--ink);
+            background: var(--copper);
+        }
+
+        .stack-cat-body {
+            padding: 1vh 1vw;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4vh;
+        }
+
+        .stack-item {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--pale);
+            padding: 0.3vh 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 0.5vw;
+        }
+
+        .stack-item::before {
+            content: '→';
+            color: var(--copper-dk);
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION BACK BUTTON -->
+    <a href="/" id="back-btn" onclick="goBack(event)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        BACK TO PORTFOLIO
+    </a>
+
+    <canvas id="bg-canvas"></canvas>
+    <div class="grain"></div>
+    <div class="spine"></div>
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
+
+    <div id="slide-counter"><span id="cur-slide">1</span> / <span id="tot-slide">9</span></div>
+    <div id="key-hint">← → ARROW KEYS</div>
+
+    <div id="slides">
+
+        <!-- ── SLIDE 1: COVER ── -->
+        <div class="slide active entering" id="s1">
+            <div class="cover-left">
+                <div class="cover-title-small animate-in">PRODUCTION AI SYSTEMS · FIELD DOCUMENTATION</div>
+                <div class="cover-title">
+                    <span class="t1 animate-in">Indian</span>
+                    <span class="t2 animate-in">Legal AI</span>
+                    <span class="t3 animate-in">Expert</span>
+                </div>
+                <div class="cover-divider animate-in"></div>
+                <p class="cover-sub animate-in">Production-Grade RAG System — Architecture Deep Dive</p>
+                <div class="cover-tags animate-in">
+                    <span class="tag">LangGraph</span>
+                    <span class="tag">Qdrant</span>
+                    <span class="tag">FastAPI</span>
+                    <span class="tag">Presidio</span>
+                    <span class="tag">LLMOps</span>
+                    <span class="tag">GDPR</span>
+                </div>
+                <div class="cover-author animate-in">
+                    <div class="cover-author-name">Ambuj Kumar Tripathi</div>
+                    <div class="cover-author-role">GenAI Solution Architect · RAG Systems Specialist</div>
+                </div>
+            </div>
+            <div class="cover-right">
+                <div class="cover-stat animate-in">
+                    <div class="cover-stat-num">10,833</div>
+                    <div class="cover-stat-lbl">Chunks Indexed</div>
+                </div>
+                <div class="cover-stat animate-in">
+                    <div class="cover-stat-num">6</div>
+                    <div class="cover-stat-lbl">Indian Legal Acts</div>
+                </div>
+                <div class="cover-stat animate-in">
+                    <div class="cover-stat-num">768</div>
+                    <div class="cover-stat-lbl">Vector Dimensions</div>
+                </div>
+                <div class="cover-stat animate-in">
+                    <div class="cover-stat-num">₹0</div>
+                    <div class="cover-stat-lbl">Monthly Cost</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── SLIDE 2: THE PROBLEM ── -->
+        <div class="slide" id="s2">
+            <div style="width:100%;max-width:1100px">
+                <div class="section-label animate-in">The Problem</div>
+                <h2 class="animate-in"
+                    style="font-family:'Bebas Neue';font-size:clamp(2rem,5vw,3.8rem);color:var(--white);margin-bottom:2.5vh;">
+                    Indian Legal System is Inaccessible</h2>
+                <div class="prob-grid">
+                    <div class="prob-card red-card animate-in">
+                        <div class="prob-num" style="color:var(--red)">5,000+</div>
+                        <div style="font-weight:700;color:var(--white);margin-bottom:0.8vh;font-size:0.95rem">Legal Acts
+                        </div>
+                        <p style="font-size:0.78rem;color:var(--pale);line-height:1.6">India has thousands of central
+                            and state acts. Average citizen cannot access or understand them. Lawyers charge per query.
+                        </p>
+                    </div>
+                    <div class="prob-card animate-in">
+                        <div class="prob-num" style="color:var(--copper-lt)">2023</div>
+                        <div style="font-weight:700;color:var(--white);margin-bottom:0.8vh;font-size:0.95rem">IPC
+                            Replaced by BNS</div>
+                        <p style="font-size:0.78rem;color:var(--pale);line-height:1.6">Major criminal code overhaul. Old
+                            information is actively dangerous. Static fine-tuned models go stale immediately.</p>
+                    </div>
+                    <div class="prob-card blue-card animate-in">
+                        <div class="prob-num" style="color:var(--blue)">No</div>
+                        <div style="font-weight:700;color:var(--white);margin-bottom:0.8vh;font-size:0.95rem">Simple
+                            Answer</div>
+                        <p style="font-size:0.78rem;color:var(--pale);line-height:1.6">Legal queries need source
+                            citations, exact section numbers, and context — not hallucinated summaries that could cause
+                            harm.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── SLIDE 3: SOLUTION ── -->
+        <div class="slide" id="s3">
+            <div style="width:100%;max-width:1100px">
+                <div class="section-label animate-in">Solution Overview</div>
+                <h2 class="animate-in"
+                    style="font-family:'Bebas Neue';font-size:clamp(2rem,5vw,3.5rem);color:var(--white);margin-bottom:2vh;">
+                    Production RAG · Zero Cost · Live Right Now</h2>
+                <div class="stats-grid" style="margin-bottom:2vh">
+                    <div class="stat-card gcard animate-in">
+                        <div class="stat-num" id="stat1">10,833</div>
+                        <div class="stat-label">Chunks Indexed</div>
+                        <div class="prog-bar" style="margin-top:0.8vh">
+                            <div class="prog-fill" data-width="92"></div>
+                        </div>
+                    </div>
+                    <div class="stat-card gcard animate-in">
+                        <div class="stat-num green-stat">Sub-5s</div>
+                        <div class="stat-label">Response Latency</div>
+                        <div class="prog-bar" style="margin-top:0.8vh">
+                            <div class="prog-fill"
+                                style="background:linear-gradient(90deg,var(--green-dk),var(--green))" data-width="85">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card gcard animate-in">
+                        <div class="stat-num">₹0</div>
+                        <div class="stat-label">Monthly Infrastructure</div>
+                        <div class="prog-bar" style="margin-top:0.8vh">
+                            <div class="prog-fill" data-width="100"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="features-grid">
+                    <div class="feat-row gcard animate-in">
+                        <div>
+                            <div style="font-weight:700;font-size:0.88rem;color:var(--white);margin-bottom:3px">
+                                LangGraph 6-Node State Machine</div>
+                            <div style="font-size:0.72rem;color:var(--pale)">CLASSIFY → PII MASK → RETRIEVE → GENERATE →
+                                LOG</div>
+                        </div>
+                    </div>
+                    <div class="feat-row gcard animate-in">
+                        <div>
+                            <div style="font-weight:700;font-size:0.88rem;color:var(--white);margin-bottom:3px">
+                                Parent-Child Chunking</div>
+                            <div style="font-size:0.72rem;color:var(--pale)">400-char search · 2000-char LLM context ·
+                                single Qdrant lookup</div>
+                        </div>
+                    </div>
+                    <div class="feat-row gcard animate-in">
+                        <div>
+                            <div style="font-weight:700;font-size:0.88rem;color:var(--white);margin-bottom:3px">SHA-256
+                                Sync Engine</div>
+                            <div style="font-size:0.72rem;color:var(--pale)">Zero orphaned vectors · idempotent ·
+                                hash-based change detection</div>
+                        </div>
+                    </div>
+                    <div class="feat-row gcard animate-in">
+                        <div>
+                            <div style="font-weight:700;font-size:0.88rem;color:var(--white);margin-bottom:3px">GDPR
+                                Compliant</div>
+                            <div style="font-size:0.72rem;color:var(--pale)">Presidio PII masking · MongoDB 30-day TTL ·
+                                Circuit Breaker</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── SLIDE 4: LANGGRAPH FLOW ── -->
+        <div class="slide" id="s4">
+            <div class="flow-container">
+                <div>
+                    <div class="section-label animate-in">Core Architecture</div>
+                    <h2 class="animate-in"
+                        style="font-family:'Bebas Neue';font-size:clamp(2rem,4.5vw,3.2rem);color:var(--white);">
+                        LangGraph 6-Node State Machine</h2>
+                </div>
+                <div style="display:flex;align-items:center;gap:0.8vw;flex-wrap:nowrap;overflow-x:auto;padding:1vh 0">
+                    <div class="flow-node green-node animate-in" style="min-width:90px;">
+                        <div class="flow-node-title">USER</div>
+                        <div class="flow-node-sub">input</div>
+                    </div>
+                    <svg width="30" height="20" style="flex-shrink:0">
+                        <line x1="0" y1="10" x2="22" y2="10" stroke="var(--mist)" stroke-width="1.5" />
+                        <polygon points="22,6 30,10 22,14" fill="var(--mist)" />
+                    </svg>
+                    <div class="flow-node animate-in" style="min-width:100px;">
+                        <div class="flow-node-title">CLASSIFY</div>
+                        <div class="flow-node-sub">greeting/rag/abuse</div>
+                    </div>
+                    <svg width="30" height="20" style="flex-shrink:0">
+                        <line x1="0" y1="10" x2="22" y2="10" stroke="var(--mist)" stroke-width="1.5" />
+                        <polygon points="22,6 30,10 22,14" fill="var(--mist)" />
+                    </svg>
+                    <div class="flow-node animate-in" style="min-width:100px;">
+                        <div class="flow-node-title">RETRIEVE</div>
+                        <div class="flow-node-sub">PII → Qdrant</div>
+                    </div>
+                    <svg width="30" height="20" style="flex-shrink:0">
+                        <line x1="0" y1="10" x2="22" y2="10" stroke="var(--mist)" stroke-width="1.5" />
+                        <polygon points="22,6 30,10 22,14" fill="var(--mist)" />
+                    </svg>
+                    <div class="flow-node animate-in" style="min-width:100px;">
+                        <div class="flow-node-title">GENERATE</div>
+                        <div class="flow-node-sub">Qwen 3 235B</div>
+                    </div>
+                    <svg width="30" height="20" style="flex-shrink:0">
+                        <line x1="0" y1="10" x2="22" y2="10" stroke="var(--mist)" stroke-width="1.5" />
+                        <polygon points="22,6 30,10 22,14" fill="var(--mist)" />
+                    </svg>
+                    <div class="flow-node animate-in" style="min-width:110px;">
+                        <div class="flow-node-title">POST PROCESS</div>
+                        <div class="flow-node-sub">MongoDB+Langfuse</div>
+                    </div>
+                </div>
+                <div class="flow-paths">
+                    <div class="flow-path-card green-path animate-in">
+                        <div
+                            style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;color:var(--green);margin-bottom:4px">
+                            GREETING PATH</div>
+                        <div style="font-size:0.7rem;color:var(--pale)">CLASSIFY → GREET → END<br><span
+                                style="color:var(--mist);font-size:0.62rem">150 tokens · saves cost</span></div>
+                    </div>
+                    <div class="flow-path-card red-path animate-in">
+                        <div
+                            style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;color:var(--red);margin-bottom:4px">
+                            ABUSIVE PATH</div>
+                        <div style="font-size:0.7rem;color:var(--pale)">CLASSIFY → REJECT → END<br><span
+                                style="color:var(--mist);font-size:0.62rem">NOT saved to MongoDB</span></div>
+                    </div>
+                    <div class="flow-path-card animate-in">
+                        <div
+                            style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;color:var(--copper-lt);margin-bottom:4px">
+                            RAG PATH</div>
+                        <div style="font-size:0.7rem;color:var(--pale)">Full pipeline · Confidence gate<br><span
+                                style="color:var(--mist);font-size:0.62rem">&lt;40% → fallback, no LLM call</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── SLIDE 5: PARENT-CHILD ── -->
+        <div class="slide" id="s5">
+            <div style="width:100%;max-width:1100px">
+                <div class="section-label animate-in">Core Innovation</div>
+                <h2 class="animate-in"
+                    style="font-family:'Bebas Neue';font-size:clamp(2rem,4.5vw,3.2rem);color:var(--white);margin-bottom:2vh;">
+                    Parent-Child Chunking Strategy</h2>
+                <div class="pc-container">
+                    <div class="pc-side">
+                        <div class="gcard" style="padding:2vh 1.5vw;border-top:3px solid var(--red)">
+                            <div style="color:var(--red);font-weight:700;margin-bottom:1vh">❌ Simple Chunking Problem
+                            </div>
+                            <div style="font-size:0.8rem;color:var(--pale);line-height:1.7"><strong
+                                    style="color:var(--white)">Small chunks (400 chars):</strong> Precise search but
+                                poor LLM context<br><strong style="color:var(--white)">Large chunks (2000
+                                    chars):</strong> Good context but imprecise retrieval</div>
+                        </div>
+                        <div class="gcard" style="padding:2vh 1.5vw;border-top:3px solid var(--green)">
+                            <div style="color:var(--green);font-weight:700;margin-bottom:1vh">✓ Two-Level Solution</div>
+                            <div style="font-size:0.8rem;color:var(--pale);line-height:1.7"><strong
+                                    style="color:var(--white)">Search:</strong> Child chunks (400 chars, 50 overlap) in
+                                Qdrant<br><strong style="color:var(--white)">Retrieve:</strong> Parent text (2000 chars)
+                                sent to LLM</div>
+                        </div>
+                    </div>
+                    <div class="pc-side">
+                        <div class="chunk-visual">
+                            <div class="chunk-parent animate-in">📄 Constitution.pdf — Parent Chunk #001 (2000 chars)
+                            </div>
+                            <div class="chunk-children animate-in">
+                                <div class="chunk-child">child #1<br>400c</div>
+                                <div class="chunk-child">child #2<br>400c</div>
+                                <div class="chunk-child">child #3<br>400c</div>
+                                <div class="chunk-child">child #4<br>400c</div>
+                                <div class="chunk-child">child #5<br>400c</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── SLIDE 6: SHA-256 ── -->
+        <div class="slide" id="s6">
+            <div style="width:100%;max-width:1100px">
+                <div class="section-label animate-in">Unique Engineering</div>
+                <h2 class="animate-in"
+                    style="font-family:'Bebas Neue';font-size:clamp(2rem,4.5vw,3.2rem);color:var(--white);margin-bottom:2vh;">
+                    SHA-256 Sync Engine — Zero Orphaned Vectors</h2>
+                <div class="sha-grid">
+                    <div class="sha-card sha-new gcard animate-in">
+                        <div class="sha-outcome">NEW FILE</div>
+                        <div style="font-size:0.75rem;color:var(--pale);">No registry entry found<br>→ Index to
+                            Qdrant<br>→ Create registry row<br>→ Upsert vectors</div>
+                    </div>
+                    <div class="sha-card sha-mismatch gcard animate-in">
+                        <div class="sha-outcome">HASH MISMATCH</div>
+                        <div style="font-size:0.75rem;color:var(--pale);">File content changed<br>→ Delete ALL old
+                            vectors<br>→ Re-index fresh<br>→ Update registry hash</div>
+                    </div>
+                    <div class="sha-card sha-removed gcard animate-in">
+                        <div class="sha-outcome">FILE REMOVED</div>
+                        <div style="font-size:0.75rem;color:var(--pale);">In registry, not in storage<br>→ Delete
+                            vectors<br>→ Mark status = deleted<br>→ Audit trail preserved</div>
+                    </div>
+                    <div class="sha-card sha-match gcard animate-in">
+                        <div class="sha-outcome">HASH MATCH</div>
+                        <div style="font-size:0.75rem;color:var(--pale);">Content unchanged<br>→ <strong
+                                style="color:var(--green)">SKIP</strong> — zero API calls<br>→ Zero embedding cost<br>→
+                            Zero quota consumed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── SLIDE 7: SECURITY ── -->
+        <div class="slide" id="s7">
+            <div style="width:100%;max-width:1100px">
+                <div class="section-label animate-in">Enterprise Security</div>
+                <h2 class="animate-in"
+                    style="font-family:'Bebas Neue';font-size:clamp(1.8rem,4vw,3rem);color:var(--white);margin-bottom:2vh;">
+                    GDPR Compliant · Zero PII Leakage · Multi-Layer Defense</h2>
+                <div class="sec-list">
+                    <div class="sec-item animate-in">
+                        <div class="sec-num" style="color:var(--copper)">01</div>
+                        <div>
+                            <div style="font-weight:700;color:var(--white);font-size:0.9rem;margin-bottom:3px">PII
+                                Masking — Microsoft Presidio + spaCy</div>
+                            <div style="font-size:0.75rem;color:var(--pale)">Aadhaar · Phone · Email · Name detected and
+                                masked BEFORE hitting Qdrant API. Same semantic result, zero PII exposure.</div>
+                        </div>
+                    </div>
+                    <div class="sec-item animate-in">
+                        <div class="sec-num" style="color:var(--blue)">02</div>
+                        <div>
+                            <div style="font-weight:700;color:var(--white);font-size:0.9rem;margin-bottom:3px">Google
+                                OAuth 2.0 + JWT</div>
+                            <div style="font-size:0.75rem;color:var(--pale)">Scope: openid email profile only — no Gmail
+                                access. JWT: HS256, 7-day expiry.</div>
+                        </div>
+                    </div>
+                    <div class="sec-item animate-in">
+                        <div class="sec-num" style="color:var(--green)">03</div>
+                        <div>
+                            <div style="font-weight:700;color:var(--white);font-size:0.9rem;margin-bottom:3px">Rate
+                                Limiting + Circuit Breaker</div>
+                            <div style="font-size:0.75rem;color:var(--pale)">SlowAPI: 5 req/min per IP. CircuitBreaker:
+                                10 failures → OPEN 120s → HALF-OPEN → retry. Prevents cascading API failures.</div>
+                        </div>
+                    </div>
+                    <div class="sec-item animate-in">
+                        <div class="sec-num" style="color:var(--mist)">04</div>
+                        <div>
+                            <div style="font-weight:700;color:var(--white);font-size:0.9rem;margin-bottom:3px">GDPR —
+                                MongoDB 30-Day TTL</div>
+                            <div style="font-size:0.75rem;color:var(--pale)">Article 5(1)(e): Data minimization.
+                                expireAfterSeconds=2592000. Auto-delete, no cron job.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── SLIDE 8: METRICS ── -->
+        <div class="slide" id="s8">
+            <div style="width:100%;max-width:1100px">
+                <div class="section-label animate-in">Production Metrics</div>
+                <h2 class="animate-in"
+                    style="font-family:'Bebas Neue';font-size:clamp(2rem,5vw,3.8rem);color:var(--white);margin-bottom:3vh;">
+                    Real Numbers from Live Production</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card gcard animate-in">
+                        <div class="stat-num">10,833</div>
+                        <div class="stat-label">Total Chunks</div>
+                    </div>
+                    <div class="metric-card gcard animate-in">
+                        <div class="stat-num">8,896</div>
+                        <div class="stat-label">Child Vectors in Qdrant</div>
+                    </div>
+                    <div class="metric-card gcard animate-in">
+                        <div class="stat-num">1,937</div>
+                        <div class="stat-label">Parent Chunks for LLM</div>
+                    </div>
+                    <div class="metric-card gcard animate-in">
+                        <div class="stat-num">768</div>
+                        <div class="stat-label">Jina Dimensions</div>
+                    </div>
+                    <div class="metric-card gcard animate-in">
+                        <div class="stat-num green-stat">Sub-5s</div>
+                        <div class="stat-label">Response Latency</div>
+                    </div>
+                    <div class="metric-card gcard animate-in">
+                        <div class="stat-num">₹0</div>
+                        <div class="stat-label">Monthly Cost</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── SLIDE 9: TECH STACK ── -->
+        <div class="slide" id="s9">
+            <div style="width:100%;max-width:1100px">
+                <div class="section-label animate-in">Technology Stack</div>
+                <h2 class="animate-in"
+                    style="font-family:'Bebas Neue';font-size:clamp(2rem,5vw,3.5rem);color:var(--white);margin-bottom:2.5vh;">
+                    100% Free Tier · Production Deployed</h2>
+                <div class="stack-grid">
+                    <div class="stack-cat animate-in">
+                        <div class="stack-cat-header">ORCHESTRATION</div>
+                        <div class="stack-cat-body">
+                            <div class="stack-item">LangGraph StateGraph</div>
+                            <div class="stack-item">LangChain</div>
+                            <div class="stack-item">Langfuse Observability</div>
+                        </div>
+                    </div>
+                    <div class="stack-cat animate-in">
+                        <div class="stack-cat-header">VECTOR DB</div>
+                        <div class="stack-cat-body">
+                            <div class="stack-item">Qdrant Cloud (1GB free)</div>
+                            <div class="stack-item">Jina AI Embeddings</div>
+                            <div class="stack-item">Parent-Child Chunking</div>
+                        </div>
+                    </div>
+                    <div class="stack-cat animate-in">
+                        <div class="stack-cat-header">BACKEND</div>
+                        <div class="stack-cat-body">
+                            <div class="stack-item">FastAPI + Uvicorn</div>
+                            <div class="stack-item">Docker on Render</div>
+                            <div class="stack-item">React + Vite (Vercel)</div>
+                        </div>
+                    </div>
+                    <div class="stack-cat animate-in">
+                        <div class="stack-cat-header">SECURITY</div>
+                        <div class="stack-cat-body">
+                            <div class="stack-item">Microsoft Presidio PII</div>
+                            <div class="stack-item">Google OAuth 2.0</div>
+                            <div class="stack-item">SlowAPI + Circuit Breaker</div>
+                        </div>
+                    </div>
+                    <div class="stack-cat animate-in">
+                        <div class="stack-cat-header">DATABASES</div>
+                        <div class="stack-cat-body">
+                            <div class="stack-item">MongoDB Atlas</div>
+                            <div class="stack-item">Supabase Postgres</div>
+                            <div class="stack-item">Upstash Redis</div>
+                        </div>
+                    </div>
+                    <div class="stack-cat animate-in">
+                        <div class="stack-cat-header">LLM</div>
+                        <div class="stack-cat-body">
+                            <div class="stack-item">Qwen 3 235B (OpenRouter)</div>
+                            <div class="stack-item">temp=0.3 anti-hallucination</div>
+                            <div class="stack-item">Confidence gate &lt;40%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /slides -->
+
+    <!-- NAV DOTS -->
+    <div id="nav">
+        <div class="nav-dot active" onclick="goTo(0)"></div>
+        <div class="nav-dot" onclick="goTo(1)"></div>
+        <div class="nav-dot" onclick="goTo(2)"></div>
+        <div class="nav-dot" onclick="goTo(3)"></div>
+        <div class="nav-dot" onclick="goTo(4)"></div>
+        <div class="nav-dot" onclick="goTo(5)"></div>
+        <div class="nav-dot" onclick="goTo(6)"></div>
+        <div class="nav-dot" onclick="goTo(7)"></div>
+        <div class="nav-dot" onclick="goTo(8)"></div>
+    </div>
+
+    <script>
+        // Mobile friendly go back function
+        function goBack(e) {
+            e.preventDefault();
+            if (window.history.length > 1 && document.referrer.includes(window.location.hostname)) {
+                window.close();
+            }
+            window.location.href = '/';
+        }
+
+        // ── CURSOR ──────────────────────────────────────────────
+        const cur = document.getElementById('cursor');
+        const ring = document.getElementById('cursor-ring');
+        document.addEventListener('mousemove', e => {
+            cur.style.left = e.clientX + 'px';
+            cur.style.top = e.clientY + 'px';
+            setTimeout(() => {
+                ring.style.left = e.clientX + 'px';
+                ring.style.top = e.clientY + 'px';
+            }, 80);
+        });
+
+        // ── NEURAL NETWORK BACKGROUND ───────────────────────────
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const nodes = [];
+        const NODE_COUNT = window.innerWidth < 768 ? 30 : 60; // Less nodes on mobile for performance
+        const COPPER = 'rgba(196,130,62,';
+        const STEEL = 'rgba(30,45,64,';
+
+        for (let i = 0; i < NODE_COUNT; i++) {
+            nodes.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, r: Math.random() * 2 + 1, pulse: Math.random() * Math.PI * 2 });
+        }
+
+        function drawBg() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#060A12';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.strokeStyle = 'rgba(20,35,55,0.6)';
+            ctx.lineWidth = 0.5;
+            for (let x = 0; x < canvas.width; x += 60) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke(); }
+            for (let y = 0; y < canvas.height; y += 60) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke(); }
+
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x; const dy = nodes[i].y - nodes[j].y; const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 160) {
+                        const alpha = (1 - dist / 160) * 0.15;
+                        ctx.beginPath(); ctx.strokeStyle = COPPER + alpha + ')'; ctx.lineWidth = 0.6; ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
+                    }
+                }
+            }
+
+            nodes.forEach(n => {
+                n.pulse += 0.02; const glow = Math.sin(n.pulse) * 0.5 + 0.5; const alpha = 0.3 + glow * 0.5;
+                ctx.beginPath(); ctx.arc(n.x, n.y, n.r + glow * 1.5, 0, Math.PI * 2); ctx.fillStyle = COPPER + alpha + ')'; ctx.fill();
+                n.x += n.vx; n.y += n.vy;
+                if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+                if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+            });
+
+            requestAnimationFrame(drawBg);
+        }
+        drawBg();
+
+        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+        // ── SLIDES ──────────────────────────────────────────────
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.nav-dot');
+        const curSlideEl = document.getElementById('cur-slide');
+        let current = 0; let animating = false;
+
+        function triggerAnimations(slideEl) {
+            slideEl.querySelectorAll('.animate-in').forEach((el, index) => {
+                el.style.animationPlayState = 'running';
+                el.style.animationDelay = (0.2 + (index * 0.1)) + 's'; // Force reset delays for mobile scroll
+                const clone = el.cloneNode(true); el.parentNode.replaceChild(clone, el); clone.style.animationPlayState = 'running';
+            });
+            setTimeout(() => { slideEl.querySelectorAll('.prog-fill').forEach(bar => { bar.style.width = (bar.dataset.width || 80) + '%'; }); }, 600);
+        }
+
+        function goTo(idx) {
+            if (idx === current || animating || window.innerWidth < 768) return; // Disable JS navigation on mobile (use native scroll)
+            animating = true;
+            slides[current].classList.remove('active', 'entering'); slides[idx].classList.add('active', 'entering');
+            dots[current].classList.remove('active'); dots[idx].classList.add('active');
+            current = idx; curSlideEl.textContent = current + 1;
+            triggerAnimations(slides[idx]);
+            setTimeout(() => { animating = false; }, 500);
+        }
+
+        // Init first slide
+        if (window.innerWidth >= 768) {
+            triggerAnimations(slides[0]);
+        } else {
+            // On mobile, trigger all animations since we are scrolling
+            slides.forEach(s => triggerAnimations(s));
+        }
+
+        // Keyboard
+        document.addEventListener('keydown', e => {
+            if (window.innerWidth < 768) return;
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); if (current < slides.length - 1) goTo(current + 1); }
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); if (current > 0) goTo(current - 1); }
+        });
+
+        // Touch swipe (desktop simulation only, disabled on native mobile)
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => { if (window.innerWidth >= 768) touchStartX = e.touches[0].clientX; });
+        document.addEventListener('touchend', e => {
+            if (window.innerWidth < 768) return;
+            const dx = e.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(dx) > 50) {
+                if (dx < 0 && current < slides.length - 1) goTo(current + 1);
+                if (dx > 0 && current > 0) goTo(current - 1);
+            }
+        });
+
+        // Mobile scroll spy to update counter
+        const slidesContainer = document.getElementById('slides');
+        slidesContainer.addEventListener('scroll', () => {
+            if (window.innerWidth >= 768) return;
+            const slideHeight = window.innerHeight;
+            const scrolled = slidesContainer.scrollTop;
+            const activeIndex = Math.round(scrolled / slideHeight);
+            if (activeIndex !== current && activeIndex < slides.length) {
+                current = activeIndex;
+                curSlideEl.textContent = current + 1;
+            }
+        });
+    </script>
+</body>
+
+</html>

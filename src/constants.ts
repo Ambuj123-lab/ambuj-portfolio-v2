@@ -105,6 +105,7 @@ export const PROJECTS_DATA: Project[] = [
     demoLink: 'https://indian-legal-ai-expert.onrender.com/',
     architectureDiagram: '/projects/LegalAI_architecture_animated.svg',
     caseStudyId: 'legal-ai',
+    presentationLink: '/legal-ai-case-study.html',
     impact: ['8,896 child vectors', '300K tokens saved', 'Zero orphaned vectors', 'GDPR-compliant']
   },
   {

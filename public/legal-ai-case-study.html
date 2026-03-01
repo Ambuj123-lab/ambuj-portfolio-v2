@@ -1085,8 +1085,7 @@
                 </div>
                 <div class="cover-author animate-in" style="animation:fadeIn 0.5s ease forwards;animation-delay:1.4s">
                     <div class="cover-author-name">Ambuj Kumar Tripathi</div>
-                    <div class="cover-author-role">GenAI Solution Architect · RAG Systems Specialist · Immediate Joiner
-                    </div>
+                    <div class="cover-author-role">GenAI Solution Architect · RAG Systems Specialist</div>
                 </div>
             </div>
             <div class="cover-right">
@@ -1140,6 +1139,11 @@
                             citations, exact section numbers, and context — not hallucinated summaries that could cause
                             harm.</p>
                     </div>
+                </div>
+                <div class="animate-in"
+                    style="margin-top:2vh;padding:1.5vh 2vw;background:rgba(196,130,62,0.06);border:1px solid var(--copper-dk);border-radius:4px;font-size:0.82rem;color:var(--copper-lt);font-style:italic;">
+                    Solution → A production RAG system that retrieves exact legal provisions with source citations — and
+                    re-indexes in minutes when laws change.
                 </div>
             </div>
         </div>
@@ -1313,15 +1317,34 @@
                     </div>
                     <div class="pc-side">
                         <div class="chunk-visual">
-                            <div class="chunk-parent animate-in">📄 Constitution.pdf — Parent Chunk #001 (2000 chars)
-                            </div>
-                            <div class="chunk-children animate-in">
+                            <div class="chunk-parent animate-in"
+                                style="animation:slideRight 0.5s ease forwards;animation-delay:0.5s">📄 Constitution.pdf
+                                — Parent Chunk #001 (2000 chars)</div>
+                            <div class="chunk-children animate-in"
+                                style="animation:fadeIn 0.5s ease forwards;animation-delay:0.7s">
                                 <div class="chunk-child">child #1<br>400c</div>
                                 <div class="chunk-child">child #2<br>400c</div>
                                 <div class="chunk-child">child #3<br>400c</div>
                                 <div class="chunk-child">child #4<br>400c</div>
                                 <div class="chunk-child">child #5<br>400c</div>
                             </div>
+                            <div class="chunk-parent animate-in"
+                                style="animation:slideRight 0.5s ease forwards;animation-delay:0.6s">📄 Constitution.pdf
+                                — Parent Chunk #002 (2000 chars)</div>
+                            <div class="chunk-children animate-in"
+                                style="animation:fadeIn 0.5s ease forwards;animation-delay:0.8s">
+                                <div class="chunk-child">child #6<br>400c</div>
+                                <div class="chunk-child">child #7<br>400c</div>
+                                <div class="chunk-child">child #8<br>400c</div>
+                                <div class="chunk-child">child #9<br>400c</div>
+                                <div class="chunk-child">child #10<br>400c</div>
+                            </div>
+                        </div>
+                        <div
+                            style="margin-top:1.5vh;padding:1.2vh 1vw;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:4px;font-size:0.72rem;color:var(--green)">
+                            Query hits child → retrieves parent → LLM gets rich context<br>
+                            <span style="color:var(--pale)">Result: 8,896 child vectors · 1,937 parent chunks ·
+                                precision + context</span>
                         </div>
                     </div>
                 </div>
@@ -1357,6 +1380,11 @@
                                 style="color:var(--green)">SKIP</strong> — zero API calls<br>→ Zero embedding cost<br>→
                             Zero quota consumed</div>
                     </div>
+                </div>
+                <div class="animate-in"
+                    style="margin-top:2vh;padding:1.2vh 1.5vw;background:rgba(196,130,62,0.05);border-left:3px solid var(--copper);font-size:0.78rem;color:var(--copper-lt);font-style:italic;">
+                    Result: Multiple re-indexing cycles — zero orphaned vectors. Registry always in sync with Qdrant.
+                    Idempotent — safe to run twice.
                 </div>
             </div>
         </div>

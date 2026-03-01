@@ -682,11 +682,12 @@ function App() {
 
                         {/* Featured Publication / Flipbook */}
                         <motion.div
+                            id="flipbook"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.4 }}
-                            className="mt-16 sm:mt-24"
+                            className="mt-16 sm:mt-24 scroll-mt-24"
                         >
                             <div className="flex flex-col items-center text-center mb-8">
                                 <p className="section-eyebrow !text-[#C4785A]">Interactive Profile</p>

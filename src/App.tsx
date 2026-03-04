@@ -390,6 +390,10 @@ function App() {
                                         View My Work
                                         <ArrowRight size={16} />
                                     </a>
+                                    <a href="https://ambuj-rag-docs.netlify.app/" target="_blank" rel="noopener noreferrer" className={`btn ${isDarkMode ? 'bg-[#C4785A] text-white hover:bg-[#A35D43] border-transparent' : 'bg-[#C4785A] text-white hover:bg-[#A35D43]'}`}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" /></svg>
+                                        Engineering Docs
+                                    </a>
                                     <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className={`btn ${isDarkMode ? 'bg-[#1C1C1C] text-white border border-white/20 hover:bg-[#333]' : 'btn-outline'}`}>
                                         <ExternalLink size={16} />
                                         View Resume

@@ -91,7 +91,7 @@ export default function HeroSection({ onContactClick, onInstallClick }: HeroSect
             transition={{ delay: 0.6 }}
             className="flex flex-wrap items-center gap-4 pt-8"
           >
-            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 bg-white text-[var(--obsidian)] px-6 py-3 rounded-none font-mono text-sm uppercase font-bold hover:bg-[var(--orange)] hover:text-white transition-colors">
+            <a href="/resume.pdf" download="Ambuj_Tripathi_Resume.pdf" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 bg-white text-[var(--obsidian)] px-6 py-3 rounded-none font-mono text-sm uppercase font-bold hover:bg-[var(--orange)] hover:text-white transition-colors">
               <FileText size={16} className="group-hover:-translate-y-1 transition-transform" />
               View Resume
             </a>

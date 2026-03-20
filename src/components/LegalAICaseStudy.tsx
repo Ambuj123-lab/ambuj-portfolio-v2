@@ -230,12 +230,12 @@ const LegalAICaseStudy: React.FC = () => {
             </div>
 
             {/* ═══ Controls Bar ═══ */}
-            <div className="flex justify-between items-center mb-8 print:hidden sticky top-0 bg-[#0a0a0a]/90 backdrop-blur-sm py-3 z-40 border-b border-[#333] -mx-4 md:-mx-8 px-4 md:px-8">
-                <div className="flex items-center gap-1 bg-[#1A1A1A] rounded-lg p-1 border border-[#333]">
-                    <button onClick={() => setLanguage('en')} className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all ${language === 'en' ? 'bg-[#C4785A] text-white shadow-lg' : 'text-[#858585] hover:text-white'}`}>English</button>
-                    <button onClick={() => setLanguage('hi')} className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all ${language === 'hi' ? 'bg-[#C4785A] text-white shadow-lg' : 'text-[#858585] hover:text-white'}`}>Hindi</button>
+            <div className="flex justify-between items-center mb-8 print:hidden sticky top-0 bg-[var(--obsidian)]/90 backdrop-blur-sm py-3 z-40 border-b border-[var(--glass-border)] -mx-4 md:-mx-8 px-4 md:px-8">
+                <div className="flex items-center gap-1 bg-[#050505] p-1 border border-[var(--glass-border)]">
+                    <button onClick={() => setLanguage('en')} className={`px-3 py-1.5 text-sm font-mono uppercase tracking-wider transition-all ${language === 'en' ? 'bg-[var(--orange)] text-white' : 'text-[var(--zinc-muted)] hover:text-white'}`}>English</button>
+                    <button onClick={() => setLanguage('hi')} className={`px-3 py-1.5 text-sm font-mono uppercase tracking-wider transition-all ${language === 'hi' ? 'bg-[var(--orange)] text-white' : 'text-[var(--zinc-muted)] hover:text-white'}`}>Hindi</button>
                 </div>
-                <button onClick={() => window.print()} className="flex items-center gap-2 px-4 py-2 bg-[#252525] hover:bg-[#333] rounded-lg text-sm text-white transition-colors border border-[#333]">
+                <button onClick={() => window.print()} className="flex items-center gap-2 px-4 py-2 bg-[#050505] hover:bg-[var(--orange)] hover:text-white text-[var(--zinc-muted)] transition-colors border border-[var(--glass-border)] font-mono text-xs uppercase tracking-wider">
                     <Printer size={16} /><span className="hidden sm:inline">Print PDF</span>
                 </button>
             </div>

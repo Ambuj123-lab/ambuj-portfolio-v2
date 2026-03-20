@@ -5,48 +5,49 @@ import type { Experience, Project, Certificate } from './types';
 export const RESUME_QR_BASE64 = "";
 
 export const TYPEWRITER_TITLES = [
-  "Transforming Ideas into Intelligent Solutions.",
-  "Prompt Engineering & Generative AI Specialist.",
-  "Bridging Telecom Expertise with AI Innovation.",
-  "Telecom Infrastructure Specialist Turned AI Enthusiast.",
-  "Pioneering Conversational AI and Chatbot Development.",
-  "Crafting Prompts for Seamless Human-AI Interaction."
+  "GenAI Solution & RAG Architect.",
+  "Production-Grade LLMOps Specialist.",
+  "Dual-Indexing Architecture Engineer.",
+  "GDPR-Compliant AI Pipeline Builder.",
+  "Fault-Tolerant Deployment Orchestrator."
 ];
 
 export const EXPERIENCE_DATA: Experience[] = [
   {
     id: 'expHogarth',
-    title: 'AI Model Validation & Prompt Engineering Specialist',
-    company: 'Hogarth World Wide [A WPP Company]',
+    title: 'AI Prompt Engineer',
+    company: 'Hogarth Worldwide (A WPP Company)',
     location: 'Remote, India',
     period: 'Sept 2025 – Oct 2025',
     icon: 'fas fa-robot',
     color: 'pink',
     achievements: [
-      'Engineered and optimized prompts for commercial-grade generative AI models (Flux/SDXL) within strict technical constraints (72-77 token limits).',
-      'Conducted systematic model validation and adversarial testing, identifying critical limitations including instruction adherence failures.',
-      'Developed prompt refinement methodology translating subjective business feedback into quantifiable technical adjustments.',
-      'Collaborated with cross-functional teams to define AI integration protocols.',
-      'Built reusable prompt libraries for 25+ use case categories, reducing prompt engineering time by 40%.'
+      'Engineered and optimized prompts for commercial-grade generative AI models (Flux, SDXL) within strict 72-77 token limits for brand-compliant visual outputs.',
+      'Conducted systematic model validation and adversarial testing, identifying critical limitations including instruction adherence failures and hallucination patterns.',
+      'Developed Smart AI Prompt Builder tool to standardize prompt creation workflows, featuring intelligent keyword matching for 8 problem categories.',
+      'Developed prompt refinement methodology translating subjective feedback into quantifiable technical adjustments.',
+      'Collaborated with cross-functional teams to define AI integration protocols and QA standards.'
     ],
-    techStack: ['Flux/SDXL', 'Prompt Engineering', 'Model Validation', 'Adversarial Testing', 'GenAI']
+    techStack: ['Flux/SDXL', 'Prompt Engineering', 'Adversarial Testing', 'Model Validation', 'QA Protocols']
   },
   {
     id: 'expBT',
-    title: 'Associate Engineer - Fibre & Network Delivery',
-    company: 'British Telecom Global Services',
+    title: 'Associate Engineer - Fibre & Network Delivery (Applied AI)',
+    company: 'British Telecom Global Services Pvt. Ltd.',
     location: 'Gurugram, India',
     period: 'Jan 2022 – Aug 2024',
     icon: 'fas fa-network-wired',
     color: 'blue',
     achievements: [
-      '🏆 "Top Performer" Award (Jan 2022) for innovative problem-solving.',
+      '🏆 "Top Performer" Award (Sept 2022) for innovative problem-solving initiatives.',
       'Led FTTP network planning using GIS tools, reducing deployment time by 15%.',
-      'Coordinated cross-functional teams, achieving 98% quality assurance compliance.',
-      'Developed rule-based automation systems for generating network estimates, reducing manual effort by 70%.',
-      'Mentored 5+ junior engineers; skills later applied to AI model tuning.'
+      'Streamlined network estimation workflows by automating data extraction from Piper database, reducing manual effort by 60%.',
+      'Collaborated on transition from manual processes to Autotron-based automation pipeline.',
+      'Explored AI-powered document intelligence tools using Gemini 1.5 Flash API for automated extraction from network specifications.',
+      'Prototyped conversational AI interface using Gradio enabling stakeholders to query network deployment metrics.',
+      'Coordinated cross-functional teams achieving 98% quality assurance compliance.'
     ],
-    techStack: ['FTTP Network Planning', 'GIS Tools', 'Process Automation', 'Data Analysis', 'Team Leadership']
+    techStack: ['GIS Tools', 'Python', 'Gemini 1.5 Flash API', 'Gradio', 'Excel Automation', 'Piper Database']
   },
   {
     id: 'expTata',
@@ -57,11 +58,11 @@ export const EXPERIENCE_DATA: Experience[] = [
     icon: 'fas fa-server',
     color: 'green',
     achievements: [
-      'Optimized network performance, reducing downtime by 10% via comprehensive data analysis.',
-      'Managed billing for OSP/ISP services with 100% accuracy.',
-      'Improved Field Engineer SLA, achieving 98% TAT compliance.'
+      'Optimized network performance and monitoring systems, reducing downtime by 10% through comprehensive data analysis.',
+      'Managed billing systems for OSP/ISP services with 100% accuracy using systematic quality control.',
+      'Improved Field Engineer SLA compliance, achieving 98% TAT through workflow optimization.'
     ],
-    techStack: ['Network Operations', 'Performance Monitoring', 'Billing Management', 'SLA Compliance']
+    techStack: ['ServiceNow', 'Orion', 'Network Monitoring', 'Excel Advanced Functions']
   },
   {
     id: 'expAnnu',
@@ -72,11 +73,11 @@ export const EXPERIENCE_DATA: Experience[] = [
     icon: 'fas fa-tools',
     color: 'orange',
     achievements: [
-      'Executed fiber optic deployment for Ministry of Defense across 3 states ensuring complete security compliance.',
-      'Ensured 100% compliance with security and technical standards.',
-      'Reduced project delays by 20% through effective vendor coordination.'
+      'Executed fiber optic deployment projects for Ministry of Defense across 3 states with complete security compliance.',
+      'Ensured 100% compliance with security protocols and technical specifications through rigorous QA.',
+      'Reduced project delays by 20% through effective vendor coordination and resource optimization.'
     ],
-    techStack: ['Fiber Optic Deployment', 'Ministry of Defense Projects', 'Security Compliance', 'Vendor Management']
+    techStack: ['Fiber Optic Deployment', 'Ministry of Defense', 'Security Compliance', 'Vendor Management']
   },
   {
     id: 'expTCS',
@@ -87,9 +88,9 @@ export const EXPERIENCE_DATA: Experience[] = [
     icon: 'fas fa-server',
     color: 'indigo',
     achievements: [
-      'Managed revenue systems for Delhi Jal Board, ensuring 99% uptime.',
-      'Trained 20+ portal users on system optimization.',
-      'Supported eMigrate (Ministry of Overseas Affairs) with document verification.'
+      'Managed revenue systems for Delhi Jal Board, ensuring 99% uptime through proactive monitoring.',
+      'Trained 20+ portal users on system optimization and best practices.',
+      'Supported eMigrate portal (Ministry of Overseas Affairs) with document verification processes.'
     ],
     techStack: ['System Administration', 'Revenue Systems', 'User Training', 'Process Automation']
   }
@@ -199,13 +200,9 @@ export const CERTIFICATES_DATA: Certificate[] = [
 ];
 
 export const SKILLS_LIST = [
-  { category: "AI & ML", icon: "fas fa-brain", desc: "Prompt Engineering, Adversarial Prompting, Model Validation, Red Teaming, LLMs (GPT, Claude, Gemini, Llama), NLP, RAG" },
-  { category: "Generative AI", icon: "fas fa-robot", desc: "Conversational AI, Image & Text Generation, Few-Shot / Zero-Shot Prompting, AI Tool Integration, AI Ethics" },
-  { category: "Programming", icon: "fas fa-code", desc: "Python (AI/ML), JavaScript ES6+, HTML5, CSS3, Tailwind CSS, REST APIs, OpenRouter & Gemini APIs" },
-  { category: "Web & PWA Dev", icon: "fas fa-laptop-code", desc: "React 18, Service Workers, Offline Caching, App Manifest, Babel, Responsive Design" },
-  { category: "Cloud Platforms", icon: "fas fa-cloud", desc: "GCP Vertex AI, IBM WatsonX, Hugging Face Spaces, Render, Netlify, Cloud Foundry" },
-  { category: "Tools & Frameworks", icon: "fas fa-cogs", desc: "Transformers, Gradio, IBM Watson Assistant, Puppeteer, PDF.js, Jupyter, Git, VS Code" },
-  { category: "Data & Automation", icon: "fas fa-database", desc: "Excel Advanced, PapaParse, SheetJS, Plotly.js, jsPDF, Data Visualization" },
-  { category: "Telecom Domain", icon: "fas fa-network-wired", desc: "Fiber Optic Design, FTTP Planning, Network Optimization, Multi-vendor Projects" },
-  { category: "Community", icon: "fas fa-users", desc: "OS Contributor, Beta-tester, YouTube (AI Shorts 10K+ views), Ethical AI Advocacy" }
+  { category: "Architecture & LLMOps", icon: "fas fa-network-wired", desc: "RAG System Design, LLMOps, FastAPI, Circuit Breaker, Retry Logic, OAuth 2.0, JWT, LangGraph, Pinecone, Qdrant Cloud" },
+  { category: "AI & Prompt Engineering", icon: "fas fa-brain", desc: "LLMs (DeepSeek R1, Llama 3.3 70B, Qwen), Semantic Search, LangChain, LangFuse, Multi-Modal AI, Red Teaming" },
+  { category: "Tech Stack", icon: "fas fa-code", desc: "Python (Async), JavaScript ES6+, React 18, FastAPI, Tailwind CSS, Web APIs" },
+  { category: "Tools & Cloud", icon: "fas fa-cloud", desc: "Microsoft Presidio, SpaCy, MongoDB Atlas, Upstash Redis, Render, Vercel, Docker, Koyeb" },
+  { category: "Specialized Contexts", icon: "fas fa-shield-alt", desc: "GDPR Compliance, PII Masking, Rate Limiting (SlowAPI), Parent-Child Chunking, Web Speech API" }
 ];

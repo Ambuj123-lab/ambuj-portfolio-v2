@@ -1,156 +1,80 @@
 import { useState, useEffect } from 'react';
-import {
-    EXPERIENCE_DATA,
-    PROJECTS_DATA,
-    CERTIFICATES_DATA,
-    SKILLS_LIST,
-    TYPEWRITER_TITLES,
-} from './constants';
-import { Github, Linkedin, Mail, ExternalLink, ArrowRight, Menu, X, ChevronRight, Moon, Sun, Download, ArrowUp } from 'lucide-react';
+import { AnimatePresence } from 'framer-motion';
+
+// Data
+import { PROJECTS_DATA, CERTIFICATES_DATA } from './constants';
+
+// Sections
+import Navigation from './components/sections/Navigation';
+import HeroSection from './components/sections/HeroSection';
+import AboutSection from './components/sections/AboutSection';
+import ProjectsBentoGrid from './components/sections/ProjectsBentoGrid';
+import ExperienceTimeline from './components/sections/ExperienceTimeline';
+import CertificationsSection from './components/sections/CertificationsSection';
+import EngineeringInsightsSection from './components/sections/EngineeringInsightsSection';
+import FlipbookSection from './components/sections/FlipbookSection';
+import ContactSection from './components/sections/ContactSection';
+import Footer from './components/sections/Footer';
+
+// Modals and Widgets
 import ChatWidget from './components/ChatWidget';
 import ImageViewer from './components/ImageViewer';
 import PWAModal from './components/PWAModal';
-import BentoCard from './components/BentoCard';
-import SkillUniverse from './components/SkillUniverse';
-import SplashScreen from './components/SplashScreen';
-import CommandPalette from './components/CommandPalette';
 import ArchitectureModal from './components/ArchitectureModal';
 import CaseStudyModal from './components/CaseStudyModal';
 import ContactModal from './components/ContactModal';
+import CommandPalette from './components/CommandPalette';
 import AgenticTrace from './components/AgenticTrace';
-import { motion, AnimatePresence } from 'framer-motion';
+import SplashScreen from './components/SplashScreen';
+import FloatingDock from './components/FloatingDock';
+import { useMicroSounds } from './hooks/useMicroSounds';
 
-function App() {
-    const [titleIndex, setTitleIndex] = useState(0);
-    const [displayText, setDisplayText] = useState('');
-    const [isDeleting, setIsDeleting] = useState(false);
-    const [activeProjectFilter, setActiveProjectFilter] = useState('All');
-    const [isViewerOpen, setIsViewerOpen] = useState(false);
-    const [isPWAOpen, setIsPWAOpen] = useState(false);
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [isScrolled, setIsScrolled] = useState(false);
-    const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-    const [showScrollTop, setShowScrollTop] = useState(false);
-    const [showShortcutsHint, setShowShortcutsHint] = useState(true);
-    const [readingProgress, setReadingProgress] = useState(0);
+export default function App() {
+    // ---- STATE MANAGEMENT ----
     const [activeSection, setActiveSection] = useState('');
-    const [isDarkMode, setIsDarkMode] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const savedTheme = localStorage.getItem('theme');
-            return savedTheme ? savedTheme === 'dark' : true;
-        }
-        return true;
-    });
-    const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
     const [showSplash, setShowSplash] = useState(true);
-    const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-    const [isHovering, setIsHovering] = useState(false);
-    const [scrollY, setScrollY] = useState(0);
+    
+    // Modals
+    const [isViewerOpen, setIsViewerOpen] = useState(false);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [isPWAOpen, setIsPWAOpen] = useState(false);
+    const [isContactModalOpen, setIsContactModalOpen] = useState(false);
     const [archImage, setArchImage] = useState<string | null>(null);
     const [activeCaseStudyId, setActiveCaseStudyId] = useState<string | null>(null);
 
+    // Micro Sounds
+    const { playHover, playClick } = useMicroSounds();
+
+    // Forced Dark Mode for Premium Technical Brutalism
+    const isDarkMode = true;
+
+    // ---- EFFECTS ----
     useEffect(() => {
-        if (isDarkMode) {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        }
-    }, [isDarkMode]);
+        // Enforce dark mode class on html
+        document.documentElement.classList.add('dark');
+        document.body.style.backgroundColor = 'var(--obsidian)';
 
-    useEffect(() => {
-        const handleBeforeInstallPrompt = (e: any) => {
-            console.log('👍 beforeinstallprompt fired!');
-            e.preventDefault();
-            setDeferredPrompt(e);
-        };
-        window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-        return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    }, []);
-
-    const handleInstallClick = () => {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult: any) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
-                }
-                setDeferredPrompt(null);
-            });
-        } else {
-            alert("To install the app:\n1. Click the 'Share' icon (iOS) or Menu (Android/Chrome)\n2. Select 'Add to Home Screen' or 'Install App'");
-        }
-    };
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 80);
-            setShowScrollTop(window.scrollY > 400);
-
-            // Calculate reading progress
-            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = scrollHeight > 0 ? (window.scrollY / scrollHeight) * 100 : 0;
-            setReadingProgress(progress);
-            setScrollY(window.scrollY); // For parallax
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    // Custom cursor glow effect
-    useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            setCursorPos({ x: e.clientX, y: e.clientY });
-        };
-
+        // Global Sound Effects
         const handleMouseOver = (e: MouseEvent) => {
             const target = e.target as HTMLElement;
-            if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('a') || target.closest('button')) {
-                setIsHovering(true);
-            } else {
-                setIsHovering(false);
+            if (target.closest('a') || target.closest('button')) {
+                playHover();
+            }
+        };
+        const handleMouseDown = (e: MouseEvent) => {
+            const target = e.target as HTMLElement;
+            if (target.closest('a') || target.closest('button')) {
+                playClick();
             }
         };
 
-        window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('mouseover', handleMouseOver);
-        return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('mouseover', handleMouseOver);
-        };
-    }, []);
-
-    // Keyboard shortcuts for navigation (1-4 keys)
-    useEffect(() => {
-        const handleKeyPress = (e: KeyboardEvent) => {
-            // Ignore if user is typing in an input
-            if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-
-            const sections: { [key: string]: string } = {
-                '1': 'work',
-                '2': 'about',
-                '3': 'experience',
-                '4': 'contact'
-            };
-
-            if (sections[e.key]) {
-                const element = document.getElementById(sections[e.key]);
-                element?.scrollIntoView({ behavior: 'smooth' });
-            }
-        };
-        window.addEventListener('keydown', handleKeyPress);
-        return () => window.removeEventListener('keydown', handleKeyPress);
-    }, []);
-
-    // Track active section for navigation highlighting
-    useEffect(() => {
-        if (showSplash) return;
-
+        document.addEventListener('mouseover', handleMouseOver);
+        document.addEventListener('mousedown', handleMouseDown);
+        
+        // Track Scroll Spy for Navigation
         const handleScrollSpy = () => {
-            const sections = ['work', 'about', 'experience', 'contact'];
-            const scrollPosition = window.scrollY + 150;
+            const sections = ['work', 'about', 'experience', 'flipbook', 'blog', 'contact'];
+            const scrollPosition = window.scrollY + 200;
 
             for (const sectionId of sections) {
                 const element = document.getElementById(sectionId);
@@ -166,1087 +90,96 @@ function App() {
             }
         };
 
-        setTimeout(handleScrollSpy, 600);
-
         window.addEventListener('scroll', handleScrollSpy);
-        return () => window.removeEventListener('scroll', handleScrollSpy);
-    }, [showSplash]);
-
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    useEffect(() => {
-        const handleType = () => {
-            const currentTitle = TYPEWRITER_TITLES[titleIndex];
-            if (isDeleting) {
-                setDisplayText(currentTitle.substring(0, displayText.length - 1));
-            } else {
-                setDisplayText(currentTitle.substring(0, displayText.length + 1));
-            }
-            if (!isDeleting && displayText === currentTitle) {
-                setTimeout(() => setIsDeleting(true), 2000);
-            } else if (isDeleting && displayText === '') {
-                setIsDeleting(false);
-                setTitleIndex((prev) => (prev + 1) % TYPEWRITER_TITLES.length);
-            }
+        return () => {
+            window.removeEventListener('scroll', handleScrollSpy);
+            document.removeEventListener('mouseover', handleMouseOver);
+            document.removeEventListener('mousedown', handleMouseDown);
         };
-        const timer = setTimeout(handleType, isDeleting ? 50 : 100);
-        return () => clearTimeout(timer);
-    }, [displayText, isDeleting, titleIndex]);
+    }, [playClick, playHover]);
 
-    const openViewer = (index: number) => {
-        setCurrentImageIndex(index);
-        setIsViewerOpen(true);
+    // PWA Install Prompt
+    const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+    useEffect(() => {
+        const handleBeforeInstallPrompt = (e: any) => {
+            e.preventDefault();
+            setDeferredPrompt(e);
+        };
+        window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+        return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    }, []);
+    const handleInstallClick = () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(() => setDeferredPrompt(null));
+        } else {
+            alert("To install the app:\n1. Click the 'Share' icon (iOS) or Menu (Android/Chrome)\n2. Select 'Add to Home Screen' or 'Install App'");
+        }
     };
-
-    const navLinks = [
-        { href: '#work', label: 'Work' },
-        { href: '#flipbook', label: 'Flipbook' },
-        { href: '#about', label: 'About' },
-        { href: '#experience', label: 'Experience' },
-        { href: '#contact', label: 'Contact' },
-    ];
 
     return (
-        <>
+        <div className="app-container">
             {/* Splash Screen */}
             <AnimatePresence>
-                {showSplash && (
-                    <SplashScreen onComplete={() => setShowSplash(false)} />
-                )}
+                {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
             </AnimatePresence>
 
-            {/* Custom Cursor Glow */}
-            <div
-                className="cursor-glow hidden md:block"
-                style={{ left: cursorPos.x, top: cursorPos.y }}
-            />
-            <div
-                className={`cursor-glow-outer hidden md:block ${isHovering ? 'hovering' : ''}`}
-                style={{ left: cursorPos.x, top: cursorPos.y }}
-            />
+            {/* Main Application Shell */}
+            <div className={`transition-opacity duration-500 min-h-screen ${showSplash ? 'opacity-0' : 'opacity-100'} bg-[var(--obsidian)] text-white font-sans selection:bg-[var(--orange)] selection:text-[var(--obsidian)]`}>
+                
+                <Navigation activeSection={activeSection} />
 
-            {/* Main Content - Hidden during splash */}
-            <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a] text-white' : 'bg-[#F7F5F0] text-[#1C1C1C]'} ${showSplash ? 'opacity-0' : 'opacity-100'}`}>
-
-                {/* Reading Progress Bar */}
-                <div
-                    className="reading-progress-bar"
-                    style={{ width: `${readingProgress}%` }}
-                />
-
-                {/* ===== NAVIGATION ===== */}
-                <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                    ? (isDarkMode ? 'bg-[#0a0a0a]/95 backdrop-blur-md shadow-sm border-b border-white/10' : 'bg-[#F7F5F0]/95 backdrop-blur-md shadow-sm')
-                    : ''
-                    }`}>
-                    <div className="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
-                        <a href="#" className="flex items-center gap-3 font-display text-xl font-medium">
-                            <img src="/logo.png" alt="Logo" className="w-10 h-10 rounded-xl object-cover" />
-                            Ambuj Kumar Tripathi
-                        </a>
-
-                        <div className="hidden md:flex items-center gap-10">
-                            {navLinks.map((link) => {
-                                const sectionId = link.href.replace('#', '');
-                                const isActive = activeSection === sectionId;
-                                return (
-                                    <a key={link.href} href={link.href}
-                                        className={`text-sm font-medium transition-all duration-300 link-hover ${isActive
-                                            ? 'text-[#C4785A]'
-                                            : isDarkMode
-                                                ? 'text-gray-300 hover:text-white'
-                                                : 'text-[#5A5855] hover:text-[#1C1C1C]'
-                                            }`}>
-                                        {link.label}
-                                    </a>
-                                );
-                            })}
-                            <a href="#contact" className="btn btn-primary text-sm">
-                                Let's Talk
-                            </a>
-
-                            {/* Dark Mode Toggle */}
-                            <button
-                                onClick={() => setIsDarkMode(!isDarkMode)}
-                                className={`p-2 rounded-full transition-colors ${isDarkMode ? 'bg-white/10 hover:bg-white/20 text-yellow-400' : 'bg-black/5 hover:bg-black/10 text-gray-600'}`}
-                                aria-label="Toggle Dark Mode"
-                            >
-                                {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-                            </button>
-
-                        </div>
-
-                        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className={`md:hidden p-2 ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                            {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
-                        </button>
+                <main>
+                    <HeroSection 
+                        onContactClick={() => setIsContactModalOpen(true)} 
+                        onInstallClick={handleInstallClick} 
+                    />
+                    
+                    <div className="bg-[#050505] border-y border-[var(--glass-border)]">
+                      <AgenticTrace />
                     </div>
 
-                    <AnimatePresence>
-                        {isMobileMenuOpen && (
-                            <motion.div
-                                initial={{ opacity: 0, x: '100%' }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: '100%' }}
-                                transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                                className={`fixed inset-0 z-40 md:hidden pt-24 px-6 flex flex-col gap-6 ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-[#F7F5F0]'}`}
-                            >
-                                {navLinks.map((link) => (
-                                    <a key={link.href} href={link.href}
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        className={`text-2xl font-display font-medium border-b pb-4 ${isDarkMode ? 'text-white border-white/10' : 'text-[#1C1C1C] border-[#1C1C1C]/10'}`}>
-                                        {link.label}
-                                    </a>
-                                ))}
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </nav>
+                    <ProjectsBentoGrid 
+                        projects={PROJECTS_DATA} 
+                        isDarkMode={isDarkMode}
+                        onOpenCaseStudy={(id) => setActiveCaseStudyId(id)}
+                        onOpenArchitecture={(src) => setArchImage(src)}
+                    />
 
-                {/* ===== HERO SECTION ===== */}
-                <section className="pt-32 pb-20 px-6 relative overflow-hidden">
-                    {/* Decorative Background Elements with Parallax */}
-                    <div className="absolute inset-0 pointer-events-none">
-                        {/* Gradient orb top right - moves slower */}
-                        <div
-                            className="absolute top-20 right-10 w-96 h-96 bg-gradient-to-br from-[#C4785A]/10 to-transparent rounded-full blur-3xl"
-                            style={{ transform: `translateY(${scrollY * 0.1}px)` }}
-                        ></div>
-                        {/* Gradient orb bottom left - moves faster */}
-                        <div
-                            className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-[#E8E4DB] to-transparent rounded-full blur-3xl"
-                            style={{ transform: `translateY(${scrollY * -0.05}px)` }}
-                        ></div>
-                        {/* Subtle grid pattern */}
-                        <div className="absolute inset-0 opacity-[0.02]" style={{
-                            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231C1C1C' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-                        }}></div>
-                        {/* Floating animated shapes with parallax */}
-                        <motion.div
-                            animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
-                            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute top-40 left-20 w-4 h-4 bg-[#C4785A]/30 rounded-full"
-                            style={{ transform: `translateY(${scrollY * 0.15}px)` }}
-                        ></motion.div>
-                        <motion.div
-                            animate={{ y: [0, 15, 0], rotate: [0, -5, 0] }}
-                            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                            className="absolute top-60 right-40 w-6 h-6 border-2 border-[#1C1C1C]/10 rounded-lg"
-                        ></motion.div>
-                        <motion.div
-                            animate={{ y: [0, -10, 0] }}
-                            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-                            className="absolute bottom-40 left-1/4 w-3 h-3 bg-[#1C1C1C]/10 rounded-full"
-                        ></motion.div>
-                    </div>
+                    <AboutSection 
+                        onOpenPWA={() => setIsPWAOpen(true)} 
+                        isDarkMode={isDarkMode} 
+                    />
 
-                    <div className="max-w-7xl mx-auto relative z-10">
-                        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+                    <ExperienceTimeline />
 
-                            {/* Left: Text Content (1 col now, taking 50%) */}
-                            <div className="space-y-8">
-                                <motion.p
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className="section-eyebrow"
-                                >
-                                    AI Engineer & Developer
-                                </motion.p>
+                    <FlipbookSection />
 
-                                <motion.h1
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.1 }}
-                                    className="text-5xl md:text-6xl lg:text-7xl font-display leading-[1.1] min-h-[140px] md:min-h-[160px]"
-                                >
-                                    I specialize in <br />
-                                    <span className="text-[#C4785A]">
-                                        {displayText}
-                                        <span className="animate-pulse ml-1 text-[#C4785A]">|</span>
-                                    </span>
-                                </motion.h1>
+                    <CertificationsSection 
+                        onOpenViewer={(index) => {
+                            setCurrentImageIndex(index);
+                            setIsViewerOpen(true);
+                        }} 
+                    />
 
-                                {/* Subtitle */}
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.2 }}
-                                    className="text-lg text-[#5A5855] max-w-xl"
-                                >
-                                    <span className={isDarkMode ? "text-gray-400" : "text-[#5A5855]"}>
-                                        Transforming complex challenges into elegant, production-ready AI systems and full-stack web applications.
-                                    </span>
-                                </motion.div>
+                    <EngineeringInsightsSection 
+                        onOpenArchitecture={(src) => setArchImage(src)} 
+                    />
 
-                                {/* Buttons + QR Placeholder */}
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.3 }}
-                                    className="flex flex-wrap items-center gap-4 pt-4"
-                                >
-                                    <a href="#work" className="btn btn-primary">
-                                        View My Work
-                                        <ArrowRight size={16} />
-                                    </a>
-                                    <a href="https://ambuj-rag-docs.netlify.app/" target="_blank" rel="noopener noreferrer" className={`btn ${isDarkMode ? 'bg-[#C4785A] text-white hover:bg-[#A35D43] border-transparent' : 'bg-[#C4785A] text-white hover:bg-[#A35D43]'}`}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" /></svg>
-                                        Engineering Docs
-                                    </a>
-                                    <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className={`btn ${isDarkMode ? 'bg-[#1C1C1C] text-white border border-white/20 hover:bg-[#333]' : 'btn-outline'}`}>
-                                        <ExternalLink size={16} />
-                                        View Resume
-                                    </a>
+                    <ContactSection 
+                        onOpenContact={() => setIsContactModalOpen(true)} 
+                    />
+                </main>
 
-                                    <button
-                                        onClick={handleInstallClick}
-                                        className={`btn ${isDarkMode ? 'bg-[#1C1C1C] text-white border border-white/20 hover:bg-[#333]' : 'btn-outline'}`}
-                                    >
-                                        <Download size={16} />
-                                        Install App
-                                    </button>
+                <Footer onOpenContact={() => setIsContactModalOpen(true)} />
 
-                                    <div className="group relative w-20 h-20" title="Scan to view Resume">
-                                        <div className="absolute -inset-0.5 bg-gradient-to-r from-[#C4785A] to-[#E8A87C] rounded-xl opacity-30 group-hover:opacity-100 transition duration-500 blur-sm"></div>
-                                        <div className="relative w-full h-full bg-white rounded-xl p-1 flex items-center justify-center overflow-hidden">
-                                            <img
-                                                src="/qr-code.jpg"
-                                                alt="Resume QR"
-                                                className="w-full h-full object-contain"
-                                            />
-                                        </div>
-                                    </div>
-                                </motion.div>
-
-                                {/* Social Links with Brand Colors */}
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.5 }}
-                                    className="flex gap-3 pt-6"
-                                >
-                                    {/* GitHub - Black */}
-                                    <a href="https://github.com/Ambuj123-lab" target="_blank" rel="noopener noreferrer"
-                                        className="p-3 bg-[#1C1C1C] text-white rounded-full hover:bg-[#333] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
-                                        <Github size={20} />
-                                    </a>
-                                    {/* LinkedIn - Blue */}
-                                    <a href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/" target="_blank" rel="noopener noreferrer"
-                                        className="p-3 bg-[#0A66C2] text-white rounded-full hover:bg-[#004182] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
-                                        <Linkedin size={20} />
-                                    </a>
-                                    <button
-                                        onClick={() => setIsContactModalOpen(true)}
-                                        className="p-3 bg-[#EA4335] text-white rounded-full hover:bg-[#C5221F] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
-                                        <Mail size={20} />
-                                    </button>
-                                </motion.div>
-                            </div>
-
-                            {/* Right: SkillUniverse + Status (1 col now, taking 50%) */}
-                            <motion.div
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.3 }}
-                                className="space-y-4 w-full"
-                            >
-                                {/* Open to Work - Compact */}
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ delay: 0.4 }}
-                                    className="bg-gradient-to-r from-[#1C1C1C] to-[#2D2D2D] p-4 rounded-2xl text-white relative overflow-hidden"
-                                >
-                                    <div className="absolute top-0 right-0 w-24 h-24 bg-[#C4785A]/20 rounded-full blur-2xl"></div>
-                                    <div className="relative flex items-center justify-between">
-                                        <div className="flex items-center gap-3">
-                                            <span className="relative flex h-3 w-3">
-                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                                            </span>
-                                            <div>
-                                                <span className="text-green-400 text-sm font-medium">Open to Work</span>
-                                                <p className="text-white/50 text-xs">AI/ML • Full Stack • Remote</p>
-                                            </div>
-                                        </div>
-                                        <span className="text-[#C4785A] text-2xl">💼</span>
-                                    </div>
-                                </motion.div>
-
-                                {/* Skill Universe Animation */}
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.5 }}
-                                >
-                                    <SkillUniverse isDarkMode={isDarkMode} />
-                                </motion.div>
-                            </motion.div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* ===== STATS MARQUEE ===== */}
-                <section className={`py-4 overflow-hidden ${isDarkMode ? 'bg-[#111]' : 'bg-[#E8E4DB]'}`}>
-                    <div className="stats-marquee-container">
-                        <div className="stats-marquee-track">
-                            {[...Array(2)].map((_, setIndex) => (
-                                <div key={setIndex} className="flex items-center">
-                                    <div className={`stats-marquee-item ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                        <span className="text-[#C4785A]">🚀</span> 8+ AI Projects Built
-                                    </div>
-                                    <div className="stats-marquee-divider"></div>
-                                    <div className={`stats-marquee-item ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                        <span className="text-[#C4785A]">🎖️</span> 15+ Certifications
-                                    </div>
-                                    <div className="stats-marquee-divider"></div>
-                                    <div className={`stats-marquee-item ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                        <span className="text-[#C4785A]">🤖</span> LLM & RAG Expert
-                                    </div>
-                                    <div className="stats-marquee-divider"></div>
-                                    <div className={`stats-marquee-item ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                        <span className="text-[#C4785A]">💻</span> Full Stack Developer
-                                    </div>
-                                    <div className="stats-marquee-divider"></div>
-                                    <div className={`stats-marquee-item ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                        <span className="text-[#C4785A]">🌍</span> Open to Remote Work
-                                    </div>
-                                    <div className="stats-marquee-divider"></div>
-                                    <div className={`stats-marquee-item ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                        <span className="text-[#C4785A]">⚡</span> Python & React
-                                    </div>
-                                    <div className="stats-marquee-divider"></div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* ===== TECH STACK LOGO MARQUEE ===== */}
-                <section className={`py-8 overflow-hidden ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
-                    <div className="max-w-6xl mx-auto px-6 mb-4">
-                        <p className={`text-center text-xs uppercase tracking-widest ${isDarkMode ? 'text-gray-500' : 'text-[#5A5855]'}`}>
-                            Powered by Industry-Leading Technologies
-                        </p>
-                    </div>
-                    <div className="relative">
-                        {/* Gradient overlays */}
-                        <div className={`absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none ${isDarkMode ? 'bg-gradient-to-r from-[#0a0a0a] to-transparent' : 'bg-gradient-to-r from-white to-transparent'}`}></div>
-                        <div className={`absolute right-0 top-0 bottom-0 w-20 z-10 pointer-events-none ${isDarkMode ? 'bg-gradient-to-l from-[#0a0a0a] to-transparent' : 'bg-gradient-to-l from-white to-transparent'}`}></div>
-
-                        <div className="flex animate-marquee">
-                            {[...Array(2)].map((_, setIndex) => (
-                                <div key={setIndex} className="flex items-center gap-12 px-6">
-                                    {[
-                                        { name: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-                                        { name: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
-                                        { name: 'FastAPI', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg' },
-                                        { name: 'MongoDB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
-                                        { name: 'Redis', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg' },
-                                        { name: 'TypeScript', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
-                                        { name: 'LangChain', logo: 'https://avatars.githubusercontent.com/u/126733545?s=200&v=4' },
-                                        { name: 'Langfuse', logo: 'https://avatars.githubusercontent.com/u/121682676?s=200&v=4' },
-                                        { name: 'ChromaDB', logo: 'https://avatars.githubusercontent.com/u/120325917?s=200&v=4' },
-                                        { name: 'Google Cloud', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg' },
-                                    ].map((tech, index) => (
-                                        <div
-                                            key={`${setIndex}-${index}`}
-                                            className="group flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-110"
-                                        >
-                                            <img
-                                                src={tech.logo}
-                                                alt={tech.name}
-                                                className="w-8 h-8 object-contain transition-all duration-300 hover:scale-110"
-                                            />
-                                            <span className={`text-sm font-medium transition-opacity ${isDarkMode ? 'text-gray-300' : 'text-[#1C1C1C]'}`}>
-                                                {tech.name}
-                                            </span>
-                                        </div>
-                                    ))}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* ===== AGENTIC TRACE (LIVE OBSERVATION) ===== */}
-                <AgenticTrace isDarkMode={isDarkMode} />
-
-                {/* ===== ABOUT SECTION ===== */}
-                <section className="py-20 px-6" id="about">
-                    <div className="max-w-6xl mx-auto">
-                        <div className="grid lg:grid-cols-2 gap-16 items-start">
-                            <div>
-                                <p className="section-eyebrow">About</p>
-                                <h2 className={`text-4xl md:text-5xl font-display mb-6 ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                    Crafting AI solutions<br />with purpose
-                                </h2>
-                            </div>
-                            <div className={`space-y-6 leading-relaxed ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>
-                                <p className={`text-lg ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                    I'm an AI Engineer & Full Stack Developer with a passion for building intelligent systems that solve real problems.
-                                </p>
-                                <p>
-                                    With experience spanning from telecom infrastructure to cutting-edge AI, I bring operational discipline and creative problem-solving to every project. My journey has taken me from fiber optic networks to large language models.
-                                </p>
-                                <button onClick={() => setIsPWAOpen(true)} className="text-[#C4785A] font-medium flex items-center gap-2 hover:gap-3 transition-all">
-                                    Learn about this portfolio
-                                    <ChevronRight size={16} />
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Animated Stats Counter Cards */}
-                        <motion.div
-                            className="grid grid-cols-3 gap-4 mt-12"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5 }}
-                        >
-                            {[
-                                { number: 8, suffix: '+', label: 'AI Projects', icon: '🚀' },
-                                { number: 15, suffix: '+', label: 'Certifications', icon: '🎖️' },
-                                { number: 5, suffix: '+', label: 'Years Exp', icon: '💼' },
-                            ].map((stat, index) => (
-                                <motion.div
-                                    key={index}
-                                    initial={{ scale: 0.8, opacity: 0 }}
-                                    whileInView={{ scale: 1, opacity: 1 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: 0.1 * index, duration: 0.4 }}
-                                    className={`text-center p-4 md:p-6 rounded-2xl border transition-all hover:scale-105 ${isDarkMode
-                                        ? 'bg-[#1C1C1C] border-white/10 hover:border-[#C4785A]/50'
-                                        : 'bg-white border-[#E8E4DB] hover:border-[#C4785A]/50'
-                                        }`}
-                                >
-                                    <span className="text-2xl md:text-3xl mb-2 block">{stat.icon}</span>
-                                    <motion.span
-                                        className="text-3xl md:text-4xl font-display font-bold text-[#C4785A] block"
-                                        initial={{ opacity: 0 }}
-                                        whileInView={{ opacity: 1 }}
-                                        viewport={{ once: true }}
-                                    >
-                                        <motion.span
-                                            initial={{ opacity: 1 }}
-                                            whileInView={{ opacity: 1 }}
-                                            viewport={{ once: true }}
-                                            onViewportEnter={() => {
-                                                const el = document.getElementById(`counter-${index}`);
-                                                if (el && !el.dataset.animated) {
-                                                    el.dataset.animated = 'true';
-                                                    let current = 0;
-                                                    const target = stat.number;
-                                                    const duration = 1500;
-                                                    const step = target / (duration / 50);
-                                                    const interval = setInterval(() => {
-                                                        current += step;
-                                                        if (current >= target) {
-                                                            current = target;
-                                                            clearInterval(interval);
-                                                        }
-                                                        el.textContent = Math.floor(current) + stat.suffix;
-                                                    }, 50);
-                                                }
-                                            }}
-                                        >
-                                            <span id={`counter-${index}`}>0{stat.suffix}</span>
-                                        </motion.span>
-                                    </motion.span>
-                                    <span className={`text-xs md:text-sm mt-1 block ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>
-                                        {stat.label}
-                                    </span>
-                                </motion.div>
-                            ))}
-                        </motion.div>
-
-                        {/* OpenRouter Badge */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.3 }}
-                            className="mt-8 flex justify-center"
-                        >
-                            <a
-                                href="https://openrouter.ai"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group relative block rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] max-w-[400px]"
-                            >
-                                <img
-                                    src="/openrouter-badge.png"
-                                    alt="OpenRouter Wrapped 2025 - 525K Tokens Routed"
-                                    className="w-full h-full object-cover rounded-2xl"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                            </a>
-                        </motion.div>
-
-                        {/* Featured Publication / Flipbook */}
-                        <motion.div
-                            id="flipbook"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.4 }}
-                            className="mt-16 sm:mt-24 scroll-mt-24"
-                        >
-                            <div className="flex flex-col items-center text-center mb-8">
-                                <p className="section-eyebrow !text-[#C4785A]">Interactive Profile</p>
-                                <h3 className={`text-3xl md:text-4xl font-display ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                    Comprehensive Portfolio Showcase
-                                </h3>
-                                <p className={`mt-3 max-w-2xl text-sm md:text-base ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>
-                                    Explore my completed work, experiences, and professional background—all seamlessly compiled into one interactive flipbook.
-                                </p>
-                            </div>
-
-                            {/* Iframe Container */}
-                            <div className={`w-full rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-[#C4785A]/10 border ${isDarkMode ? 'bg-[#1a1a1a] border-white/10' : 'bg-white border-[#E8E4DB]'}`}>
-                                <iframe
-                                    allowFullScreen={true}
-                                    allow="clipboard-write"
-                                    scrolling="no"
-                                    className="w-full h-[400px] sm:h-[500px] md:h-[650px] outline-none border-none"
-                                    src="https://heyzine.com/flip-book/6b8aba4153.html"
-                                    title="Ambuj's Comprehensive Portfolio"
-                                />
-                            </div>
-                        </motion.div>
-
-                        {/* Skills Grid - All skills */}
-                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-                            {SKILLS_LIST.map((skill, index) => (
-                                <BentoCard key={index} variant={isDarkMode ? 'dark' : 'light'} delay={0.1 * index} className="group border border-transparent hover:border-[#C4785A]/30 transition-all">
-                                    <div className="flex justify-between items-start mb-4">
-                                        <span className="text-[#C4785A] text-sm font-medium">0{index + 1}</span>
-                                        <i className={`${skill.icon} text-xl group-hover:text-[#C4785A] transition-colors ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}></i>
-                                    </div>
-                                    <h4 className={`font-display text-lg mb-2 ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>{skill.category}</h4>
-                                    <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>{skill.desc}</p>
-                                </BentoCard>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* ===== WORK / PROJECTS SECTION - ALL PROJECTS ===== */}
-                <section className={`py-20 px-6 ${isDarkMode ? 'bg-[#050505]' : 'bg-[#F7F5F0]'}`} id="work">
-                    <div className="max-w-6xl mx-auto">
-                        <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-12">
-                            <div>
-                                <p className="section-eyebrow !text-[#C4785A]">Selected Work</p>
-                                <h2 className={`text-4xl md:text-5xl font-display ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                    Featured Projects
-                                </h2>
-                            </div>
-                            <p className="text-[#5A5855] max-w-md">
-                                A collection of {PROJECTS_DATA.length} projects showcasing my expertise in AI, full-stack development, and problem-solving.
-                            </p>
-                        </div>
-
-                        {/* Project Category Filters */}
-                        <div className="flex flex-wrap items-center gap-2 mb-8">
-                            {['All', 'Agentic RAG', 'AI / ML', 'Full Stack'].map((filter) => (
-                                <button
-                                    key={filter}
-                                    onClick={() => setActiveProjectFilter(filter)}
-                                    className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeProjectFilter === filter
-                                        ? 'bg-[#C4785A] text-white shadow-lg shadow-[#C4785A]/20 scale-105'
-                                        : isDarkMode
-                                            ? 'bg-[#1C1C1C] text-gray-400 hover:text-white hover:bg-[#2A2A2A] border border-white/5'
-                                            : 'bg-white text-[#5A5855] hover:text-[#1C1C1C] border border-[#E8E4DB] shadow-sm'
-                                        }`}
-                                >
-                                    {filter}
-                                </button>
-                            ))}
-                        </div>
-
-                        {/* Filtered Projects Grid */}
-                        <div className="grid md:grid-cols-2 gap-8">
-                            <AnimatePresence mode="popLayout">
-                                {PROJECTS_DATA.filter(project => {
-                                    if (activeProjectFilter === 'All') return true;
-                                    if (activeProjectFilter === 'Agentic RAG') return project.tags.some(tag => ['LangGraph', 'RAG', 'Agentic'].some(t => tag.includes(t)));
-                                    if (activeProjectFilter === 'AI / ML') return project.tags.some(tag => ['AI', 'ML', 'Llama', 'Gemini'].some(t => tag.includes(t)));
-                                    if (activeProjectFilter === 'Full Stack') return project.tags.some(tag => ['React', 'FastAPI', 'System Design'].some(t => tag.includes(t)) && !project.tags.some(t => t.includes('RAG')));
-                                    return true;
-                                }).map((project, index) => (
-                                    <motion.div
-                                        key={project.title}
-                                        layout
-                                        initial={{ opacity: 0, scale: 0.9, y: 30 }}
-                                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                                        exit={{ opacity: 0, scale: 0.9 }}
-                                        transition={{ duration: 0.3, delay: 0.05 * index }}
-                                        whileHover={{
-                                            scale: 1.02,
-                                            y: -5,
-                                        }}
-                                        className="group block p-4 rounded-xl transition-all duration-300 tilt-card glow-hover"
-                                    >
-                                        <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
-                                            <div className="img-reveal mb-5">
-                                                <img
-                                                    src={project.image}
-                                                    alt={project.title}
-                                                    className="w-full aspect-video object-cover"
-                                                />
-                                            </div>
-                                            <div className="flex justify-between items-start gap-4">
-                                                <div>
-                                                    <h3 className={`font-display text-xl mb-2 group-hover:text-[#C4785A] transition-colors ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                                        {project.title}
-                                                    </h3>
-                                                    <p className="text-sm text-[#5A5855] line-clamp-2 mb-3">{project.description}</p>
-                                                    <div className="flex flex-wrap gap-2">
-                                                        {project.tags.slice(0, 3).map((tag, i) => (
-                                                            <span key={i} className={isDarkMode ? "tag-dark" : "tag"}>{tag}</span>
-                                                        ))}
-                                                    </div>
-                                                    {/* Impact Metrics */}
-                                                    {project.impact && project.impact.length > 0 && (
-                                                        <div className="flex flex-wrap gap-2 mt-3">
-                                                            {project.impact.map((metric, i) => (
-                                                                <span key={i} className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-1 rounded-full"
-                                                                    style={{
-                                                                        background: isDarkMode ? 'rgba(196,120,90,0.1)' : 'rgba(196,120,90,0.08)',
-                                                                        border: '1px solid rgba(196,120,90,0.3)',
-                                                                        color: '#C4785A'
-                                                                    }}>
-                                                                    <span>⚡</span>{metric}
-                                                                </span>
-                                                            ))}
-                                                        </div>
-                                                    )}
-                                                </div>
-                                                <ExternalLink size={18} className="text-[#5A5855] group-hover:text-[#C4785A] transition-colors flex-shrink-0" />
-                                            </div>
-                                        </a>
-                                        {/* Action Buttons */}
-                                        {(project.architectureDiagram || project.caseStudyId || project.presentationLink) && (
-                                            <div className="mt-4 flex flex-col sm:flex-row gap-3">
-                                                {project.caseStudyId && (
-                                                    <button
-                                                        onClick={() => setActiveCaseStudyId(project.caseStudyId!)}
-                                                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300"
-                                                        style={{
-                                                            background: isDarkMode
-                                                                ? 'linear-gradient(135deg, rgba(196,120,90,0.2), rgba(196,120,90,0.1))'
-                                                                : 'linear-gradient(135deg, rgba(196,120,90,0.15), rgba(196,120,90,0.05))',
-                                                            border: '1px solid rgba(196,120,90,0.4)',
-                                                            color: '#C4785A',
-                                                        }}
-                                                        onMouseEnter={(e) => {
-                                                            e.currentTarget.style.background = 'linear-gradient(135deg, #C4785A, #E8A87C)';
-                                                            e.currentTarget.style.color = '#fff';
-                                                            e.currentTarget.style.borderColor = 'transparent';
-                                                        }}
-                                                        onMouseLeave={(e) => {
-                                                            e.currentTarget.style.background = isDarkMode
-                                                                ? 'linear-gradient(135deg, rgba(196,120,90,0.2), rgba(196,120,90,0.1))'
-                                                                : 'linear-gradient(135deg, rgba(196,120,90,0.15), rgba(196,120,90,0.05))';
-                                                            e.currentTarget.style.color = '#C4785A';
-                                                            e.currentTarget.style.borderColor = 'rgba(196,120,90,0.4)';
-                                                        }}
-                                                    >
-                                                        📄 Read Case Study
-                                                    </button>
-                                                )}
-                                                {project.architectureDiagram && (
-                                                    <button
-                                                        onClick={() => setArchImage(project.architectureDiagram!)}
-                                                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300"
-                                                        style={{
-                                                            background: isDarkMode
-                                                                ? 'rgba(255,255,255,0.05)'
-                                                                : 'rgba(0,0,0,0.05)',
-                                                            border: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)',
-                                                            color: isDarkMode ? '#aaa' : '#666',
-                                                        }}
-                                                        onMouseEnter={(e) => {
-                                                            e.currentTarget.style.background = isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
-                                                            e.currentTarget.style.color = isDarkMode ? '#fff' : '#333';
-                                                        }}
-                                                        onMouseLeave={(e) => {
-                                                            e.currentTarget.style.background = isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';
-                                                            e.currentTarget.style.color = isDarkMode ? '#aaa' : '#666';
-                                                        }}
-                                                    >
-                                                        🏗️ Architecture
-                                                    </button>
-                                                )}
-                                                {project.presentationLink && (
-                                                    <a
-                                                        href={project.presentationLink}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300"
-                                                        style={{
-                                                            background: isDarkMode
-                                                                ? 'linear-gradient(135deg, rgba(196,120,90,0.2), rgba(196,120,90,0.1))'
-                                                                : 'linear-gradient(135deg, rgba(196,120,90,0.15), rgba(196,120,90,0.05))',
-                                                            border: '1px solid rgba(196,120,90,0.4)',
-                                                            color: '#C4785A',
-                                                        }}
-                                                        onMouseEnter={(e) => {
-                                                            e.currentTarget.style.background = 'linear-gradient(135deg, #C4785A, #E8A87C)';
-                                                            e.currentTarget.style.color = '#fff';
-                                                            e.currentTarget.style.borderColor = 'transparent';
-                                                        }}
-                                                        onMouseLeave={(e) => {
-                                                            e.currentTarget.style.background = isDarkMode
-                                                                ? 'linear-gradient(135deg, rgba(196,120,90,0.2), rgba(196,120,90,0.1))'
-                                                                : 'linear-gradient(135deg, rgba(196,120,90,0.15), rgba(196,120,90,0.05))';
-                                                            e.currentTarget.style.color = '#C4785A';
-                                                            e.currentTarget.style.borderColor = 'rgba(196,120,90,0.4)';
-                                                        }}
-                                                    >
-                                                        ▶️ Animated Deck
-                                                    </a>
-                                                )}
-                                            </div>
-                                        )}
-                                    </motion.div>
-                                ))}
-                            </AnimatePresence>
-                        </div>
-                    </div>
-                </section>
-
-                {/* ===== EXPERIENCE SECTION ===== */}
-                <section className="py-20 px-6" id="experience" >
-                    <div className="max-w-6xl mx-auto">
-                        <div className="grid lg:grid-cols-3 gap-16">
-                            <div>
-                                <p className="section-eyebrow">Experience</p>
-                                <h2 className={`text-4xl font-display mb-4 ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>My Journey</h2>
-                                <p className={isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}>
-                                    From telecom infrastructure to AI engineering — a diverse career path.
-                                </p>
-                            </div>
-
-                            <div className="lg:col-span-2 space-y-8">
-                                {EXPERIENCE_DATA.map((exp, index) => (
-                                    <motion.div
-                                        key={index}
-                                        initial={{ opacity: 0, x: 20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.1 * index }}
-                                        className="flex gap-6 group"
-                                    >
-                                        <div className="pt-2">
-                                            <div className="timeline-dot group-hover:scale-125 transition-transform"></div>
-                                        </div>
-                                        <div className={`flex-1 pb-8 border-b last:border-0 ${isDarkMode ? 'border-white/10' : 'border-[#E8E4DB]'}`}>
-                                            <div className="flex flex-wrap justify-between items-start gap-2 mb-2">
-                                                <h4 className={`font-display text-lg ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>{exp.title}</h4>
-                                                <span className="text-sm text-[#C4785A] font-medium">{exp.period}</span>
-                                            </div>
-                                            <p className={`mb-3 ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>{exp.company}</p>
-                                            <ul className={`text-sm space-y-1 ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>
-                                                {exp.achievements.slice(0, 2).map((ach, i) => (
-                                                    <li key={i} className="flex gap-2">
-                                                        <span className="text-[#C4785A]">→</span>
-                                                        {ach}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* ===== CERTIFICATIONS ===== */}
-                <section className={`py-20 px-6 ${isDarkMode ? 'bg-[#111]' : 'bg-white'}`} >
-                    <div className="max-w-6xl mx-auto">
-                        <div className="text-center mb-12">
-                            <p className="section-eyebrow">Credentials</p>
-                            <h2 className={`text-4xl font-display ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>Certifications</h2>
-                        </div>
-
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                            {CERTIFICATES_DATA.slice(0, 8).map((cert, index) => (
-                                <motion.div
-                                    key={index}
-                                    onClick={() => openViewer(index)}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.05 * index }}
-                                    className={`cursor-pointer group p-4 border rounded-xl transition-all ${isDarkMode ? 'border-white/10 hover:bg-[#1C1C1C]' : 'border-[#E8E4DB] hover:bg-[#F7F5F0]'}`}
-                                >
-                                    <div className={`aspect-video rounded-lg overflow-hidden mb-3 flex items-center justify-center p-3 ${isDarkMode ? 'bg-[#1C1C1C]' : 'bg-[#F7F5F0]'}`}>
-                                        <img src={cert.src} alt={cert.title} className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform" />
-                                    </div>
-                                    <h4 className={`text-xs font-medium line-clamp-1 group-hover:text-[#C4785A] transition-colors ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>{cert.title}</h4>
-                                    <p className={`text-[10px] ${isDarkMode ? 'text-gray-500' : 'text-[#5A5855]'}`}>{cert.provider}</p>
-                                </motion.div>
-                            ))}
-                        </div>
-
-                        {CERTIFICATES_DATA.length > 8 && (
-                            <div className="text-center mt-8">
-                                <button onClick={() => openViewer(0)} className={`btn ${isDarkMode ? 'bg-[#1C1C1C] text-white border border-white/20 hover:bg-[#333]' : 'btn-outline'}`}>
-                                    View All Certificates
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                </section>
-
-                {/* ===== ENGINEERING INSIGHTS SECTION ===== */}
-                <section className={`py-20 px-6 ${isDarkMode ? 'bg-[#111]' : 'bg-white'}`} id="blog">
-                    <div className="max-w-7xl mx-auto">
-                        <div className="flex flex-col gap-4 mb-12">
-                            <div>
-                                <p className="section-eyebrow !text-[#C4785A]">Engineering Insights</p>
-                                <h2 className={`text-4xl md:text-5xl font-display ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                    System Design
-                                </h2>
-                            </div>
-                            <p className={`max-w-xl text-lg ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>
-                                Architectural decisions and lessons learned from production AI deployments.
-                            </p>
-                        </div>
-
-                        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-                            {/* Left Column: Articles */}
-                            <div className="flex flex-col gap-6">
-                                {[
-                                    {
-                                        id: 1,
-                                        category: "RAG Systems",
-                                        title: "Trust but Verify: Designing Reliable RAG Systems",
-                                        content: "Production lessons from building enterprise-grade RAG systems with hallucination control, source citations, circuit breakers, rate-limit–aware embeddings, and real-time PII masking. Focused on reliability, observability, and compliance-first AI design.",
-                                        cta: "View System Design",
-                                        link: "https://indian-legal-ai-expert.onrender.com/"
-                                    },
-                                    {
-                                        id: 2,
-                                        category: "Production Monitoring",
-                                        title: "Trust Through Transparency: Real-Time System Monitoring",
-                                        content: "Live production monitoring dashboard tracking uptime percentages, response times, incident history, and service health across deployed applications. Demonstrates commitment to reliability engineering, observability, and transparent incident management with public status page accessibility.",
-                                        cta: "View Live Status Dashboard",
-                                        link: "https://stats.uptimerobot.com/4tYmSQnuBE"
-                                    }
-                                ].map((post) => (
-                                    <article key={post.id} className={`group rounded-2xl overflow-hidden border transition-all hover:shadow-xl ${isDarkMode ? 'bg-[#1C1C1C] border-white/10 hover:border-[#C4785A]/50' : 'bg-[#F7F5F0] border-transparent hover:border-[#C4785A]/30'}`}>
-                                        <div className="p-6 sm:p-8">
-                                            <div className="flex items-center gap-3 mb-4">
-                                                <span className="px-3 py-1 text-xs font-medium rounded-full bg-[#C4785A]/10 text-[#C4785A]">{post.category}</span>
-                                            </div>
-                                            <h3 className={`text-xl sm:text-2xl font-display mb-3 group-hover:text-[#C4785A] transition-colors ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                                {post.title}
-                                            </h3>
-                                            <p className={`mb-6 text-sm sm:text-base ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>
-                                                {post.content}
-                                            </p>
-                                            <a
-                                                href={post.link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="flex items-center gap-2 text-[#C4785A] font-medium text-sm group-hover:gap-3 transition-all"
-                                            >
-                                                {post.cta} <ArrowRight size={16} />
-                                            </a>
-                                        </div>
-                                    </article>
-                                ))}
-                            </div>
-
-                            {/* Right Column: Sticky Architecture Diagram */}
-                            <div className="lg:sticky lg:top-24 mt-8 lg:mt-0">
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    className={`relative rounded-2xl overflow-hidden shadow-2xl border cursor-pointer group ${isDarkMode ? 'bg-[#1C1C1C] border-white/10' : 'bg-white border-[#E8E4DB]'}`}
-                                    onClick={() => setArchImage('/projects/LegalAI_architecture_animated.svg')}
-                                >
-                                    <div className={`p-4 border-b flex items-center justify-between ${isDarkMode ? 'border-white/10' : 'border-[#E8E4DB]'}`}>
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                                            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                            <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                                            <span className={`ml-2 text-xs font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Production RAG Ecosystem Architecture</span>
-                                        </div>
-                                        <span className="text-xs text-[#C4785A] font-medium opacity-0 group-hover:opacity-100 transition-opacity">Click to Expand</span>
-                                    </div>
-                                    <div className="aspect-[4/3] w-full bg-[#0a0a0a] flex items-center justify-center p-2 relative">
-                                        <img
-                                            src="/projects/LegalAI_architecture_animated.svg"
-                                            alt="Legal AI Production Architecture"
-                                            className="w-full h-full object-contain rounded transition-transform duration-500 group-hover:scale-105"
-                                        />
-                                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                            <div className="bg-white/10 backdrop-blur-md px-6 py-3 rounded-full text-white font-medium border border-white/20 flex items-center gap-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path><path d="M8 11h6"></path><path d="M11 8v6"></path></svg>
-                                                Zoom Architecture
-                                            </div>
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* ===== CONTACT CTA ===== */}
-                <section className="py-24 px-6 relative" id="contact">
-                    {/* Ambient Glow Behind Card */}
-                    <div className="absolute inset-0 pointer-events-none flex justify-center items-center overflow-hidden">
-                        <div className={`w-[60vw] h-[60vw] max-w-[600px] max-h-[600px] rounded-full blur-[100px] opacity-20 ${isDarkMode ? 'bg-[#C4785A]' : 'bg-[#C4785A]/40'}`}></div>
-                    </div>
-
-                    <div className="max-w-5xl mx-auto relative z-10">
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
-                            className={`rounded-3xl overflow-hidden backdrop-blur-xl border ${isDarkMode
-                                ? 'bg-[#111111]/80 border-white/10 shadow-2xl shadow-black/50'
-                                : 'bg-white border-[#E8E4DB] shadow-xl shadow-[#C4785A]/5'
-                                } p-10 md:p-16 relative`}
-                        >
-                            {/* Decorative Top Accent */}
-                            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C4785A] to-transparent opacity-50"></div>
-
-                            <div className="text-center relative z-10">
-                                <motion.p
-                                    initial={{ opacity: 0, y: 10 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    className="text-[#C4785A] text-sm font-semibold uppercase tracking-widest mb-4"
-                                >
-                                    Let's Connect
-                                </motion.p>
-
-                                <motion.h2
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: 0.1 }}
-                                    className={`text-4xl md:text-5xl lg:text-6xl font-display mb-6 ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}
-                                >
-                                    Open to New Opportunities
-                                </motion.h2>
-
-                                <motion.p
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: 0.2 }}
-                                    className={`text-lg mb-10 max-w-xl mx-auto ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}
-                                >
-                                    I'm currently looking for full-time roles as a Gen AI Architect or ML Engineer. Let's build the future of AI together.
-                                </motion.p>
-
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: 0.3 }}
-                                    className="flex flex-wrap justify-center gap-4"
-                                >
-                                    {/* Primary Button */}
-                                    <button
-                                        onClick={() => setIsContactModalOpen(true)}
-                                        className="btn bg-gradient-to-r from-[#C4785A] to-[#E8A87C] text-white hover:shadow-lg hover:shadow-[#C4785A]/25 border border-transparent hover:-translate-y-0.5 transition-all"
-                                    >
-                                        📝 Contact Form
-                                    </button>
-
-                                    {/* Secondary Buttons */}
-                                    <button
-                                        onClick={() => setIsContactModalOpen(true)}
-                                        className={`btn ${isDarkMode ? 'bg-white/5 text-white border-white/10 hover:bg-white/10' : 'bg-white text-[#1C1C1C] border-[#E8E4DB] hover:bg-gray-50 hover:border-gray-300'} border transition-all hover:-translate-y-0.5`}
-                                        title="kumarambuj8@gmail.com"
-                                    >
-                                        <Mail size={18} />
-                                        Email Me
-                                    </button>
-
-                                    <a
-                                        href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className={`btn ${isDarkMode ? 'bg-[#0A66C2]/10 text-[#0A66C2] border-[#0A66C2]/20 hover:bg-[#0A66C2]/20' : 'bg-[#0A66C2]/5 text-[#0A66C2] border-[#0A66C2]/20 hover:bg-[#0A66C2]/10'} border transition-all hover:-translate-y-0.5`}
-                                    >
-                                        <Linkedin size={18} />
-                                        LinkedIn
-                                    </a>
-                                </motion.div>
-
-                                {/* LinkedIn Profile Badge - User's Uploaded Image */}
-                                <motion.div
-                                    initial={{ opacity: 0, y: 30 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: 0.4 }}
-                                    className="mt-14"
-                                >
-                                    <a
-                                        href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-block rounded-2xl overflow-hidden shadow-2xl hover:scale-105 transition-transform duration-500 hover:shadow-[#0A66C2]/20 border border-white/5"
-                                    >
-                                        <img
-                                            src="/linkedin-badge.png"
-                                            alt="Ambuj Tripathi LinkedIn Profile"
-                                            className="max-w-[350px] w-full"
-                                        />
-                                    </a>
-                                </motion.div>
-                            </div>
-                        </motion.div>
-                    </div>
-                </section>
-
-                {/* ===== FOOTER ===== */}
-                <footer className={`py-8 px-6 border-t ${isDarkMode ? 'bg-[#0a0a0a] border-white/10' : 'bg-[#1C1C1C] border-[#333]'}`}>
-                    <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-                        <p className="text-[#858585] text-sm">
-                            © 2026 Ambuj Kumar Tripathi. All rights reserved. (v2.1 PWA Ready)
-                        </p>
-                        <div className="flex gap-6 items-center">
-                            <a href="https://github.com/Ambuj123-lab" target="_blank" rel="noopener noreferrer" className="text-[#858585] hover:text-white transition-colors">
-                                <Github size={18} />
-                            </a>
-                            <a href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/" target="_blank" rel="noopener noreferrer" className="text-[#858585] hover:text-[#0A66C2] transition-colors">
-                                <Linkedin size={18} />
-                            </a>
-                            <button onClick={() => setIsContactModalOpen(true)} className="text-[#858585] hover:text-[#EA4335] transition-colors">
-                                <Mail size={18} />
-                            </button>
-                            <span className="text-[#858585]">•</span>
-                            <a
-                                href="https://stats.uptimerobot.com/4tYmSQnuBE"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-1.5 text-[#858585] hover:text-[#22c55e] transition-colors text-sm"
-                                title="Live uptime monitoring (5-min checks)"
-                            >
-                                <span className="w-2 h-2 bg-[#22c55e] rounded-full animate-pulse"></span>
-                                Live Status
-                            </a>
-                        </div>
-                    </div>
-                </footer>
-
-                {/* Widgets & Modals */}
-                <div className="relative z-50">
-                    <ChatWidget />
-                    <CommandPalette onOpenContact={() => setIsContactModalOpen(true)} />
-                </div>
-                <PWAModal isOpen={isPWAOpen} onClose={() => setIsPWAOpen(false)} isDarkMode={isDarkMode} />
+                {/* Overlays / Widgets */}
+                <ChatWidget />
+                <CommandPalette onOpenContact={() => setIsContactModalOpen(true)} />
+                <FloatingDock />
+                
+                <PWAModal isOpen={isPWAOpen} onClose={() => setIsPWAOpen(false)} />
+                
                 <ImageViewer
                     isOpen={isViewerOpen}
                     onClose={() => setIsViewerOpen(false)}
@@ -1255,6 +188,7 @@ function App() {
                     onNext={() => setCurrentImageIndex((prev) => (prev + 1) % CERTIFICATES_DATA.length)}
                     onPrev={() => setCurrentImageIndex((prev) => (prev - 1 + CERTIFICATES_DATA.length) % CERTIFICATES_DATA.length)}
                 />
+                
                 {archImage && (
                     <ArchitectureModal
                         imageSrc={archImage}
@@ -1262,6 +196,7 @@ function App() {
                         isDarkMode={isDarkMode}
                     />
                 )}
+                
                 {activeCaseStudyId && (
                     <CaseStudyModal
                         caseStudyId={activeCaseStudyId}
@@ -1269,71 +204,12 @@ function App() {
                         isDarkMode={isDarkMode}
                     />
                 )}
-
+                
                 <ContactModal
                     isOpen={isContactModalOpen}
                     onClose={() => setIsContactModalOpen(false)}
-                    isDarkMode={isDarkMode}
                 />
-
-                {/* Scroll to Top Button */}
-                <AnimatePresence>
-                    {showScrollTop && (
-                        <motion.button
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.5 }}
-                            onClick={scrollToTop}
-                            className={`fixed bottom-24 right-6 z-40 p-3 rounded-full shadow-lg transition-colors ${isDarkMode ? 'bg-[#C4785A] hover:bg-[#A86548] text-white' : 'bg-[#1C1C1C] hover:bg-[#2D2D2D] text-white'}`}
-                            aria-label="Scroll to top"
-                            whileHover={{ y: -3 }}
-                            whileTap={{ scale: 0.9 }}
-                        >
-                            <ArrowUp size={22} />
-                        </motion.button>
-                    )}
-                </AnimatePresence>
-
-                {/* Keyboard Shortcuts Hint - Desktop Only */}
-                <AnimatePresence>
-                    {showShortcutsHint ? (
-                        <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
-                            onClick={() => setShowShortcutsHint(false)}
-                            className="hidden md:flex fixed bottom-6 left-6 z-50 items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#1C1C1C] to-[#252525] rounded-xl shadow-2xl border border-[#C4785A]/20 cursor-pointer hover:border-[#C4785A]/40 transition-all group"
-                        >
-                            <div className="w-8 h-8 bg-gradient-to-br from-[#C4785A] to-[#E8A87C] rounded-lg flex items-center justify-center shadow-lg">
-                                <span className="text-white text-sm">⌘</span>
-                            </div>
-                            <div className="flex flex-col">
-                                <div className="flex items-center gap-2 text-xs">
-                                    <kbd className="px-2 py-1 bg-[#C4785A]/20 rounded text-[#C4785A] border border-[#C4785A]/30 font-medium">Ctrl</kbd>
-                                    <span className="text-gray-500">+</span>
-                                    <kbd className="px-2 py-1 bg-[#C4785A]/20 rounded text-[#C4785A] border border-[#C4785A]/30 font-medium">K</kbd>
-                                    <span className="text-gray-400 ml-1">Quick Search</span>
-                                </div>
-                                <span className="text-gray-500 text-[10px] mt-0.5">Press 1-4 for quick nav</span>
-                            </div>
-                            <span className="text-gray-500 text-xs group-hover:text-white transition-colors">×</span>
-                        </motion.div>
-                    ) : (
-                        <motion.button
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.8 }}
-                            onClick={() => setShowShortcutsHint(true)}
-                            className="hidden md:flex fixed bottom-6 left-6 z-50 w-10 h-10 bg-gradient-to-br from-[#C4785A] to-[#E8A87C] rounded-xl items-center justify-center shadow-lg hover:scale-110 transition-transform"
-                            title="Show keyboard shortcuts"
-                        >
-                            <span className="text-white text-sm">⌘</span>
-                        </motion.button>
-                    )}
-                </AnimatePresence>
             </div>
-        </>
+        </div>
     );
 }
-
-export default App;

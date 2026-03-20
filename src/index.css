@@ -3,35 +3,47 @@
 /* stylelint-disable-next-line */
 @import "tailwindcss";
 
-/* ===== EDITORIAL PORTFOLIO DESIGN ===== */
-/* Inspired by high-end magazine layouts */
-/* Colors: Charcoal + Cream + Terracotta accent */
+@theme {
+  --font-display: 'Inter Tight', 'Arial Black', 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'Fira Code', 'JetBrains Mono', monospace;
+  --color-obsidian: #030303;
+  --color-emerald-accent: #10B981;
+  --color-zinc-muted: #A1A1AA;
+}
+
+/* ===== PREMIUM TECHNICAL BRUTALISM DESIGN ===== */
+/* Colors: Obsidian + Emerald Green accent */
 
 :root {
   /* Core Palette */
-  --charcoal: #1C1C1C;
-  --charcoal-light: #2D2D2D;
-  --cream: #F7F5F0;
-  --cream-dark: #E8E4DB;
-  --stone: #5A5855;
-  /* Darker for better readability */
-  --stone-light: #7A7672;
-  --terracotta: #C4785A;
-  --terracotta-dark: #A86548;
+  --obsidian: #030303;     /* Pure Black Background as requested */
+  --off-white: #EEEEEE;    /* Good-Fella Primary Text */
+  --orange: #FB460D;       /* Good-Fella Accent Orange */
+  --zinc-muted: rgba(238, 238, 238, 0.4); /* Good-Fella Secondary Text */
+  --glass-border: rgba(238, 238, 238, 0.1);
+  --emerald: #FB460D;      /* Alias emerald to orange for backward compatibility with components */
+  --white: var(--off-white); /* Alias white to off-white for backward compatibility */
 
   /* Semantic Colors */
-  --bg-dark: var(--charcoal);
-  --bg-light: var(--cream);
-  --text-dark: var(--charcoal);
-  --text-light: var(--cream);
-  --text-muted: var(--stone);
-  /* Now darker */
-  --text-subtle: var(--stone-light);
-  --accent: var(--terracotta);
+  --bg-dark: var(--obsidian);
+  --bg-light: #0a0a0a; /* Fallback for some components */
+  --text-dark: var(--off-white);
+  --text-light: var(--off-white);
+  --text-muted: var(--zinc-muted);
+  --text-subtle: rgba(255, 255, 255, 0.3);
+  --accent: var(--orange);
 
   /* Shadows */
-  --shadow-soft: 0 4px 30px rgba(28, 28, 28, 0.08);
-  --shadow-medium: 0 8px 40px rgba(28, 28, 28, 0.12);
+  --shadow-soft: 0 4px 30px rgba(0, 0, 0, 0.5);
+  --shadow-medium: 0 8px 40px rgba(0, 0, 0, 0.8);
+
+  /* Good-Fella specific colors */
+  --charcoal: #0a0a0a; /* Re-evaluate if this is still needed or should be obsidian */
+  --charcoal-light: #1a1a1a;
+  --cream: #EEEEEE; /* Alias cream to off-white */
+  --cream-dark: rgba(238, 238, 238, 0.2);
+  --terracotta: var(--orange);
+  --terracotta-dark: #D83C0B; /* A darker shade of the new orange */
 }
 
 /* ===== BASE ===== */
@@ -45,25 +57,25 @@ html {
 }
 
 body {
-  background: var(--cream);
-  color: var(--charcoal);
-  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--obsidian);
+  color: var(--off-white);
+  font-family: var(--font-display);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
-  cursor: none;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ===== CUSTOM CURSOR WITH GLOW ===== */
 .cursor-glow {
   position: fixed;
-  width: 20px;
-  height: 20px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: var(--terracotta);
+  background: var(--orange);
   pointer-events: none;
   z-index: 9999;
   mix-blend-mode: difference;
-  transition: transform 0.15s ease, opacity 0.15s ease;
+  transition: transform 0.15s ease, opacity 0.15s ease, width 0.2s ease, height 0.2s ease;
   transform: translate(-50%, -50%);
 }
 
@@ -72,7 +84,7 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 1px solid var(--terracotta);
+  border: 1px solid rgba(251, 70, 13, 0.5); /* Emerald with opacity */
   pointer-events: none;
   z-index: 9998;
   transition: transform 0.25s ease, opacity 0.25s ease, width 0.2s ease, height 0.2s ease;
@@ -81,11 +93,12 @@ body {
 }
 
 .cursor-glow-outer.hovering {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   opacity: 0.8;
-  border-color: var(--terracotta);
-  background: rgba(196, 120, 90, 0.1);
+  border-color: var(--orange);
+  background: rgba(251, 70, 13, 0.1);
+  backdrop-filter: blur(2px);
 }
 
 /* Hide custom cursor on touch devices and mobile */
@@ -113,17 +126,34 @@ body {
 
 /* ===== TYPOGRAPHY ===== */
 .font-display {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
 }
 
 h1,
 h2,
-h3 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
+h3,
+h4,
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.04em; /* Tight tracking for Good-Fella look */
+  text-transform: uppercase;
+  color: var(--off-white);
 }
+
+.font-mono {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* The original h1, h2, h3 gradient was removed as per instruction's implied change */
+/* If a gradient is still desired, it needs to be re-added with new colors */
 
 /* ===== UTILITY CLASSES ===== */
 @layer utilities {

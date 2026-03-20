@@ -7,7 +7,7 @@ interface Props {
     isDarkMode: boolean;
 }
 
-export default function ArchitectureModal({ imageSrc, onClose, isDarkMode }: Props) {
+export default function ArchitectureModal({ imageSrc, onClose }: Props) {
     const [scale, setScale] = useState(1);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [isDragging, setIsDragging] = useState(false);
@@ -124,12 +124,11 @@ export default function ArchitectureModal({ imageSrc, onClose, isDarkMode }: Pro
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-[9999] flex flex-col"
-                style={{ backgroundColor: isDarkMode ? 'rgba(0,0,0,0.95)' : 'rgba(0,0,0,0.9)' }}
+                className="fixed inset-0 z-[9999] flex flex-col backdrop-blur-md"
+                style={{ backgroundColor: 'rgba(3,3,3,0.95)' }}
             >
                 {/* Header Bar */}
-                <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b"
-                    style={{ borderColor: 'rgba(255,255,255,0.1)', background: isDarkMode ? '#0a0a0a' : '#111' }}>
+                <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-[var(--glass-border)] bg-[#050505]">
                     <div>
                         <h2 className="text-white font-semibold text-base sm:text-lg" style={{ fontFamily: 'Inter, sans-serif' }}>
                             System Architecture
@@ -138,19 +137,19 @@ export default function ArchitectureModal({ imageSrc, onClose, isDarkMode }: Pro
                     </div>
                     <div className="flex items-center gap-2">
                         {/* Zoom Controls */}
-                        <div className="hidden sm:flex items-center gap-1 bg-white/5 rounded-lg px-2 py-1 border border-white/10">
+                        <div className="hidden sm:flex items-center gap-1 bg-white/5 px-2 py-1 border border-[var(--glass-border)]">
                             <button onClick={() => setScale(prev => Math.max(MIN_SCALE, prev - ZOOM_STEP))}
-                                className="text-white/70 hover:text-white px-2 py-0.5 text-lg font-medium transition-colors">−</button>
-                            <span className="text-white/60 text-xs min-w-[40px] text-center">{Math.round(scale * 100)}%</span>
+                                className="text-[var(--zinc-muted)] hover:text-white px-2 py-0.5 text-lg font-medium transition-colors">−</button>
+                            <span className="text-[var(--zinc-muted)] text-xs min-w-[40px] text-center font-mono">{Math.round(scale * 100)}%</span>
                             <button onClick={() => setScale(prev => Math.min(MAX_SCALE, prev + ZOOM_STEP))}
-                                className="text-white/70 hover:text-white px-2 py-0.5 text-lg font-medium transition-colors">+</button>
+                                className="text-[var(--zinc-muted)] hover:text-white px-2 py-0.5 text-lg font-medium transition-colors">+</button>
                         </div>
                         <button onClick={resetView}
-                            className="text-gray-400 hover:text-white text-xs px-2 py-1 rounded border border-white/10 hover:border-white/30 transition-colors hidden sm:block">
-                            Reset
+                            className="text-[var(--zinc-muted)] hover:text-white text-xs px-2 py-1 border border-[var(--glass-border)] hover:border-[var(--orange)] font-mono transition-colors hidden sm:block">
+                            RESET
                         </button>
                         <button onClick={onClose}
-                            className="ml-2 w-11 h-11 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors text-lg"
+                            className="ml-2 w-11 h-11 flex items-center justify-center border border-[var(--glass-border)] hover:border-[var(--orange)] bg-[#050505] text-[var(--zinc-muted)] hover:text-white transition-colors text-lg"
                             title="Close (Esc)">
                             ✕
                         </button>
@@ -185,18 +184,17 @@ export default function ArchitectureModal({ imageSrc, onClose, isDarkMode }: Pro
                                 maxHeight: '100%',
                                 objectFit: 'contain',
                                 userSelect: 'none',
-                                borderRadius: '12px',
-                                filter: 'drop-shadow(0 8px 40px rgba(0,0,0,0.6))',
+                                borderRadius: '0px',
+                                filter: 'drop-shadow(0 0 40px rgba(251,70,13,0.15))',
                             }}
                         />
                     </div>
                 </div>
 
                 {/* Footer */}
-                <div className="flex items-center justify-between px-4 sm:px-6 py-2 border-t"
-                    style={{ borderColor: 'rgba(255,255,255,0.1)', background: isDarkMode ? '#0a0a0a' : '#111' }}>
-                    <span className="text-gray-600 text-xs">Built by Ambuj Kumar Tripathi</span>
-                    <span className="text-gray-600 text-xs hidden sm:block">Scroll to zoom · Drag to pan · Esc to close</span>
+                <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-t border-[var(--glass-border)] bg-[#050505]">
+                    <span className="font-mono text-[var(--zinc-muted)] text-[10px] uppercase tracking-widest">Built by Ambuj Kumar Tripathi</span>
+                    <span className="font-mono text-[var(--zinc-muted)] text-[10px] uppercase tracking-widest hidden sm:block">Scroll to zoom · Drag to pan · Esc to close</span>
                     {/* Mobile zoom controls */}
                     <div className="flex sm:hidden items-center gap-2">
                         <button onClick={() => setScale(prev => Math.max(MIN_SCALE, prev - ZOOM_STEP))}

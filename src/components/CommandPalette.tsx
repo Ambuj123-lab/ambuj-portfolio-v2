@@ -130,7 +130,7 @@ export default function CommandPalette({ onOpenContact }: CommandPaletteProps) {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={() => setIsOpen(false)}
-                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
+                        className="fixed inset-0 bg-black/80 backdrop-blur-md z-[100]"
                     />
 
                     {/* Command Palette Modal */}
@@ -139,28 +139,26 @@ export default function CommandPalette({ onOpenContact }: CommandPaletteProps) {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: -20 }}
                         transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                        className="fixed top-[20%] left-1/2 -translate-x-1/2 w-[90vw] max-w-[550px] bg-[#1C1C1C] rounded-2xl shadow-2xl border border-white/10 overflow-hidden z-[101]"
+                        className="fixed top-[20%] left-1/2 -translate-x-1/2 w-[90vw] max-w-[550px] bg-[var(--obsidian)] shadow-2xl border border-[var(--glass-border)] overflow-hidden z-[101]"
                     >
                         {/* Search Header */}
-                        <div className="flex items-center gap-3 px-4 py-4 border-b border-white/10">
-                            <Search size={20} className="text-[#C4785A]" />
+                        <div className="flex items-center gap-3 px-5 py-4 border-b border-[var(--glass-border)] bg-[#050505]">
+                            <Search size={18} className="text-[var(--orange)]" />
                             <input
                                 ref={inputRef}
                                 type="text"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 placeholder="Type a command or search..."
-                                className="flex-1 bg-transparent text-white placeholder-gray-500 outline-none text-base"
+                                className="flex-1 bg-transparent text-white placeholder-[var(--zinc-muted)] outline-none text-sm font-mono"
                             />
-                            <div className="flex items-center gap-1 text-gray-500 text-xs">
-                                <kbd className="px-1.5 py-0.5 bg-white/10 rounded text-[10px]">ESC</kbd>
-                            </div>
+                            <kbd className="px-2 py-1 bg-[var(--glass-border)] text-[var(--zinc-muted)] font-mono text-[10px] uppercase tracking-wider">ESC</kbd>
                         </div>
 
                         {/* Commands List */}
-                        <div className="max-h-[300px] overflow-y-auto py-2">
+                        <div className="max-h-[300px] overflow-y-auto">
                             {filteredCommands.length === 0 ? (
-                                <div className="px-4 py-8 text-center text-gray-500">
+                                <div className="px-5 py-8 text-center text-[var(--zinc-muted)] font-mono text-sm">
                                     No commands found for "{search}"
                                 </div>
                             ) : (
@@ -171,18 +169,18 @@ export default function CommandPalette({ onOpenContact }: CommandPaletteProps) {
 
                                         return (
                                             <div key={category}>
-                                                <div className="px-4 py-2 text-xs text-gray-500 uppercase tracking-wider">
-                                                    {category}
+                                                <div className="px-5 py-2 text-[9px] font-mono text-[var(--zinc-muted)] uppercase tracking-widest border-b border-[var(--glass-border)] bg-[#050505]">
+                                                    [{category}]
                                                 </div>
                                                 {categoryCommands.map((cmd) => (
                                                     <button
                                                         key={cmd.id}
                                                         onClick={() => executeCommand(cmd)}
-                                                        className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 transition-colors group"
+                                                        className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 hover:border-l-2 hover:border-l-[var(--orange)] transition-all group border-l-2 border-l-transparent"
                                                     >
-                                                        <span className="text-[#C4785A]">{cmd.icon}</span>
-                                                        <span className="text-white flex-1 text-left">{cmd.label}</span>
-                                                        <ArrowRight size={14} className="text-gray-600 group-hover:text-[#C4785A] group-hover:translate-x-1 transition-all" />
+                                                        <span className="text-[var(--orange)]">{cmd.icon}</span>
+                                                        <span className="text-white flex-1 text-left font-mono text-sm">{cmd.label}</span>
+                                                        <ArrowRight size={14} className="text-[var(--glass-border)] group-hover:text-[var(--orange)] group-hover:translate-x-1 transition-all" />
                                                     </button>
                                                 ))}
                                             </div>
@@ -193,17 +191,17 @@ export default function CommandPalette({ onOpenContact }: CommandPaletteProps) {
                         </div>
 
                         {/* Footer */}
-                        <div className="px-4 py-3 border-t border-white/10 bg-white/5">
-                            <div className="flex items-center justify-between text-xs text-gray-500">
+                        <div className="px-5 py-3 border-t border-[var(--glass-border)] bg-[#050505]">
+                            <div className="flex items-center justify-between font-mono text-[10px] text-[var(--zinc-muted)] uppercase tracking-widest">
                                 <div className="flex items-center gap-2">
-                                    <Command size={12} />
+                                    <Command size={10} />
                                     <span>Press</span>
-                                    <kbd className="px-1.5 py-0.5 bg-white/10 rounded text-[10px]">Ctrl</kbd>
+                                    <kbd className="px-1.5 py-0.5 bg-[var(--glass-border)] text-[var(--zinc-muted)]">Ctrl</kbd>
                                     <span>+</span>
-                                    <kbd className="px-1.5 py-0.5 bg-white/10 rounded text-[10px]">K</kbd>
+                                    <kbd className="px-1.5 py-0.5 bg-[var(--glass-border)] text-[var(--zinc-muted)]">K</kbd>
                                     <span>to toggle</span>
                                 </div>
-                                <span className="text-[#C4785A]">⚡ Quick Actions</span>
+                                <span className="text-[var(--orange)]">⚡ Quick Nav</span>
                             </div>
                         </div>
                     </motion.div>
@@ -212,3 +210,4 @@ export default function CommandPalette({ onOpenContact }: CommandPaletteProps) {
         </AnimatePresence>
     );
 }
+

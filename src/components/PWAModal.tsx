@@ -4,10 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface PWAModalProps {
     isOpen: boolean;
     onClose: () => void;
-    isDarkMode: boolean;
 }
 
-export default function PWAModal({ isOpen, onClose, isDarkMode }: PWAModalProps) {
+export default function PWAModal({ isOpen, onClose }: PWAModalProps) {
     if (!isOpen) return null;
 
     const features = [
@@ -23,43 +22,43 @@ export default function PWAModal({ isOpen, onClose, isDarkMode }: PWAModalProps)
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-[60] bg-[#1C1C1C]/60 backdrop-blur-sm flex items-center justify-center p-4"
+                className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-xl flex items-center justify-center p-4"
                 onClick={onClose}
             >
                 <motion.div
                     initial={{ scale: 0.95, opacity: 0, y: 20 }}
                     animate={{ scale: 1, opacity: 1, y: 0 }}
                     exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                    className={`${isDarkMode ? 'bg-[#1C1C1C] border border-white/10' : 'bg-white'} rounded-2xl max-w-md w-full p-8 shadow-2xl relative`}
+                    className="bg-[var(--obsidian)] border border-[var(--glass-border)] rounded-none max-w-md w-full p-8 shadow-2xl relative"
                     onClick={(e) => e.stopPropagation()}
                 >
-                    <button onClick={onClose} className={`absolute top-4 right-4 ${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-[#5A5855] hover:text-[#1C1C1C]'} p-1`}>
+                    <button onClick={onClose} className="absolute top-4 right-4 text-[var(--zinc-muted)] hover:text-white p-1">
                         <X size={22} />
                     </button>
 
                     <div className="flex items-center gap-3 mb-6">
-                        <div className="p-2.5 bg-[#C4785A]/10 rounded-xl">
-                            <Smartphone className="text-[#C4785A]" size={22} />
+                        <div className="p-2.5 bg-[var(--orange)]/10 rounded-none border border-[var(--orange)]">
+                            <Smartphone className="text-[var(--orange)]" size={22} />
                         </div>
-                        <h2 className={`text-2xl font-display font-medium ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>About This App</h2>
+                        <h2 className="text-2xl font-display font-medium text-white uppercase tracking-widest">About This App</h2>
                     </div>
 
-                    <p className={`${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'} mb-6 leading-relaxed`}>
-                        This portfolio is a <span className="text-[#C4785A] font-medium">Progressive Web App</span> —
+                    <p className="text-[var(--zinc-muted)] mb-6 leading-relaxed font-mono text-sm">
+                        This portfolio is a <span className="text-[var(--orange)] font-bold uppercase">Progressive Web App</span> —
                         offering an app-like experience right from your browser.
                     </p>
 
                     <div className="grid grid-cols-2 gap-3 mb-6">
                         {features.map((f, i) => (
-                            <div key={i} className={`p-4 ${isDarkMode ? 'bg-[#2D2D2D]' : 'bg-[#F7F5F0]'} rounded-xl`}>
-                                <div className="text-[#C4785A] mb-2">{f.icon}</div>
-                                <h3 className={`font-medium text-sm mb-0.5 ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>{f.title}</h3>
-                                <p className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>{f.desc}</p>
+                            <div key={i} className="p-4 bg-[var(--obsidian)] border border-[var(--glass-border)] rounded-none hover:border-[var(--orange)] transition-colors">
+                                <div className="text-[var(--orange)] mb-2">{f.icon}</div>
+                                <h3 className="font-medium text-sm mb-0.5 text-white font-mono uppercase tracking-wider">{f.title}</h3>
+                                <p className="text-xs text-[var(--zinc-muted)] font-mono">{f.desc}</p>
                             </div>
                         ))}
                     </div>
 
-                    <button onClick={onClose} className="w-full btn btn-primary justify-center">
+                    <button onClick={onClose} className="w-full bg-[var(--obsidian)] text-white border border-[var(--glass-border)] py-4 font-display uppercase tracking-widest hover:bg-[var(--orange)] hover:border-[var(--orange)] transition-colors">
                         Got it!
                     </button>
                 </motion.div>

@@ -7,13 +7,12 @@ import LegalAICaseStudy from './LegalAICaseStudy';
 interface CaseStudyModalProps {
     caseStudyId: string;
     onClose: () => void;
-    isDarkMode: boolean;
+    isDarkMode?: boolean;
 }
 
-const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ caseStudyId, onClose, isDarkMode }) => {
-    const [zoomLevel, setZoomLevel] = useState(1); // 1 = normal, 1.1, 1.2 etc.
+const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ caseStudyId, onClose }) => {
+    const [zoomLevel, setZoomLevel] = useState(1);
 
-    // Prevent background scrolling when modal is open
     React.useEffect(() => {
         document.body.style.overflow = 'hidden';
         return () => {
@@ -37,54 +36,53 @@ const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ caseStudyId, onClose, i
                     initial={{ scale: 0.9, y: 20 }}
                     animate={{ scale: 1, y: 0 }}
                     exit={{ scale: 0.9, y: 20 }}
-                    onClick={(e) => e.stopPropagation()} // Prevent closing on content click
-                    className={`relative w-full max-w-5xl h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col
-                        ${isDarkMode ? 'bg-[#0a0a0a] border border-white/10' : 'bg-white border border-gray-200'}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="relative w-full max-w-5xl h-[90vh] shadow-2xl overflow-hidden flex flex-col bg-[var(--obsidian)] border border-[var(--glass-border)]"
                 >
                     {/* Toolbar */}
-                    <div className={`flex items-center justify-between px-6 py-4 border-b print:hidden ${isDarkMode ? 'border-white/10 bg-[#121212]' : 'border-gray-200 bg-gray-50'}`}>
-                        <div className="flex items-center gap-2">
-                            <span className={`text-sm font-medium px-3 py-1 rounded-full ${isDarkMode ? 'bg-white/10 text-white' : 'bg-black/10 text-black'}`}>
+                    <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--glass-border)] bg-[#050505]">
+                        <div className="flex items-center gap-3">
+                            <div className="w-2 h-2 bg-[var(--orange)]"></div>
+                            <span className="font-mono text-xs uppercase tracking-widest text-[var(--orange)]">
                                 Case Study: Legal AI
                             </span>
                         </div>
 
                         <div className="flex items-center gap-2">
                             {/* Zoom Controls */}
-                            <div className={`hidden md:flex items-center gap-1 mr-4 bg-black/20 rounded-lg p-1 ${isDarkMode ? 'bg-white/5' : 'bg-black/5'}`}>
+                            <div className="hidden md:flex items-center gap-1 mr-4 bg-white/5 p-1">
                                 <button
                                     onClick={handleZoomOut}
-                                    className={`p-2 rounded hover:bg-white/10 transition-colors ${zoomLevel <= 0.8 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    className={`p-2 hover:bg-white/10 transition-colors ${zoomLevel <= 0.8 ? 'opacity-50 cursor-not-allowed' : ''}`}
                                     title="Zoom Out"
                                 >
-                                    <ZoomOut size={18} className={isDarkMode ? 'text-white' : 'text-black'} />
+                                    <ZoomOut size={18} className="text-[var(--zinc-muted)]" />
                                 </button>
-                                <span className={`text-xs w-12 text-center ${isDarkMode ? 'text-white/70' : 'text-black/70'}`}>
+                                <span className="text-xs w-12 text-center font-mono text-[var(--zinc-muted)]">
                                     {Math.round(zoomLevel * 100)}%
                                 </span>
                                 <button
                                     onClick={handleZoomIn}
-                                    className={`p-2 rounded hover:bg-white/10 transition-colors ${zoomLevel >= 1.4 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    className={`p-2 hover:bg-white/10 transition-colors ${zoomLevel >= 1.4 ? 'opacity-50 cursor-not-allowed' : ''}`}
                                     title="Zoom In"
                                 >
-                                    <ZoomIn size={18} className={isDarkMode ? 'text-white' : 'text-black'} />
+                                    <ZoomIn size={18} className="text-[var(--zinc-muted)]" />
                                 </button>
                             </div>
 
                             {/* Close Button */}
                             <button
                                 onClick={onClose}
-                                className={`p-2 rounded-full hover:bg-red-500/10 hover:text-red-500 transition-colors
-                                    ${isDarkMode ? 'text-white/70' : 'text-black/70'}`}
+                                className="p-2 bg-[var(--glass-border)] hover:bg-[var(--orange)] hover:text-white text-[var(--zinc-muted)] transition-colors"
                             >
-                                <X size={28} />
+                                <X size={24} />
                             </button>
                         </div>
                     </div>
 
                     {/* Content Area */}
                     <div
-                        className={`flex-1 overflow-y-auto scrollbar-thin ${isDarkMode ? 'scrollbar-thumb-white/10 scrollbar-track-black' : 'scrollbar-thumb-black/10 scrollbar-track-white'}`}
+                        className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-black"
                     >
                         <div
                             style={{
@@ -105,3 +103,4 @@ const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ caseStudyId, onClose, i
 };
 
 export default CaseStudyModal;
+

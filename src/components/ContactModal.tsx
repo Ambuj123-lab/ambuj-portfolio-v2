@@ -5,10 +5,9 @@ import { X, Send, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 interface ContactModalProps {
     isOpen: boolean;
     onClose: () => void;
-    isDarkMode: boolean;
 }
 
-const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, isDarkMode }) => {
+const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -74,65 +73,53 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, isDarkMode
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+                className="fixed inset-0 bg-black/80 backdrop-blur-xl z-[100] flex items-center justify-center p-4 md:p-8"
                 onClick={onClose}
             >
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                    transition={{ type: "spring", duration: 0.5 }}
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 50 }}
+                    transition={{ type: "spring", damping: 25, stiffness: 200 }}
                     onClick={(e) => e.stopPropagation()}
-                    className={`relative w-full max-w-lg overflow-hidden rounded-2xl border shadow-2xl ${isDarkMode ? 'bg-[#1C1C1C] border-white/10' : 'bg-white border-[#E8E4DB]'
-                        }`}
+                    className="relative w-full max-w-4xl bg-[var(--obsidian)] border border-[var(--glass-border)] flex flex-col md:flex-row shadow-2xl overflow-hidden"
                 >
-                    {/* Header */}
-                    <div className={`flex items-center justify-between p-6 border-b ${isDarkMode ? 'border-white/10' : 'border-[#E8E4DB]'}`}>
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-[#C4785A]/10 flex items-center justify-center">
-                                <Send className="w-5 h-5 text-[#C4785A]" />
-                            </div>
-                            <div>
-                                <h3 className={`font-display text-xl ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>
-                                    Send a Message
-                                </h3>
-                                <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}`}>
-                                    I'll get back to you as soon as possible.
-                                </p>
-                            </div>
+                    {/* Left Side: Brutalist Text & Close */}
+                    <div className="p-8 md:p-12 md:w-2/5 border-b md:border-b-0 md:border-r border-[var(--glass-border)] flex flex-col justify-between bg-[#050505]">
+                        <div>
+                            <button onClick={onClose} className="p-2 mb-8 bg-[var(--glass-border)] hover:bg-[var(--orange)] hover:text-white transition-colors">
+                                <X size={24} />
+                            </button>
+                            <p className="font-mono text-[var(--orange)] uppercase tracking-widest text-[10px] mb-4">
+                                [ SECURE.CHANNEL ]
+                            </p>
+                            <h3 className="font-display text-4xl sm:text-5xl md:text-3xl lg:text-4xl text-white uppercase tracking-tighter leading-[0.9] mb-4 whitespace-nowrap flex items-center">
+                                SEND MESSAGE
+                            </h3>
+                            <p className="font-mono text-xs text-[var(--zinc-muted)] leading-relaxed">
+                                I'll get back to you as soon as possible. Fill in the details to proceed.
+                            </p>
                         </div>
-                        <button
-                            onClick={onClose}
-                            className={`p-2 rounded-lg transition-colors ${isDarkMode ? 'hover:bg-white/10 text-gray-400' : 'hover:bg-black/5 text-gray-500'
-                                }`}
-                        >
-                            <X size={20} />
-                        </button>
                     </div>
 
-                    {/* Body */}
-                    <div className="p-6">
+                    {/* Right Side: Form */}
+                    <div className="p-8 md:p-12 md:w-3/5 bg-[var(--obsidian)]">
                         {status === 'success' ? (
                             <motion.div
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                className="flex flex-col items-center justify-center py-10 text-center"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="h-full flex flex-col items-center justify-center py-10 text-center"
                             >
-                                <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mb-4 text-green-500">
-                                    <CheckCircle2 size={32} />
-                                </div>
-                                <h4 className={`text-xl font-medium mb-2 ${isDarkMode ? 'text-white' : 'text-[#1C1C1C]'}`}>Message Sent!</h4>
-                                <p className={isDarkMode ? 'text-gray-400' : 'text-[#5A5855]'}>
+                                <CheckCircle2 size={64} className="text-[var(--orange)] mb-6" />
+                                <h4 className="font-display text-3xl uppercase text-white tracking-tighter mb-2">Message Sent</h4>
+                                <p className="font-mono text-sm text-[var(--zinc-muted)]">
                                     Thank you for reaching out. I'll respond shortly.
                                 </p>
                             </motion.div>
                         ) : (
-                            <form onSubmit={handleSubmit} className="space-y-4">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <label htmlFor="name" className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                                            Name
-                                        </label>
+                            <form onSubmit={handleSubmit} className="space-y-8 flex flex-col h-full justify-between">
+                                <div className="space-y-8">
+                                    <div className="relative group">
                                         <input
                                             type="text"
                                             id="name"
@@ -140,17 +127,15 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, isDarkMode
                                             required
                                             value={formData.name}
                                             onChange={handleChange}
-                                            className={`w-full px-4 py-2.5 rounded-xl border focus:outline-none focus:ring-2 focus:ring-[#C4785A] transition-all ${isDarkMode
-                                                ? 'bg-[#111] border-white/10 text-white placeholder-gray-500 hover:border-white/20'
-                                                : 'bg-white border-[#E8E4DB] text-[#1C1C1C] placeholder-gray-400 hover:border-gray-300'
-                                                }`}
-                                            placeholder="John Doe"
+                                            className="w-full bg-transparent border-b border-[var(--glass-border)] py-4 text-xl text-white font-mono placeholder-transparent focus:outline-none focus:border-[var(--orange)] transition-colors peer"
+                                            placeholder="Name"
                                         />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label htmlFor="email" className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                                            Email
+                                        <label htmlFor="name" className="absolute left-0 -top-4 text-[10px] font-mono text-[var(--zinc-muted)] uppercase tracking-widest peer-placeholder-shown:text-sm peer-placeholder-shown:top-4 peer-focus:-top-4 peer-focus:text-[10px] peer-focus:text-[var(--orange)] transition-all">
+                                            Name
                                         </label>
+                                    </div>
+
+                                    <div className="relative group">
                                         <input
                                             type="email"
                                             id="email"
@@ -158,98 +143,76 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, isDarkMode
                                             required
                                             value={formData.email}
                                             onChange={handleChange}
-                                            className={`w-full px-4 py-2.5 rounded-xl border focus:outline-none focus:ring-2 focus:ring-[#C4785A] transition-all ${isDarkMode
-                                                ? 'bg-[#111] border-white/10 text-white placeholder-gray-500 hover:border-white/20'
-                                                : 'bg-white border-[#E8E4DB] text-[#1C1C1C] placeholder-gray-400 hover:border-gray-300'
-                                                }`}
-                                            placeholder="john@example.com"
+                                            className="w-full bg-transparent border-b border-[var(--glass-border)] py-4 text-xl text-white font-mono placeholder-transparent focus:outline-none focus:border-[var(--orange)] transition-colors peer"
+                                            placeholder="Email"
                                         />
+                                        <label htmlFor="email" className="absolute left-0 -top-4 text-[10px] font-mono text-[var(--zinc-muted)] uppercase tracking-widest peer-placeholder-shown:text-sm peer-placeholder-shown:top-4 peer-focus:-top-4 peer-focus:text-[10px] peer-focus:text-[var(--orange)] transition-all">
+                                            Email
+                                        </label>
                                     </div>
-                                </div>
 
-                                {/* Quick Message Selector */}
-                                <div className="space-y-2">
-                                    <label htmlFor="template" className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                                        Quick Message Template (Optional)
-                                    </label>
-                                    <div className="relative">
+                                    <div className="relative group">
                                         <select
                                             id="template"
-                                            className={`w-full px-4 py-2.5 rounded-xl border appearance-none focus:outline-none focus:ring-2 focus:ring-[#C4785A] transition-all cursor-pointer ${isDarkMode
-                                                ? 'bg-[#111] border-white/10 text-gray-300 hover:border-white/20'
-                                                : 'bg-white border-[#E8E4DB] text-[#5A5855] hover:border-gray-300'
-                                                }`}
+                                            className="w-full bg-[var(--obsidian)] border-b border-[var(--glass-border)] py-4 text-sm text-[var(--zinc-muted)] font-mono focus:outline-none focus:ring-0 focus:border-[var(--orange)] transition-colors cursor-pointer"
                                             onChange={(e) => {
                                                 if (e.target.value) {
                                                     setFormData(prev => ({ ...prev, message: e.target.value }));
                                                 }
-                                                // Reset select back to default so they can select again if they clear
                                                 e.target.value = "";
                                             }}
                                             defaultValue=""
                                         >
-                                            <option value="" disabled>Select a topic to auto-fill...</option>
-                                            <option value="Hi Ambuj, we're looking for an AI Engineer to build scalable systems. Let's connect!">Hire for an AI Engineer role</option>
-                                            <option value="Hi Ambuj, I'd love to discuss a potential opportunity in Generative AI/Full-Stack.">Generative AI Opportunity</option>
-                                            <option value="Hello Ambuj, we have an exciting AI role that matches your profile.">Matching Job Profile</option>
-                                            <option value="Hi Ambuj, I would like to discuss a freelance/consulting project.">Freelance / Consulting</option>
+                                            <option value="" disabled className="bg-[var(--obsidian)] text-[var(--zinc-muted)]">Select a quick message topic (Optional)...</option>
+                                            <option value="Hi Ambuj, we're looking for an AI Engineer to build scalable systems. Let's connect!" className="bg-[var(--obsidian)] text-white">Hire for an AI Engineer role</option>
+                                            <option value="Hi Ambuj, I'd love to discuss a potential opportunity in Generative AI/Full-Stack." className="bg-[var(--obsidian)] text-white">Generative AI Opportunity</option>
+                                            <option value="Hello Ambuj, we have an exciting AI role that matches your profile." className="bg-[var(--obsidian)] text-white">Matching Job Profile</option>
+                                            <option value="Hi Ambuj, I would like to discuss a freelance/consulting project." className="bg-[var(--obsidian)] text-white">Freelance / Consulting</option>
                                         </select>
-                                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                                            <svg className={`w-4 h-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                                        </div>
                                     </div>
-                                </div>
 
-                                <div className="space-y-2">
-                                    <div className="flex items-center justify-between">
-                                        <label htmlFor="message" className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                                    <div className="relative group">
+                                        <textarea
+                                            id="message"
+                                            name="message"
+                                            required
+                                            rows={3}
+                                            maxLength={500}
+                                            value={formData.message}
+                                            onChange={handleChange}
+                                            className="w-full bg-transparent border-b border-[var(--glass-border)] py-4 text-lg text-white font-mono placeholder-transparent focus:outline-none focus:border-[var(--orange)] transition-colors resize-none peer"
+                                            placeholder="Message"
+                                        />
+                                        <label htmlFor="message" className="absolute left-0 -top-4 text-[10px] font-mono text-[var(--zinc-muted)] uppercase tracking-widest peer-placeholder-shown:text-sm peer-placeholder-shown:top-4 peer-focus:-top-4 peer-focus:text-[10px] peer-focus:text-[var(--orange)] transition-all">
                                             Message
                                         </label>
-                                        <span className={`text-xs ${formData.message.length > 450 ? 'text-[#C4785A]' : isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>
-                                            {formData.message.length}/500
-                                        </span>
                                     </div>
-                                    <textarea
-                                        id="message"
-                                        name="message"
-                                        required
-                                        rows={4}
-                                        maxLength={500}
-                                        value={formData.message}
-                                        onChange={handleChange}
-                                        className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-[#C4785A] transition-all resize-none ${isDarkMode
-                                            ? 'bg-[#111] border-white/10 text-white placeholder-gray-500 hover:border-white/20'
-                                            : 'bg-white border-[#E8E4DB] text-[#1C1C1C] placeholder-gray-400 hover:border-gray-300'
-                                            }`}
-                                        placeholder="Write your own message or select a template above..."
-                                    />
                                 </div>
 
                                 {status === 'error' && (
                                     <motion.div
                                         initial={{ opacity: 0, height: 0 }}
                                         animate={{ opacity: 1, height: 'auto' }}
-                                        className="flex items-center gap-2 p-3 rounded-lg bg-red-500/10 text-red-500 text-sm"
+                                        className="flex items-center gap-2 p-4 border border-red-500/30 bg-red-500/5 text-red-500 mt-4 font-mono text-xs"
                                     >
-                                        <AlertCircle size={16} />
-                                        <span>{errorMessage}</span>
+                                        <AlertCircle size={14} />
+                                        <span>[ERROR]: {errorMessage}</span>
                                     </motion.div>
                                 )}
 
                                 <button
                                     type="submit"
                                     disabled={status === 'submitting'}
-                                    className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-gradient-to-r from-[#C4785A] to-[#E8A87C] text-white font-medium rounded-xl hover:shadow-lg transition-all hover:opacity-90 disabled:opacity-70 disabled:cursor-not-allowed"
+                                    className="w-full mt-8 py-6 bg-[var(--orange)] text-white hover:bg-white hover:text-[var(--obsidian)] border border-[var(--orange)] font-display text-xl uppercase tracking-widest transition-colors flex items-center justify-center gap-4 disabled:opacity-50"
                                 >
                                     {status === 'submitting' ? (
                                         <>
-                                            <Loader2 size={18} className="animate-spin" />
-                                            Sending...
+                                            <Loader2 size={24} className="animate-spin" />
+                                            Executing...
                                         </>
                                     ) : (
                                         <>
-                                            <Send size={18} />
-                                            Send Message
+                                            SEND MESSAGE <Send size={20} />
                                         </>
                                     )}
                                 </button>

@@ -94,7 +94,7 @@ export default function ContactSection({ onOpenContact }: ContactSectionProps) {
                 href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block border border-[var(--glass-border)] p-2 bg-[#050505] hover:border-[#0A66C2] transition-colors"
+                className="inline-block border border-[var(--glass-border)] p-2 bg-[#050505] hover:border-[#0A66C2] active:border-[#0A66C2] transition-colors"
               >
                 <img
                   src="/linkedin-badge.png"

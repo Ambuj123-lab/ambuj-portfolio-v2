@@ -65,7 +65,7 @@ export default function AboutSection({ onOpenPWA }: AboutSectionProps) {
             { number: 15, suffix: '+', label: 'Technical Certifications', id: 'certs' },
             { number: 5, suffix: '+', label: 'Years Engineering Exp', id: 'exp' },
            ].map((stat, index) => (
-            <div key={index} className="bg-[#050505] p-8 md:p-12 border border-[var(--glass-border)] hover:border-[var(--orange)] transition-colors flex flex-col items-center justify-center text-center group">
+            <div key={index} className="bg-[#050505] p-8 md:p-12 border border-[var(--glass-border)] hover:border-[var(--orange)] active:border-[var(--orange)] transition-colors flex flex-col items-center justify-center text-center group">
               <motion.span
                 className="text-5xl md:text-7xl font-display font-black text-white group-hover:text-[var(--orange)] transition-colors block mb-2"
                 initial={{ opacity: 0 }}
@@ -90,7 +90,7 @@ export default function AboutSection({ onOpenPWA }: AboutSectionProps) {
             {SKILLS_LIST.map((skill, index) => (
               <div 
                 key={index} 
-                className="group border border-[var(--glass-border)] bg-[#0a0a0a] p-6 hover:border-[var(--orange)] transition-all duration-300 relative overflow-hidden"
+                className="group border border-[var(--glass-border)] bg-[#0a0a0a] p-6 hover:border-[var(--orange)] active:border-[var(--orange)] transition-all duration-300 relative overflow-hidden"
               >
                 <div className="absolute top-0 left-0 w-1 h-full bg-[var(--orange)] scale-y-0 origin-bottom group-hover:scale-y-100 transition-transform duration-300"></div>
                 

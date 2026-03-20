@@ -134,7 +134,7 @@ export default function HeroSection({ onContactClick, onInstallClick }: HeroSect
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5, duration: 1 }}
-            className="w-full max-w-md border border-[var(--glass-border)] hover:border-[var(--orange)] bg-[#050505] relative transition-colors duration-300"
+            className="w-full max-w-md border border-[var(--glass-border)] hover:border-[var(--orange)] active:border-[var(--orange)] bg-[#050505] relative transition-colors duration-300"
           >
             {/* Header */}
             <div className="flex justify-between items-center border-b border-[var(--glass-border)] px-5 py-3">

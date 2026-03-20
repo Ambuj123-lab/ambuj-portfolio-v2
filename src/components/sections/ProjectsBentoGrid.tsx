@@ -48,7 +48,7 @@ export default function ProjectsBentoGrid({
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: 0.1 * (index % 3) }}
               whileHover="hover"
-              className={`group relative overflow-hidden bg-[#050505] border border-[var(--glass-border)] hover:border-[var(--orange)] flex flex-col justify-end transition-all duration-300 ${getBentoClasses(index)}`}
+              className={`group relative overflow-hidden bg-[#050505] border border-[var(--glass-border)] hover:border-[var(--orange)] active:border-[var(--orange)] flex flex-col justify-end transition-all duration-300 ${getBentoClasses(index)}`}
             >
               {/* Background Image / Overlay */}
               <div className="absolute inset-0 grayscale-0 md:grayscale opacity-100 md:opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 bg-[var(--obsidian)]">

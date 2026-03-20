@@ -41,7 +41,7 @@ export default function ExperienceTimeline() {
                 {exp.company}
               </div>
 
-              <div className="bg-[#0a0a0a] border border-[var(--glass-border)] p-6 md:p-8 hover:border-[var(--orange)]/50 transition-colors">
+              <div className="bg-[#0a0a0a] border border-[var(--glass-border)] p-6 md:p-8 hover:border-[var(--orange)]/50 active:border-[var(--orange)]/50 transition-colors">
                 <ul className="space-y-4 font-mono text-sm text-[var(--zinc-muted)]">
                   {exp.achievements.map((ach, i) => (
                     <li key={i} className="flex gap-4">

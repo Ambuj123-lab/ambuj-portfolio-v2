@@ -28,7 +28,7 @@ export default function FlipbookSection() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="w-full aspect-[4/3] md:aspect-video border border-[var(--glass-border)] bg-[#050505] p-2 hover:border-[var(--orange)] transition-colors duration-500"
+          className="w-full aspect-[4/3] md:aspect-video border border-[var(--glass-border)] bg-[#050505] p-2 hover:border-[var(--orange)] active:border-[var(--orange)] transition-colors duration-500"
         >
           <iframe 
             allowFullScreen={true}

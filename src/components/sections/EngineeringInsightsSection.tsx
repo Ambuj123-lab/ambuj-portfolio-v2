@@ -49,7 +49,7 @@ export default function EngineeringInsightsSection({ onOpenArchitecture }: Engin
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="group relative bg-[#0a0a0a] border border-[var(--glass-border)] hover:border-[var(--orange)] transition-colors p-8"
+                className="group relative bg-[#0a0a0a] border border-[var(--glass-border)] hover:border-[var(--orange)] active:border-[var(--orange)] transition-colors p-8"
               >
                 <div className="absolute top-0 right-0 w-8 h-8 flex items-center justify-center border-l border-b border-[var(--glass-border)] group-hover:bg-[var(--orange)] group-hover:border-[var(--orange)] transition-colors">
                   <ArrowRight size={14} className="text-[var(--zinc-muted)] group-hover:text-white transition-colors" />
@@ -85,7 +85,7 @@ export default function EngineeringInsightsSection({ onOpenArchitecture }: Engin
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="group cursor-pointer bg-[#050505] border border-[var(--glass-border)] hover:border-[var(--orange)] transition-all"
+              className="group cursor-pointer bg-[#050505] border border-[var(--glass-border)] hover:border-[var(--orange)] active:border-[var(--orange)] transition-all"
               onClick={() => onOpenArchitecture('/projects/LegalAI_architecture_animated.svg')}
             >
               <div className="p-4 border-b border-[var(--glass-border)] flex items-center justify-between bg-[#0a0a0a]">

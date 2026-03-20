@@ -29,7 +29,7 @@ export default function CertificationsSection({ onOpenViewer }: CertificationsSe
               transition={{ delay: 0.05 * index }}
               className="cursor-pointer group p-4 border rounded-none transition-all border-[var(--glass-border)] bg-[var(--obsidian)] hover:border-[var(--orange)] hover:-translate-y-1"
             >
-              <div className="aspect-video relative overflow-hidden flex items-center justify-center p-3 mb-4 bg-[#050505] border border-white/5 grayscale group-hover:grayscale-0 transition-all duration-500">
+              <div className="aspect-video relative overflow-hidden flex items-center justify-center p-3 mb-4 bg-[#050505] border border-white/5 grayscale-0 md:grayscale group-hover:grayscale-0 transition-all duration-500">
                 <img 
                   src={cert.src} 
                   alt={cert.title} 

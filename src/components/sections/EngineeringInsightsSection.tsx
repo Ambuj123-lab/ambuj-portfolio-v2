@@ -102,7 +102,7 @@ export default function EngineeringInsightsSection({ onOpenArchitecture }: Engin
                 </span>
               </div>
               
-              <div className="aspect-[4/3] w-full flex items-center justify-center p-4 relative grayscale group-hover:grayscale-0 transition-all duration-700">
+              <div className="aspect-[4/3] w-full flex items-center justify-center p-4 relative grayscale-0 md:grayscale group-hover:grayscale-0 transition-all duration-700">
                 <img
                   src="/projects/LegalAI_architecture_animated.svg"
                   alt="Legal AI Production Architecture"

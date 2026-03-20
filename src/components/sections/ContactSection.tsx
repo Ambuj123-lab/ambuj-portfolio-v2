@@ -99,7 +99,7 @@ export default function ContactSection({ onOpenContact }: ContactSectionProps) {
                 <img
                   src="/linkedin-badge.png"
                   alt="Ambuj Tripathi LinkedIn Profile"
-                  className="max-w-[300px] w-full grayscale hover:grayscale-0 transition-all duration-500"
+                  className="max-w-[300px] w-full grayscale-0 md:grayscale hover:grayscale-0 transition-all duration-500"
                 />
               </a>
             </motion.div>

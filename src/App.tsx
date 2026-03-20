@@ -68,8 +68,16 @@ export default function App() {
             }
         };
 
+        const handleTouchStart = (e: TouchEvent) => {
+            const target = e.target as HTMLElement;
+            if (target.closest('a') || target.closest('button')) {
+                playClick();
+            }
+        };
+
         document.addEventListener('mouseover', handleMouseOver);
         document.addEventListener('mousedown', handleMouseDown);
+        document.addEventListener('touchstart', handleTouchStart, { passive: true });
         
         // Track Scroll Spy for Navigation
         const handleScrollSpy = () => {
@@ -95,6 +103,7 @@ export default function App() {
             window.removeEventListener('scroll', handleScrollSpy);
             document.removeEventListener('mouseover', handleMouseOver);
             document.removeEventListener('mousedown', handleMouseDown);
+            document.removeEventListener('touchstart', handleTouchStart);
         };
     }, [playClick, playHover]);
 

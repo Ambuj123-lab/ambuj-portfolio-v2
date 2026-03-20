@@ -129,7 +129,7 @@ export default function HeroSection({ onContactClick, onInstallClick }: HeroSect
         </div>
 
         {/* Stats Panel - Replaces Terminal */}
-        <div className="hidden lg:flex lg:col-span-5 justify-end">
+        <div className="flex lg:col-span-5 justify-end w-full mt-12 lg:mt-0">
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}

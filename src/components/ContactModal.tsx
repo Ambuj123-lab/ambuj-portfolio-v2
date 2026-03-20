@@ -87,7 +87,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                     {/* Left Side: Brutalist Text & Close */}
                     <div className="p-8 md:p-12 md:w-2/5 border-b md:border-b-0 md:border-r border-[var(--glass-border)] flex flex-col justify-between bg-[#050505]">
                         <div>
-                            <button onClick={onClose} className="p-2 mb-8 bg-[var(--glass-border)] hover:bg-[var(--orange)] hover:text-white transition-colors">
+                            <button onClick={onClose} className="p-4 mb-4 md:mb-8 bg-[var(--glass-border)] hover:bg-[var(--orange)] hover:text-white transition-colors">
                                 <X size={24} />
                             </button>
                             <p className="font-mono text-[var(--orange)] uppercase tracking-widest text-[10px] mb-4">
